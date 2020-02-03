@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
+
+/* STRUCTURAL STYLES */
+
+.flapper {
+    font-family: 'PT Mono', monospace;
+    font-weight: 300;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.flapper .digit {
+    position: relative;
+    display: inline-block;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.flapper .digit div {
+    position: absolute;
+    text-align: center;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.flapper .digit .top {
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.flapper .digit .bottom {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* SIZE STYLES */
+
+
+/* XSS 26x14 */
+
+.flapper.XSS {
+    font-size: 20px;
+    line-height: 26px;
+    height: 30px;
+}
+
+.flapper.XSS .digit {
+    border-radius: 3px;
+    margin: 0 2px 0 7px;
+}
+
+.flapper.XSS .digit:first-child {
+    margin: 0;
+}
+
+.flapper.XSS .digit div {
+    border-radius: 1px;
+}
+
+.flapper.XSS .digit,
+.flapper.XSS .digit div {
+    height: 26px;
+    width: 20.8px;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.flapper.XSS .digit .top {
+    clip: rect(0px, 24px, 13px, 0px);
+}
+
+.flapper.XSS .digit .bottom {
+    clip: rect(13px, 24px, 26px, 0px);
+}
+
+
+
+/* THEME STYLES */
+
+/* DARK (default) */
+
+.flapper .digit {
+    background-color: #333333;
+/*    border: 1px solid #333;*/
+}
+
+.flapper .digit div {
+    color: #f8e106;
+    padding: 0;
+    background-color: #333;
+}
+
+/* LIGHT */
+
+.flapper.light .digit {
+    border: 1px solid #ddd;
+    background-color: #eee;
+}
+
+.flapper.light .digit div {
+    color: #222;
+    padding: 0;
+    background-color: #f6f6f6;
+}
+
+
