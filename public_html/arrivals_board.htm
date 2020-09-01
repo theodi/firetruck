@@ -1,0 +1,135 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <title>Fire Truck</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bring Me My Firetruck</title>
+  <link href="css/vendor/foundation.css" type="text/css" rel="stylesheet" />
+  <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
+  <link href="css/fire_truck.css" type="text/css" rel="stylesheet">
+  <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+  <table>
+    <thead>
+    <tr>
+      <th colspan="4">
+        <a href="index.htm" id="home_link"><span><object id="eu_flag" type="image/svg+xml" data="svg/eu_flag.svg">No SVG</object>
+        <span id="arrivals_title" class="roboto">Arrivals</span>
+        <object id="arrivals_svg" type="image/svg+xml" data="svg/arrivals.svg">No SVG</object>
+        </span></a>
+      </th>
+      <th colspan="2"><span id="arrivals_time" class="pt_mono"><span id="arrivals_hour"></span><span class="arrivals_colon">:</span><span id="arrivals_minute"></span><span class="arrivals_colon">:</span><span id="arrivals_second"></span></span></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td id="th_time" class="td_time flight_headers roboto">Time</td>
+      <td id="th_flight" class="flight_headers roboto">Flight</td>
+      <td id="th_from" class="flight_headers roboto">From</td>
+      <td id="th_arrived" class="flight_headers roboto">Remarks</td>
+      <td id="th_transfer" class="flight_headers roboto">Transfer</td>
+      <td id="th_onward" class="flight_headers roboto">Onward</td>
+    </tr>
+    <tr>
+      <td class="td_time pt_mono" id="time_1">11:19</td>
+      <td class="flight_number pt_mono" id="flight_1">BR 656</td>
+      <td class="roboto"><span id="flag_1" class="flag-icon flag-icon-es"></span> <span id="capital_1">Madrid</span></td>
+      <td class="roboto">Landed</td>
+      <td id="td_transfer" rowspan="3">
+        <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>
+        <object id="point_left_svg" type="image/svg+xml" data="svg/point_left.svg">No SVG</object><br />
+        <object id="point_right_svg" type="image/svg+xml" data="svg/point_right.svg">No SVG</object>
+      </td>
+      <td id="td_onward" class="roboto" rowspan="3"><a href="baggage_reclaim.htm">B</a> | <a href="lost_luggage.htm">L</a></td>
+    </tr>
+    <tr>
+      <td class="td_time pt_mono" id="time_2">11:24</td>
+      <td class="flight_number pt_mono" id="flight_2">EX 478</td>
+      <td class="roboto"><span id="flag_2" class="flag-icon flag-icon-de"></span> <span id="capital_2">Berlin</span></td>
+      <td class="red_text roboto"><span id="landing">Obtaining information</span></td>
+    </tr>
+    <tr>
+      <td class="td_time pt_mono" id="time_3">11:25</td>
+      <td class="flight_number pt_mono" id="flight_3">IT 537</td>
+      <td class="roboto"><span id="flag_3" class="flag-icon flag-icon-dk"></span> <span id="capital_3">Copenhagen</span></td>
+      <td class="roboto">On time</td>
+    </tr>
+    </tbody>
+  </table>
+</header>
+<section>
+  <div class="grid-container fluid">
+    <div id="displays">
+
+    </div>
+  </div>
+</section>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/anime.min.js"></script>
+<script src="js/vendor/date.js"></script>
+<script src="js/vendor/moment.js"></script>
+<script src="data/country_codes.js"></script>
+<script src="data/sequence.js"></script>
+<script src="data/translations.js"></script>
+<script src="js/clock.js"></script>
+<script src="js/flight.js"></script>
+<script src="js/flight_plan.js"></script>
+<script src="js/vendor/p5.js"></script>
+<script src="js/fire_truck.js"></script>
+<script src="js/fire_truck_char.js"></script>
+<script>
+    "use strict";
+
+    let displaysArea = new p5(displays_sketch, 'displays');
+    function updateCharacterSet(characterSet, translation, language) {
+        let arrivalIndex = flightPlan.getFirstArrivalIndex();
+        let currentTranslation = (arrivalIndex * 2) + 1;
+        if (translation) {
+            currentTranslation = currentTranslation + 1
+        }
+        displaysArea.updateCharacterSet(characterSet, currentTranslation, language);
+    }
+    let flightPlan = new FlightPlan();
+
+
+    setUpFlightPlan();
+
+    // display initial flight plan
+    displayFlightPlan();
+
+    // flashing colons
+    anime({
+        targets: 'span.arrivals_colon',
+        color: [
+            { value: '#F8E106', duration: 250, delay: 250 },
+            { value: '#000000', duration: 250, delay: 250 }
+        ],
+        easing: 'easeInOutSine',
+        loop: true,
+    });
+    anime({
+        targets: 'span#landing',
+        color: [
+            { value: '#FF0000', duration: 500, delay: 0 },
+            { value: '#222222', duration: 500, delay: 0 }
+        ],
+        easing: 'easeInOutSine',
+        loop: true,
+    });
+
+    // set the time and flight plan
+    updateClock();
+    updateFlightPlan();
+
+    // update clock, and check flight plan once a second
+    setInterval(updateClock, 500);
+    setInterval(updateFlightPlan, 1000);
+</script>
+</body>
+</html>

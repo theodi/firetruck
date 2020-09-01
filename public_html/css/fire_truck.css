@@ -54,7 +54,7 @@ span#arrivals_hour, span.arrivals_colon, span#arrivals_minute, span#arrivals_sec
     margin: 0;
     padding: 0;
 }
-tbody, tbody tr, #td_transfer {
+tbody, tbody tr, #td_transfer, #td_onward {
     background-color: #111111 !important;
     color:#fff !important;
     border:0;
@@ -133,7 +133,7 @@ tbody td.td_time {
 }
 */
 #th_transfer, #td_transfer {
-    width: 15%;
+    width: 8%;
     padding-left: 40px;
 }
 
@@ -161,4 +161,20 @@ tbody td.td_time {
     padding: 15px 35px;
     width: 1890px;
     height: 800px;
+}
+
+
+#home_link {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+#home_link span {
+    display: inline-block;
+    color: #111111 !important;
+}
+
+#home_link span object {
+    position: relative;
+    z-index: -1
 }
