@@ -1,0 +1,390 @@
+var moment = require('moment');
+moment().format();
+
+import country_codes from './data/country_codes';
+import translations from './data/translations';
+import Flight from './flight';
+
+/**
+ * Flight Plan
+ *
+ * class and functions for setting up, displaying and updating the flight plan
+ */
+
+// states
+const PRE_START         = -1;
+const START             = 0;
+const ARRIVED           = 1;
+const ARRIVED_SHOWING   = 2;
+const TRANSFER          = 3;
+const TRANSFER_SHOWING  = 4;
+
+// const MAX_LINE_LENGTH = 61;
+
+// minutes per language, and translation
+const minutesPerLanguage = 1;
+const flightCodes = "BREXITDISCOMBOBULATION";
+let flightCodeIndex = 0;
+// let $displays = $('input.display');
+let updating = false;
+let landing_updated = false;
+let landing_prewarn_milliseconds = 20000;
+let poem_lines = [];
+// let animation = false;
+
+class FlightPlan {
+    constructor(p5DisplaysArea) {
+        this.flightsByIndex = [];
+        this.flightsByCountryIndex = [];
+        this.firstCountry = "";
+        this.lastTransferDate = new Date();
+        this.state = PRE_START;
+        this.lastIndex = 0;
+        this.displaysArea = p5DisplaysArea;
+
+        setInterval(
+            this.updateFlightPlan.bind(this),
+            1000
+        )
+    }
+
+    addFlight(flight, index) {
+        this.flightsByIndex[index] = flight;
+        this.flightsByCountryIndex[flight.country] = index;
+
+        let flightTransferDate = flight.getTransferDate();
+        if (moment(this.lastTransferDate).isBefore(flightTransferDate)) {
+            this.lastTransferDate = flightTransferDate;//new Date(flightTransferDate.getTime());
+        }
+        if (this.firstCountry === "") {
+            this.firstCountry = flight.country;
+        }
+        if (this.lastIndex < index) {
+            this.lastIndex = index;
+        }
+    }
+
+    getFlight(index) {
+        return this.flightsByIndex[index];
+    }
+
+    getFirstArrivalIndex() {
+        return this.flightsByCountryIndex[this.firstCountry];
+    }
+
+    getLastIndex() {
+        return this.lastIndex;
+    }
+
+    getLastTransferDate() {
+        return this.lastTransferDate;
+    }
+
+    getState() {
+        return this.state;
+    }
+
+    setState(value) {
+        this.state = value;
+    }
+
+    setFirstCountry(value) {
+        this.firstCountry = value;
+    }
+
+    setFlightNextDate(value, index) {
+        this.flightsByIndex[index].setNextDate(value);
+    }
+
+    setFlightTransferDate(value, index) {
+        this.flightsByIndex[index].setTransferDate(value);
+        if (this.lastTransferDate < value) {
+            this.lastTransferDate = value;
+        }
+    }
+
+    setUpFlightPlan() {
+        let now = moment();// new Date();
+        let seconds = now.seconds();//now.getSeconds();
+        now.add(1, 'm');//.addMinutes(1);
+
+        // zero seconds
+        now.subtract(seconds, 's');//addSeconds(-seconds);
+
+        // create new 'next' Date object
+        let next = moment(now);//new Date(now.getTime()));
+        let alreadyLanded = moment(now);//new Date(now.getTime()));
+        let alreadyLandedTransfer = moment(now);//new Date(now.getTime()));
+
+        // get initial transfer time
+        now.add(minutesPerLanguage, 'm');//.addMinutes(minutesPerLanguage);
+        alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
+        alreadyLanded.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
+        alreadyLanded.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
+
+        // create new 'transfer' Date object
+        let transfer = moment(now);//new Date(now.getTime()));
+
+        // we ignore zero translation - the original
+        let translationIndex = 1;
+        let lastCountryIndex = 49;
+
+        for (let country in country_codes) {
+            let poemLines = [];
+            let poemLinesTranslated = [];
+            let randomThreeDigitNumber = Math.floor(Math.random() * (999 - 100 + 1) + 100);
+            for (let i = 0; i < translations.length; i++) {
+                poemLines.push(translations[i][translationIndex]);
+                poemLinesTranslated.push(translations[i][translationIndex + 1]);
+            }
+
+            let uniqueChars = this.getUniqueChars(poemLines);
+            let uniqueCharsEnglish = this.getUniqueChars(poemLinesTranslated);
+
+            let nextDate = moment(next);//new Date(next.getTime());
+            let transferDate = moment(transfer);//new Date(transfer.getTime());
+            if (translationIndex === lastCountryIndex) {
+                nextDate = moment(alreadyLanded);//new Date(alreadyLanded.getTime());
+                transferDate = moment(alreadyLandedTransfer);//new Date(alreadyLandedTransfer.getTime());
+            }
+            let flightIndex = (translationIndex - 1) / 2;
+            this.addFlight(new Flight(
+                country,
+                country_codes[country]["code"],
+                randomThreeDigitNumber,
+                country_codes[country]["capital"],
+                nextDate,
+                transferDate,
+                poemLines,
+                poemLinesTranslated,
+                flightIndex,
+                uniqueChars,
+                uniqueCharsEnglish
+            ), flightIndex);
+
+            next.add((minutesPerLanguage*2), 'm');//.addMinutes(minutesPerLanguage * 2);
+            transfer.add((minutesPerLanguage*2), 'm');//.addMinutes(minutesPerLanguage * 2);
+            translationIndex += 2;
+        }
+    }
+
+    getNextThreeArrivals() {
+        let firstArrivalIndex = this.getFirstArrivalIndex();
+        let arrivals = [];
+        let lastIndex = this.getLastIndex() + 1; // + 1 for modulus-ing
+        arrivals.push(this.getFlight(firstArrivalIndex));
+        arrivals.push(this.getFlight((firstArrivalIndex + 1) % lastIndex));
+        arrivals.push(this.getFlight((firstArrivalIndex + 2) % lastIndex));
+        return arrivals;
+    }
+
+    getThreeArrivals() {
+        let firstArrivalIndex = this.getFirstArrivalIndex();
+        let arrivals = [];
+        let lastIndex = this.getLastIndex() + 1; // + 1 for modulus-ing
+        arrivals.push(this.getFlight((firstArrivalIndex - 1 + lastIndex) % lastIndex));
+        arrivals.push(this.getFlight(firstArrivalIndex));
+        arrivals.push(this.getFlight((firstArrivalIndex + 1) % lastIndex));
+        return arrivals;
+    }
+
+    updateFlightPlan() {
+        // main loop
+        if (updating === false) {
+            updating = true;
+            let arrivals = this.getNextThreeArrivals();
+            let now = new Date();
+            let momentNow = moment(now);
+            let transferTime = arrivals[0].getTransferDate();
+            let nextDateTime = arrivals[1].getNextDate();
+
+            switch (this.getState()) {
+                case PRE_START:
+                    // set up initial character set to be used for first language
+                    this.updateCharacterSet(arrivals[0].getUniqueCharacters(), false, arrivals[0].country);
+                    this.setState(START);
+                    break;
+                case START:
+                    // set landing in early
+                    this.landingInLanguage(momentNow, arrivals[0].getNextDate(), arrivals[0].country);
+
+                    if (now > arrivals[0].getNextDate()) {
+                        this.setState(ARRIVED);
+                    }
+
+                    break;
+                case ARRIVED:
+                    landing_updated = false;
+
+                    // show poem translation to language
+                    this.updatePoemLines(false);
+
+                    // then change state
+                    this.setState(ARRIVED_SHOWING);
+                    break;
+                case ARRIVED_SHOWING:
+                    this.landingInLanguage(momentNow, transferTime, 'English');
+
+                    // see if we've got to transfer date
+                    if (now > transferTime) {
+                        this.setState(TRANSFER);
+                    }
+                    break;
+                case TRANSFER:
+                    landing_updated = false;
+                    // show poem translation back to English
+                    this.updatePoemLines(true);
+                    this.setState(TRANSFER_SHOWING);
+                    break;
+                case TRANSFER_SHOWING:
+                    this.landingInLanguage(momentNow, nextDateTime, arrivals[1].country);
+
+                    if (now > nextDateTime) {
+                        // if second plane has arrived, hide transfer, and update plane times
+                        flightCodeIndex += 2;
+                        if (flightCodeIndex >= flightCodes.length) {
+                            flightCodeIndex = 0;
+                        }
+                        this.setFirstCountry(arrivals[1].country);
+                        this.setState(ARRIVED);
+                        this.displayFlightPlan();
+                    }
+                    break;
+            }
+            updating = false;
+        }
+    }
+
+    updateCharacterSet(characterSet, translation, language) {
+        let arrivalIndex = this.getFirstArrivalIndex();
+        let currentTranslation = (arrivalIndex * 2) + 1;
+        if (translation) {
+            currentTranslation = currentTranslation + 1
+        }
+        this.displaysArea.updateCharacterSet(characterSet, currentTranslation, language);
+    }
+
+    landingInLanguage(momentNow, nextDateTime, country) {
+        let momentNextDateTime = moment(nextDateTime);
+
+        if (momentNow > momentNextDateTime - landing_prewarn_milliseconds && !landing_updated) {
+            let arrivalHour = momentNextDateTime.hours();//.getHours();
+            let arrivalMinutes = momentNextDateTime.minutes();//.getMinutes();
+            if (arrivalHour < 10) {
+                arrivalHour = "0" + arrivalHour;
+            }
+
+            if (arrivalMinutes < 10) {
+                arrivalMinutes = "0" + arrivalMinutes;
+            }
+            let landing;
+            if (country === 'English') {
+                landing = 'Arriving in ';
+            } else {
+                landing = 'Landing in ';
+            }
+
+            $('#landing').html(landing + ' <span id="landing_language"></span> at <span id="landing_time"></span>');
+            $('#landing_language').text(country);
+            $('#landing_time').text(arrivalHour + ":" + arrivalMinutes);
+            landing_updated = true;
+        }
+
+    }
+
+    displayFlightPlan() {
+        let arrivals = this.getThreeArrivals();
+        for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
+            let arrival = arrivals[arrival_number - 1];
+            let topArrivalTime = arrivals[0].getNextDate();//moment(new Date(arrivals[0].getNextDate()));
+            let arrivalTime = moment(arrival.getNextDate());
+            let arrivalHour = arrivalTime.hours();//.getHours();
+            let arrivalMinutes = arrivalTime.minutes();//.getMinutes();
+            // console.log(new Date().getHours(), new Date().getMinutes(),
+            //     "topArrivalTime:", new Date(topArrivalTime).getHours(), new Date(topArrivalTime).getMinutes(),
+            //     arrival.country, arrivalTime.getHours(), arrivalTime.getMinutes() );
+            if (arrival_number > 1) {
+                topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
+            }
+
+            let topArrivalTimeDate = moment(topArrivalTime);//new Date();
+            if (!arrivalTime.isSame(topArrivalTimeDate)) { //.getTime() !== topArrivalTimeDate.getTime()) {
+                // console.log("arrival_number = " + arrival_number + ", topArrivalTimeDate = " + topArrivalTimeDate);
+                // console.log("arrival_number = " + arrival_number + ", arrivalTime = " + arrivalTime);
+                arrivalTime = topArrivalTimeDate;
+                arrivalHour = arrivalTime.hours();//.getHours();
+                arrivalMinutes = arrivalTime.minutes();//.getMinutes();
+                this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
+                arrival.setNextDate(arrivalTime);
+                topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
+                let transferTime = new Date(topArrivalTime);
+                this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
+                arrival.setTransferDate(transferTime);
+                // console.log("arrival.country = " + arrival.country + ", arrival.getNextDate() = " + arrival.getNextDate());
+                // console.log("arrival.country = " + arrival.country + ", arrival.getTransferDate() = " + arrival.getTransferDate());
+            }
+
+            if (arrivalHour < 10) {
+                arrivalHour = "0" + arrivalHour
+            }
+            if (arrivalMinutes < 10) {
+                arrivalMinutes = "0" + arrivalMinutes
+            }
+            $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
+
+            let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
+            $('#flight_' + arrival_number).text(
+                flightCodes.substr(arrivalFlightCodeIndex, 2) +
+                " " + arrival.code
+            );
+
+            let $flagSpan = $('#flag_' + arrival_number);
+            $flagSpan.removeClass();
+            $flagSpan.addClass('flag-icon');
+            $flagSpan.addClass('flag-icon-' + arrival.country_code.toLowerCase());
+
+            $('#capital_' + arrival_number).text(arrival.capital);
+        }
+    }
+
+    updatePoemLines(translation) {
+        let firstArrivalIndex = this.getFirstArrivalIndex();
+        let arrival = this.getFlight(firstArrivalIndex);
+
+        if (translation) {
+            poem_lines = arrival.getPoemLinesTranslated();
+        } else {
+            poem_lines = arrival.getPoemLines();
+        }
+        this.updateCharacterSet(arrival.getUniqueCharacters(translation), translation, arrival.country);
+    }
+
+
+    getUniqueCharsArray(lineOfChars) {
+        return lineOfChars.split('').filter(function (item, i, ar) {
+            return ar.indexOf(item) === i;
+        }).join('');
+    }
+
+    getUniqueChars(poem_lines) {
+        let flapper_chars = [' ',];
+        for (let i = 0; i < poem_lines.length; i++) {
+            let line_chars = this.getUniqueCharsArray(poem_lines[i]);
+
+            for (let j = 0; j < line_chars.length; j++) {
+                let testChar = line_chars[j];
+                if (testChar !== 'ß') {
+                    testChar = testChar.toUpperCase();
+
+                }
+                if (!flapper_chars.includes(testChar)) {
+                    flapper_chars.push(testChar);
+                }
+            }
+        }
+
+        return flapper_chars.sort();
+    }
+}
+
+export default FlightPlan;

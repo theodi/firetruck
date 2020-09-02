@@ -10,6 +10,8 @@
   <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
   <link href="css/fire_truck.css" type="text/css" rel="stylesheet">
   <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
+<!--  <link rel="stylesheet" href="dist/bundle.css">-->
+  <script src="dist/bundle.js"></script>
 </head>
 
 <body>
@@ -70,66 +72,24 @@
     </div>
   </div>
 </section>
-<script src="js/vendor/jquery.min.js"></script>
-<script src="js/vendor/anime.min.js"></script>
-<script src="js/vendor/date.js"></script>
-<script src="js/vendor/moment.js"></script>
-<script src="data/country_codes.js"></script>
-<script src="data/sequence.js"></script>
-<script src="data/translations.js"></script>
-<script src="js/clock.js"></script>
-<script src="js/flight.js"></script>
-<script src="js/flight_plan.js"></script>
-<script src="js/vendor/p5.js"></script>
-<script src="js/fire_truck.js"></script>
-<script src="js/fire_truck_char.js"></script>
+<!--<script src="js/vendor/jquery.min.js"></script>-->
+<!--<script src="js/vendor/anime.min.js"></script>-->
+<!--<script src="js/vendor/date.js"></script>-->
+<!--<script src="js/vendor/moment.js"></script>-->
+
+<!--<script src="data/country_codes.js"></script>-->
+<!--<script src="data/sequence.js"></script>-->
+<!--<script src="data/translations.js"></script>-->
+<!--<script src="js/clock.js"></script>-->
+<!--<script src="js/flight.js"></script>-->
+<!--<script src="js/flight_plan.js"></script>-->
+
+<!--<script src="js/vendor/p5.js"></script>-->
+
+<!--<script src="js/fire_truck.js"></script>-->
+<!--<script src="js/fire_truck_char.js"></script>-->
 <script>
-    "use strict";
 
-    let displaysArea = new p5(displays_sketch, 'displays');
-    function updateCharacterSet(characterSet, translation, language) {
-        let arrivalIndex = flightPlan.getFirstArrivalIndex();
-        let currentTranslation = (arrivalIndex * 2) + 1;
-        if (translation) {
-            currentTranslation = currentTranslation + 1
-        }
-        displaysArea.updateCharacterSet(characterSet, currentTranslation, language);
-    }
-    let flightPlan = new FlightPlan();
-
-
-    setUpFlightPlan();
-
-    // display initial flight plan
-    displayFlightPlan();
-
-    // flashing colons
-    anime({
-        targets: 'span.arrivals_colon',
-        color: [
-            { value: '#F8E106', duration: 250, delay: 250 },
-            { value: '#000000', duration: 250, delay: 250 }
-        ],
-        easing: 'easeInOutSine',
-        loop: true,
-    });
-    anime({
-        targets: 'span#landing',
-        color: [
-            { value: '#FF0000', duration: 500, delay: 0 },
-            { value: '#222222', duration: 500, delay: 0 }
-        ],
-        easing: 'easeInOutSine',
-        loop: true,
-    });
-
-    // set the time and flight plan
-    updateClock();
-    updateFlightPlan();
-
-    // update clock, and check flight plan once a second
-    setInterval(updateClock, 500);
-    setInterval(updateFlightPlan, 1000);
 </script>
 </body>
 </html>

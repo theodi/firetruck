@@ -1,0 +1,34 @@
+{
+  "name": "firetruck",
+  "version": "1.0.0",
+  "description": "[BMMFT](http://culture.theodi.org/firetruck/) is an artwork by Mr Gee. It is one of a series of commissioned works from the ODI's latest curatorial theme: [Copy That? Surplus Data in an Age of Repetitive Duplication](http://culture.theodi.org/category/exhibition/copythat/)",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joz-f/firetruck.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joz-f/firetruck/issues"
+  },
+  "homepage": "https://github.com/joz-f/firetruck#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "animejs": "^3.2.0",
+    "date": "^1.0.2",
+    "jquery": "^3.5.1",
+    "moment": "^2.27.0",
+    "p5": "^1.1.9"
+  }
+}
