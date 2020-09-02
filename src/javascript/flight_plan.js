@@ -303,10 +303,30 @@ class FlightPlan {
         let arrivals = this.getThreeArrivals();
         for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
             let arrival = arrivals[arrival_number - 1];
-
-            let arrivalTime = moment(arrival.getNextDate());
+            // clone top arrival time for calculations
+            let topArrivalTime = moment(arrivals[0].getNextDate());         // 12:01
+            let arrivalTime = moment(arrival.getNextDate());                // 12:01        12:03       12:05
             let arrivalHour = arrivalTime.hours();
             let arrivalMinutes = arrivalTime.minutes();
+
+            if (arrival_number > 1) {
+                topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
+            }
+
+            let topArrivalTimeDate = moment(topArrivalTime);
+
+            // set new arrival time if current arrival is before it should be
+            if (arrivalTime.isBefore(topArrivalTimeDate)) {
+                arrivalTime = topArrivalTimeDate;
+                arrivalHour = arrivalTime.hours();
+                arrivalMinutes = arrivalTime.minutes();
+                this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
+                arrival.setNextDate(arrivalTime);
+                topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
+                let transferTime = new Date(topArrivalTime);
+                this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
+                arrival.setTransferDate(transferTime);
+            }
 
             if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
             if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
