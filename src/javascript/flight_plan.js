@@ -1,4 +1,4 @@
-var moment = require('moment');
+let moment = require('moment');
 moment().format();
 
 import country_codes from './data/country_codes';
@@ -41,11 +41,6 @@ class FlightPlan {
         this.state = PRE_START;
         this.lastIndex = 0;
         this.displaysArea = p5DisplaysArea;
-
-        setInterval(
-            this.updateFlightPlan.bind(this),
-            1000
-        )
     }
 
     addFlight(flight, index) {
@@ -104,31 +99,34 @@ class FlightPlan {
     }
 
     setUpFlightPlan() {
-        let now = moment();// new Date();
-        let seconds = now.seconds();//now.getSeconds();
-        now.add(1, 'm');//.addMinutes(1);
+        let now = moment();                 // 12:01:23
+        let seconds = now.seconds();        // 23
+        now.add(1, 'm');        // 12:02:23
 
         // zero seconds
-        now.subtract(seconds, 's');//addSeconds(-seconds);
+        now.subtract(seconds, 's');     // 12:02:00
 
         // create new 'next' Date object
-        let next = moment(now);//new Date(now.getTime()));
-        let alreadyLanded = moment(now);//new Date(now.getTime()));
-        let alreadyLandedTransfer = moment(now);//new Date(now.getTime()));
+        let next = moment(now);             // 12:02:00
+
+        // top row - already landed, and transfer (in progress)
+        let alreadyLanded = moment(now);    // 12:02:00
+        let alreadyLandedTransfer = moment(now);    // 12:02:00
 
         // get initial transfer time
-        now.add(minutesPerLanguage, 'm');//.addMinutes(minutesPerLanguage);
-        alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
-        alreadyLanded.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
-        alreadyLanded.subtract(minutesPerLanguage, 'm');//.addMinutes(-minutesPerLanguage);
+        now.add(minutesPerLanguage, 'm');                           // 12:03:00
+        alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');    // 12:01:00
+        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:01:00
+        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
 
-        // create new 'transfer' Date object
-        let transfer = moment(now);//new Date(now.getTime()));
+        // create new 'transfer' object
+        let transfer = moment(now);                                 // 12:03:00
 
         // we ignore zero translation - the original
         let translationIndex = 1;
         let lastCountryIndex = 49;
 
+        // set up times in initial flight plan
         for (let country in country_codes) {
             let poemLines = [];
             let poemLinesTranslated = [];
@@ -141,12 +139,15 @@ class FlightPlan {
             let uniqueChars = this.getUniqueChars(poemLines);
             let uniqueCharsEnglish = this.getUniqueChars(poemLinesTranslated);
 
-            let nextDate = moment(next);//new Date(next.getTime());
-            let transferDate = moment(transfer);//new Date(transfer.getTime());
+            let nextDate = moment(next);            // 12:02:00
+            let transferDate = moment(transfer);    // 12:03:00
+
+            // only use already landed for top row (last country in index)
             if (translationIndex === lastCountryIndex) {
-                nextDate = moment(alreadyLanded);//new Date(alreadyLanded.getTime());
-                transferDate = moment(alreadyLandedTransfer);//new Date(alreadyLandedTransfer.getTime());
+                nextDate = moment(alreadyLanded);               // 12:00:00
+                transferDate = moment(alreadyLandedTransfer);   // 12:01:00
             }
+
             let flightIndex = (translationIndex - 1) / 2;
             this.addFlight(new Flight(
                 country,
@@ -162,10 +163,16 @@ class FlightPlan {
                 uniqueCharsEnglish
             ), flightIndex);
 
-            next.add((minutesPerLanguage*2), 'm');//.addMinutes(minutesPerLanguage * 2);
-            transfer.add((minutesPerLanguage*2), 'm');//.addMinutes(minutesPerLanguage * 2);
+            next.add((minutesPerLanguage * 2), 'm');          // 12:04:00
+            transfer.add((minutesPerLanguage * 2), 'm');      // 12:05:00
             translationIndex += 2;
         }
+
+        setInterval(
+            this.updateFlightPlan.bind(this),
+            1000
+        );
+
     }
 
     getNextThreeArrivals() {
@@ -268,8 +275,8 @@ class FlightPlan {
         let momentNextDateTime = moment(nextDateTime);
 
         if (momentNow > momentNextDateTime - landing_prewarn_milliseconds && !landing_updated) {
-            let arrivalHour = momentNextDateTime.hours();//.getHours();
-            let arrivalMinutes = momentNextDateTime.minutes();//.getMinutes();
+            let arrivalHour = momentNextDateTime.hours();
+            let arrivalMinutes = momentNextDateTime.minutes();
             if (arrivalHour < 10) {
                 arrivalHour = "0" + arrivalHour;
             }
@@ -296,46 +303,18 @@ class FlightPlan {
         let arrivals = this.getThreeArrivals();
         for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
             let arrival = arrivals[arrival_number - 1];
-            let topArrivalTime = arrivals[0].getNextDate();//moment(new Date(arrivals[0].getNextDate()));
+
             let arrivalTime = moment(arrival.getNextDate());
-            let arrivalHour = arrivalTime.hours();//.getHours();
-            let arrivalMinutes = arrivalTime.minutes();//.getMinutes();
-            // console.log(new Date().getHours(), new Date().getMinutes(),
-            //     "topArrivalTime:", new Date(topArrivalTime).getHours(), new Date(topArrivalTime).getMinutes(),
-            //     arrival.country, arrivalTime.getHours(), arrivalTime.getMinutes() );
-            if (arrival_number > 1) {
-                topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
-            }
+            let arrivalHour = arrivalTime.hours();
+            let arrivalMinutes = arrivalTime.minutes();
 
-            let topArrivalTimeDate = moment(topArrivalTime);//new Date();
-            if (!arrivalTime.isSame(topArrivalTimeDate)) { //.getTime() !== topArrivalTimeDate.getTime()) {
-                // console.log("arrival_number = " + arrival_number + ", topArrivalTimeDate = " + topArrivalTimeDate);
-                // console.log("arrival_number = " + arrival_number + ", arrivalTime = " + arrivalTime);
-                arrivalTime = topArrivalTimeDate;
-                arrivalHour = arrivalTime.hours();//.getHours();
-                arrivalMinutes = arrivalTime.minutes();//.getMinutes();
-                this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
-                arrival.setNextDate(arrivalTime);
-                topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
-                let transferTime = new Date(topArrivalTime);
-                this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
-                arrival.setTransferDate(transferTime);
-                // console.log("arrival.country = " + arrival.country + ", arrival.getNextDate() = " + arrival.getNextDate());
-                // console.log("arrival.country = " + arrival.country + ", arrival.getTransferDate() = " + arrival.getTransferDate());
-            }
-
-            if (arrivalHour < 10) {
-                arrivalHour = "0" + arrivalHour
-            }
-            if (arrivalMinutes < 10) {
-                arrivalMinutes = "0" + arrivalMinutes
-            }
+            if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
+            if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
             $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
 
             let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
             $('#flight_' + arrival_number).text(
-                flightCodes.substr(arrivalFlightCodeIndex, 2) +
-                " " + arrival.code
+                flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code
             );
 
             let $flagSpan = $('#flag_' + arrival_number);
