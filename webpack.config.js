@@ -17,7 +17,6 @@ module.exports = {
     },
 
     plugins: [
-//        new BundleTracker({filename: './audiblepresents/audiblepresents/webpack-stats.json'}),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',

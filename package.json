@@ -4,7 +4,9 @@
   "description": "[BMMFT](http://culture.theodi.org/firetruck/) is an artwork by Mr Gee. It is one of a series of commissioned works from the ODI's latest curatorial theme: [Copy That? Surplus Data in an Age of Repetitive Duplication](http://culture.theodi.org/category/exhibition/copythat/)",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "webpack": "webpack --progress --colors --watch --mode=development",
+    "start": "webpack-dev-server --open --config webpack.config.js --mode=development --hot",
+    "build": "webpack --config webpack.config.js --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +24,8 @@
     "@babel/preset-env": "^7.11.5",
     "babel-loader": "^8.1.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
     "animejs": "^3.2.0",
