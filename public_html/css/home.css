@@ -1,0 +1,133 @@
+body {
+    background: url( "../img/home_bkgd.png");
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    background-color: #111111;
+}
+.fifth_column {
+    width: 360px;
+    height: 680px;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 17px;
+}
+#col_1 {  position: absolute; left:0; }
+#col_2 {  position: absolute; left:380px; }
+#col_3 {  position: absolute; left:760px; }
+#col_4 {  position: absolute; left:1140px; }
+#col_5 {  position: absolute; left:1520px; }
+
+h1, h2, h3 {
+    font-family: 'PT Mono', monospace;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+    font-weight: lighter;
+    font-kerning: none;
+}
+h1#first_line {
+    line-height: 48px;
+    padding-bottom: 8px;
+}
+h1, h2 {
+    font-size: 32pt;
+    letter-spacing: 20px;
+}
+h3 {
+    font-size: 22pt;
+    letter-spacing: 6px;
+}
+.grey_column {
+    background-color: #333333;
+    font-family: 'PT Mono', monospace;
+    color: #F8E106;
+}
+.clear_column {
+    background-color: transparent;
+}
+.hamburger {
+    display: inline-block;
+    cursor: pointer;
+}
+.home_div_margins {
+    margin-top: 28px;
+    margin-right: 24px;
+    margin-left: 24px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 27px;
+}
+#home_div_margin_1 {
+    margin-top: 100px;
+}
+.bar1, .bar2, .bar3 {
+    width: 64px;
+    height: 10px;
+    background-color: #F8E106;
+    margin: 0 0 8px 0;
+    transition: 0.4s;
+}
+
+.bar1:hover, .bar2:hover, .bar3:hover {
+    background-color: #FFFFFF;
+}
+
+/* Rotate first bar */
+.change .bar1 {
+    background-color: #FFFFFF;
+}
+
+/* Fade out the second bar */
+.change .bar2 {
+    background-color: #FFFFFF;
+}
+
+/* Rotate last bar */
+.change .bar3 {
+    background-color: #FFFFFF;
+}
+#hamenu {
+    position: absolute;
+    top: 84px;
+    width: 200px;
+    background-color: #F8E106;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 24px;
+    padding-top: 16px;
+    padding-left: 8px;
+    display: none;
+}
+#hamenu a {
+    text-decoration: none;
+    color:#111111;
+}
+#hamenu a:hover {
+    text-decoration: underline;
+}
+
+#arrivals {
+    position: absolute;
+    top: 86px;
+    left: 1250px;
+    width: 564px;
+    background: #262425;
+    padding: 8px;
+}
+#arrivals:hover {
+    background: #FFFFFF;
+}
+#theodi {
+    position: absolute;
+    top: 860px;
+    left: 1600px;
+    width: 160px;
+    height: 150px;
+    background: transparent;
+}
+#theodi a {
+    color: transparent;
+    width: 160px;
+    height: 150px;
+}

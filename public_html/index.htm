@@ -1,179 +1,65 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-  <title>Fire Truck</title>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bring Me My Firetruck</title>
-  <link href="css/vendor/foundation.css" type="text/css" rel="stylesheet" />
-  <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
-  <link href="css/fire_truck.css" type="text/css" rel="stylesheet">
-  <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
-  <style>
-    body {
-        background: url( "img/BMMFT_homepage.jpg");
-        background-repeat: no-repeat;
-        background-size: 1920px 1080px;
-        background-color: #111111;
-    }
-    .fifth_column {
-        width: 360px;
-        height: 680px;
-        margin-top: 15px;
-        margin-right: 20px;
-        margin-left: 20px;
-        margin-bottom: 17px;
-    }
-    #col_1 {  position: absolute; left:0; }
-    #col_2 {  position: absolute; left:380px; }
-    #col_3 {  position: absolute; left:760px; }
-    #col_4 {  position: absolute; left:1140px; }
-    #col_5 {  position: absolute; left:1520px; }
-
-    h1, h2, h3 {
-        font-family: 'PT Mono', monospace;
-        margin: 0;
-        padding: 0;
-        line-height: 60px;
-        font-weight: lighter;
-        font-kerning: none;
-    }
-    h1#first_line {
-        line-height: 48px;
-        padding-bottom: 8px;
-    }
-    h1, h2 {
-        font-size: 32pt;
-        letter-spacing: 20px;
-    }
-    h3 {
-        font-size: 22pt;
-        letter-spacing: 6px;
-    }
-    .grey_column {
-        background-color: #333333;
-        font-family: 'PT Mono', monospace;
-        color: #F8E106;
-    }
-    .clear_column {
-        background-color: transparent;
-    }
-    .hamburger {
-        display: inline-block;
-        cursor: pointer;
-    }
-    .home_div_margins {
-        margin-top: 28px;
-        margin-right: 24px;
-        margin-left: 24px;
-        margin-bottom: 24px;
-        font-size: 15px;
-        line-height: 27px;
-    }
-    #home_div_margin_1 {
-        margin-top: 100px;
-    }
-    .bar1, .bar2, .bar3 {
-        width: 64px;
-        height: 10px;
-        background-color: #F8E106;
-        margin: 0 0 8px 0;
-        transition: 0.4s;
-    }
-
-    .bar1:hover, .bar2:hover, .bar3:hover {
-      background-color: #FFFFFF;
-    }
-
-    /* Rotate first bar */
-    .change .bar1 {
-        background-color: #FFFFFF;
-    }
-
-    /* Fade out the second bar */
-    .change .bar2 {
-        background-color: #FFFFFF;
-    }
-
-    /* Rotate last bar */
-    .change .bar3 {
-        background-color: #FFFFFF;
-    }
-    #hamenu {
-      position: absolute;
-      top: 84px;
-      width: 200px;
-      background-color: #F8E106;
-      font-size: 18px;
-      font-weight: bold;
-      margin-left: 24px;
-      padding-top: 16px;
-      padding-left: 8px;
-    }
-    #hamenu a {
-      text-decoration: none;
-      color:#111111;
-    }
-    #hamenu a:hover {
-      text-decoration: underline;
-    }
-
-
-  </style>
-  <script>
-      function myFunction(x) {
-          x.classList.toggle("change");
-      }
-  </script>
+    <title>Fire Truck</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bring Me My Firetruck</title>
+    <link href="css/vendor/foundation.css" type="text/css" rel="stylesheet"/>
+    <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css"
+          rel="stylesheet"/>
+    <link href="css/home.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
-
-  <section>
+<section>
     <div class="fifth_column grey_column" id="col_1">
-      <div class="hamburger home_div_margins" onclick="myFunction(this)">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </div>
-      <div id="hamenu">
-        <a href="#about_mr_gee">About Mr Gee</a><br /><br />
-        <a href="#credits">Credits</a><br /><br />
-        <a href="#copy_that">Copy That?</a><br /><br />
-      </div>
-<!--    <div class="grid-container fluid">-->
-<!--      <ul>-->
-<!--        <li>Curatorial statement </li>-->
-<!--        <li>Credits (pop-up layer) </li>-->
-<!--        <li>Data privacy statement (pop-up layer)</li>-->
-<!--        <li><a href="arrivals_board.htm">Arrivals Board (new page, full screen)</a></li>-->
-<!--        <li><a href="http://culture.theodi.org/copythat">Copy That (external webpage)</a></li>-->
-<!--        <li><a href="https://theodi.org">ODI (external ODI webpage: theodi.org)</a></li>-->
-<!--      </ul>-->
-      <div id="home_div_margin_1" class="home_div_margins">
-        William Blake's poem Jerusalem has been hailed as the unofficial English anthem, the defining narrative of this ‘green and pleasant land’. But, by subjecting Blake's mastery of language to the forces of Google Translator, which uses Artificial Intelligence to translate a chosen language into another, other tales of England begin to emerge. In Bring Me My Firetruck, poet Mr Gee explores the ‘soul of Brexit’ through combining Blake’s poem with the visual metaphor of an airport arrivals board
-      </div>
+        <div class="hamburger home_div_margins">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <div id="hamenu">
+            <a href="#about_mr_gee">About Mr Gee</a><br/><br/>
+            <a href="#credits">Credits</a><br/><br/>
+            <a href="#copy_that">Copy That?</a><br/><br/>
+        </div>
+        <div id="home_div_margin_1" class="home_div_margins">
+            William Blake's poem Jerusalem has been hailed as the unofficial English anthem, the defining narrative of
+            this ‘green and pleasant land’. But, by subjecting Blake's mastery of language to the forces of Google
+            Translator, which uses Artificial Intelligence to translate a chosen language into another, other tales of
+            England begin to emerge. In Bring Me My Firetruck, poet Mr Gee explores the ‘soul of Brexit’ through
+            combining Blake’s poem with the visual metaphor of an airport arrivals board
+        </div>
     </div>
     <div class="fifth_column grey_column" id="col_2">
 
-      <div class="home_div_margins">
-        As we stare at the board, incoming planes are landing from countries of the European Union, bringing with them the free movement of people, the free movement of language, and the free movement of interpretation. By translating the English poem through the 23 other official languages of the European Union and Welsh, Mr Gee reveals a rib-tickling series of new versions: ‘O Clouds unfold’ becomes ‘Get my bed’ and ‘Bring me my Chariot of fire!’ is transformed into the title of this new piece, ‘Bring Me My Fire Truck’. Old meanings deteriorate and new ideas emerge according to algorithmic assumptions and corruptions. The poem’s point of view shifts between the sinister, the banal, and the absurd, raising a few wry smiles along the way.
-      </div>
+        <div class="home_div_margins">
+            As we stare at the board, incoming planes are landing from countries of the European Union, bringing with
+            them the free movement of people, the free movement of language, and the free movement of interpretation. By
+            translating the English poem through the 23 other official languages of the European Union and Welsh, Mr Gee
+            reveals a rib-tickling series of new versions: ‘O Clouds unfold’ becomes ‘Get my bed’ and ‘Bring me my
+            Chariot of fire!’ is transformed into the title of this new piece, ‘Bring Me My Fire Truck’. Old meanings
+            deteriorate and new ideas emerge according to algorithmic assumptions and corruptions. The poem’s point of
+            view shifts between the sinister, the banal, and the absurd, raising a few wry smiles along the way.
+        </div>
     </div>
     <div class="fifth_column grey_column" id="col_3">
-      <div class="home_div_margins">
-        <h1 id="first_line">BRING</h1><h1>ME<br />MY<br />FIRE<br />TRUCK</h1>
-        <h3>(the New Jerusalem?)</h3>
-        <br />
-        <br />
-        <h2>MR GEE</h2>
-
-      </div>
+        <div class="home_div_margins">
+            <h1 id="first_line">BRING</h1>
+            <h1>ME<br/>MY<br/>FIRE<br/>TRUCK</h1>
+            <h3>(the New Jerusalem?)</h3>
+            <br/>
+            <br/>
+            <h2>MR GEE</h2>
+        </div>
     </div>
     <div class="fifth_column clear_column" id="col_4"></div>
     <div class="fifth_column clear_column" id="col_5"></div>
-  </section>
-
+    <div id="arrivals"><a href="arrivals_board.htm"><img src="img/home_arrivals.png" alt="Arrivals Board"></a></div>
+    <div id="theodi"><a href="https://theodi.org" target="_blank">The ODI</a></div>
+</section>
 </body>
+<script src="dist/home.bundle.js"></script>
 </html>
