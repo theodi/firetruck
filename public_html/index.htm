@@ -10,70 +10,142 @@
   <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
   <link href="css/fire_truck.css" type="text/css" rel="stylesheet">
   <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
+  <style>
+    body {
+        background: url( "img/BMMFT_homepage.jpg");
+        background-repeat: no-repeat;
+        background-size: 1920px 1080px;
+        background-color: #111111;
+    }
+    .fifth_column {
+        width: 360px;
+        height: 680px;
+        margin-top: 15px;
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-bottom: 17px;
+    }
+    #col_1 {  position: absolute; left:0; }
+    #col_2 {  position: absolute; left:380px; }
+    #col_3 {  position: absolute; left:760px; }
+    #col_4 {  position: absolute; left:1140px; }
+    #col_5 {  position: absolute; left:1520px; }
+
+    h1, h2, h3 {
+        font-family: 'PT Mono', monospace;
+        margin: 0;
+        padding: 0;
+        line-height: 60px;
+        font-weight: lighter;
+        font-kerning: none;
+    }
+    h1#first_line {
+        line-height: 48px;
+        padding-bottom: 8px;
+    }
+    h1, h2 {
+        font-size: 32pt;
+        letter-spacing: 20px;
+    }
+    h3 {
+        font-size: 22pt;
+        letter-spacing: 6px;
+    }
+    .grey_column {
+        background-color: #333333;
+        font-family: 'PT Mono', monospace;
+        color: #F8E106;
+    }
+    .clear_column {
+        background-color: transparent;
+    }
+    .hamburger {
+        display: inline-block;
+        cursor: pointer;
+    }
+    .home_div_margins {
+        margin-top: 28px;
+        margin-right: 24px;
+        margin-left: 24px;
+        margin-bottom: 24px;
+        font-size: 15px;
+        line-height: 27px;
+    }
+    #home_div_margin_1 {
+        margin-top: 100px;
+    }
+    .bar1, .bar2, .bar3 {
+        width: 64px;
+        height: 10px;
+        background-color: #F8E106;
+        margin: 0 0 8px 0;
+        transition: 0.4s;
+    }
+
+    /* Rotate first bar */
+    .change .bar1 {
+        background-color: #FFFFFF;
+    }
+
+    /* Fade out the second bar */
+    .change .bar2 {
+        background-color: #FFFFFF;
+    }
+
+    /* Rotate last bar */
+    .change .bar3 {
+        background-color: #FFFFFF;
+    }
+
+  </style>
+  <script>
+      function myFunction(x) {
+          x.classList.toggle("change");
+      }
+  </script>
 </head>
 
 <body>
-  <header>
-    <table>
-      <thead>
-      <tr>
-        <th colspan="4">
-          <a href="index.htm" id="home_link"><span><object id="eu_flag" type="image/svg+xml" data="svg/eu_flag.svg">No SVG</object>
-        <span id="arrivals_title" class="roboto">BMMFT</span>
-        <object id="arrivals_svg" type="image/svg+xml" data="svg/arrivals.svg">No SVG</object>
-        </span></a>
-        </th>
-        <th colspan="2"><span id="arrivals_time" class="pt_mono"><span id="arrivals_hour"></span><span class="arrivals_colon"></span><span id="arrivals_minute"></span><span class="arrivals_colon"></span><span id="arrivals_second"></span></span></th>
-      </tr>
-      </thead>
 
-      <tbody>
-      <tr>
-<!--        <td id="th_time" class="td_time flight_headers roboto">Time</td>-->
-<!--        <td id="th_flight" class="flight_headers roboto">Flight</td>-->
-<!--        <td id="th_from" class="flight_headers roboto">From</td>-->
-<!--        <td id="th_arrived" class="flight_headers roboto">Remarks</td>-->
-<!--        <td id="th_transfer" class="flight_headers roboto">Transfer</td>-->
-<!--        <td id="th_onward" class="flight_headers roboto">Onward</td>-->
-      </tr>
-      <tr>
-<!--        <td class="td_time pt_mono" id="time_1">11:19</td>-->
-<!--        <td class="flight_number pt_mono" id="flight_1">BR 656</td>-->
-<!--        <td class="roboto"><span id="flag_1" class="flag-icon flag-icon-es"></span> <span id="capital_1">Madrid</span></td>-->
-<!--        <td class="roboto">Landed</td>-->
-<!--        <td id="td_transfer" rowspan="3">-->
-<!--          <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>-->
-<!--          <object id="point_left_svg" type="image/svg+xml" data="svg/point_left.svg">No SVG</object><br />-->
-<!--          <object id="point_right_svg" type="image/svg+xml" data="svg/point_right.svg">No SVG</object>-->
-<!--        </td>-->
-<!--        <td id="td_onward" class="roboto" rowspan="3"><a href="baggage_reclaim.htm">B</a> | <a href="lost_luggage.htm">L</a></td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td class="td_time pt_mono" id="time_2">11:24</td>-->
-<!--        <td class="flight_number pt_mono" id="flight_2">EX 478</td>-->
-<!--        <td class="roboto"><span id="flag_2" class="flag-icon flag-icon-de"></span> <span id="capital_2">Berlin</span></td>-->
-<!--        <td class="red_text roboto"><span id="landing">Obtaining information</span></td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td class="td_time pt_mono" id="time_3">11:25</td>-->
-<!--        <td class="flight_number pt_mono" id="flight_3">IT 537</td>-->
-<!--        <td class="roboto"><span id="flag_3" class="flag-icon flag-icon-dk"></span> <span id="capital_3">Copenhagen</span></td>-->
-<!--        <td class="roboto">On time</td>-->
-      </tr>
-      </tbody>
-    </table>
-  </header>
   <section>
-    <div class="grid-container fluid">
-      <ul>
-        <li>Curatorial statement </li>
-        <li>Credits (pop-up layer) </li>
-        <li>Data privacy statement (pop-up layer)</li>
-        <li><a href="arrivals_board.htm">Arrivals Board (new page, full screen)</a></li>
-        <li><a href="http://culture.theodi.org/copythat">Copy That (external webpage)</a></li>
-        <li><a href="https://theodi.org">ODI (external ODI webpage: theodi.org)</a></li>
-      </ul>
+    <div class="fifth_column grey_column" id="col_1">
+      <div class="hamburger home_div_margins" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+
+<!--    <div class="grid-container fluid">-->
+<!--      <ul>-->
+<!--        <li>Curatorial statement </li>-->
+<!--        <li>Credits (pop-up layer) </li>-->
+<!--        <li>Data privacy statement (pop-up layer)</li>-->
+<!--        <li><a href="arrivals_board.htm">Arrivals Board (new page, full screen)</a></li>-->
+<!--        <li><a href="http://culture.theodi.org/copythat">Copy That (external webpage)</a></li>-->
+<!--        <li><a href="https://theodi.org">ODI (external ODI webpage: theodi.org)</a></li>-->
+<!--      </ul>-->
+      <div id="home_div_margin_1" class="home_div_margins">
+        William Blake's poem Jerusalem has been hailed as the unofficial English anthem, the defining narrative of this ‘green and pleasant land’. But, by subjecting Blake's mastery of language to the forces of Google Translator, which uses Artificial Intelligence to translate a chosen language into another, other tales of England begin to emerge. In Bring Me My Firetruck, poet Mr Gee explores the ‘soul of Brexit’ through combining Blake’s poem with the visual metaphor of an airport arrivals board
+      </div>
     </div>
+    <div class="fifth_column grey_column" id="col_2">
+
+      <div class="home_div_margins">
+        As we stare at the board, incoming planes are landing from countries of the European Union, bringing with them the free movement of people, the free movement of language, and the free movement of interpretation. By translating the English poem through the 23 other official languages of the European Union and Welsh, Mr Gee reveals a rib-tickling series of new versions: ‘O Clouds unfold’ becomes ‘Get my bed’ and ‘Bring me my Chariot of fire!’ is transformed into the title of this new piece, ‘Bring Me My Fire Truck’. Old meanings deteriorate and new ideas emerge according to algorithmic assumptions and corruptions. The poem’s point of view shifts between the sinister, the banal, and the absurd, raising a few wry smiles along the way.
+      </div>
+    </div>
+    <div class="fifth_column grey_column" id="col_3">
+      <div class="home_div_margins">
+        <h1 id="first_line">BRING</h1><h1>ME<br />MY<br />FIRE<br />TRUCK</h1>
+        <h3>(the New Jerusalem?)</h3>
+        <br />
+        <br />
+        <h2>MR GEE</h2>
+
+      </div>
+    </div>
+    <div class="fifth_column clear_column" id="col_4"></div>
+    <div class="fifth_column clear_column" id="col_5"></div>
   </section>
 
 </body>
