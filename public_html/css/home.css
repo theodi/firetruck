@@ -125,6 +125,7 @@ h3 {
     width: 160px;
     height: 150px;
     background: transparent;
+    cursor: pointer;
 }
 #theodi a {
     color: transparent;
