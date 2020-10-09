@@ -6,14 +6,18 @@ const path = require('path');
 // Here you write different options and tell Webpack what to do
 module.exports = {
 
-    // Path to your entry point. From this file Webpack will begin his work
-    entry: './src/javascript/index.js',
-
+    // Path to your entry point. From this file Webpack will begin its work
+    entry: {
+        arrivals: './src/javascript/arrivals.js',
+        home: './src/javascript/home.js',
+        baggage: './src/javascript/baggage.js',
+        lost: './src/javascript/lost.js',
+    },
     // Path and filename of your result bundle.
     // Webpack will bundle all JavaScript into this file
     output: {
         path: path.resolve(__dirname, 'public_html', 'dist'),
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
 
     plugins: [

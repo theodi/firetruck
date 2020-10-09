@@ -82,6 +82,10 @@
         transition: 0.4s;
     }
 
+    .bar1:hover, .bar2:hover, .bar3:hover {
+      background-color: #FFFFFF;
+    }
+
     /* Rotate first bar */
     .change .bar1 {
         background-color: #FFFFFF;
@@ -96,6 +100,25 @@
     .change .bar3 {
         background-color: #FFFFFF;
     }
+    #hamenu {
+      position: absolute;
+      top: 84px;
+      width: 200px;
+      background-color: #F8E106;
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 24px;
+      padding-top: 16px;
+      padding-left: 8px;
+    }
+    #hamenu a {
+      text-decoration: none;
+      color:#111111;
+    }
+    #hamenu a:hover {
+      text-decoration: underline;
+    }
+
 
   </style>
   <script>
@@ -114,7 +137,11 @@
         <div class="bar2"></div>
         <div class="bar3"></div>
       </div>
-
+      <div id="hamenu">
+        <a href="#about_mr_gee">About Mr Gee</a><br /><br />
+        <a href="#credits">Credits</a><br /><br />
+        <a href="#copy_that">Copy That?</a><br /><br />
+      </div>
 <!--    <div class="grid-container fluid">-->
 <!--      <ul>-->
 <!--        <li>Curatorial statement </li>-->
