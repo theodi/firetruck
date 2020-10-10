@@ -8,7 +8,8 @@
   <title>Bring Me My Firetruck</title>
   <link href="css/vendor/foundation.css" type="text/css" rel="stylesheet" />
   <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
-  <link href="css/arrivals.css" type="text/css" rel="stylesheet">
+  <link href="css/lost.css" type="text/css" rel="stylesheet">
+  <link href="css/common.css" type="text/css" rel="stylesheet">
   <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
 </head>
 
@@ -17,7 +18,7 @@
   <table>
     <thead>
     <tr>
-      <th colspan="4">
+      <th colspan="14">
         <a href="index.htm" id="home_link"><span><object id="eu_flag" type="image/svg+xml" data="svg/eu_flag.svg">No SVG</object>
         <span id="arrivals_title" class="roboto">Lost Luggage</span>
         <object id="arrivals_svg" type="image/svg+xml" data="svg/arrivals.svg">No SVG</object>
@@ -28,38 +29,43 @@
     </thead>
 
     <tbody>
-<!--    <tr>-->
-<!--      <td id="th_time" class="td_time flight_headers roboto">Time</td>-->
-<!--      <td id="th_flight" class="flight_headers roboto">Flight</td>-->
-<!--      <td id="th_from" class="flight_headers roboto">From</td>-->
-<!--      <td id="th_arrived" class="flight_headers roboto">Remarks</td>-->
-<!--      <td id="th_transfer" class="flight_headers roboto">Transfer</td>-->
-<!--      <td id="th_onward" class="flight_headers roboto">Onward</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--      <td class="td_time pt_mono" id="time_1">11:19</td>-->
-<!--      <td class="flight_number pt_mono" id="flight_1">BR 656</td>-->
-<!--      <td class="roboto"><span id="flag_1" class="flag-icon flag-icon-es"></span> <span id="capital_1">Madrid</span></td>-->
-<!--      <td class="roboto">Landed</td>-->
-<!--      <td id="td_transfer" rowspan="3">-->
-<!--        <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>-->
-<!--        <object id="point_left_svg" type="image/svg+xml" data="svg/point_left.svg">No SVG</object><br />-->
-<!--        <object id="point_right_svg" type="image/svg+xml" data="svg/point_right.svg">No SVG</object>-->
-<!--      </td>-->
-<!--      <td id="td_onward" class="roboto" rowspan="3"><a href="arrivals_board.htm">A</a> | <a href="baggage_reclaim.htm">B</a></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--      <td class="td_time pt_mono" id="time_2">11:24</td>-->
-<!--      <td class="flight_number pt_mono" id="flight_2">EX 478</td>-->
-<!--      <td class="roboto"><span id="flag_2" class="flag-icon flag-icon-de"></span> <span id="capital_2">Berlin</span></td>-->
-<!--      <td class="red_text roboto"><span id="landing">Obtaining information</span></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--      <td class="td_time pt_mono" id="time_3">11:25</td>-->
-<!--      <td class="flight_number pt_mono" id="flight_3">IT 537</td>-->
-<!--      <td class="roboto"><span id="flag_3" class="flag-icon flag-icon-dk"></span> <span id="capital_3">Copenhagen</span></td>-->
-<!--      <td class="roboto">On time</td>-->
-<!--    </tr>-->
+    <tr class="tr_head">
+      <td id="td_head_1" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_2" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_3" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_4" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_5" class="td_head"><img src="../img/head.png" class="selected_head"></td>
+      <td id="td_head_6" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_7" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_8" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_9" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_10" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_11" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_12" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_13" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_transfer" rowspan="2">
+        <object id="flag_svg" type="image/svg+xml" data="flags/4x3/ae.svg">No SVG</object>
+      </td>
+      <td>
+          <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>
+      </td>
+    </tr>
+    <tr>
+      <td id="td_head_14" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_15" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_16" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_17" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_18" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_19" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_20" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_21" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_22" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_23" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_24" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_25" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td id="td_head_26" class="td_head"><img src="../img/head.png" class="head"></td>
+      <td>A</td>
+    </tr>
     </tbody>
   </table>
 </header>
@@ -70,67 +76,6 @@
     </div>
   </div>
 </section>
-<!--<script src="js/vendor/jquery.min.js"></script>-->
-<!--<script src="js/vendor/anime.min.js"></script>-->
-<!--<script src="js/vendor/date.js"></script>-->
-<!--<script src="js/vendor/moment.js"></script>-->
-<!--<script src="data/country_codes.js"></script>-->
-<!--<script src="data/sequence.js"></script>-->
-<!--<script src="data/translations.js"></script>-->
-<!--<script src="js/clock.js"></script>-->
-<!--<script src="js/flight.js"></script>-->
-<!--<script src="js/flight_plan.js"></script>-->
-<!--<script src="js/vendor/p5.js"></script>-->
-<!--<script src="js/fire_truck.js"></script>-->
-<!--<script src="js/fire_truck_char.js"></script>-->
-<!--<script>-->
-<!--    "use strict";-->
-
-<!--    let displaysArea = new p5(displays_sketch, 'displays');-->
-<!--    function updateCharacterSet(characterSet, translation, language) {-->
-<!--        let arrivalIndex = flightPlan.getFirstArrivalIndex();-->
-<!--        let currentTranslation = (arrivalIndex * 2) + 1;-->
-<!--        if (translation) {-->
-<!--            currentTranslation = currentTranslation + 1-->
-<!--        }-->
-<!--        displaysArea.updateCharacterSet(characterSet, currentTranslation, language);-->
-<!--    }-->
-<!--    let flightPlan = new FlightPlan();-->
-
-
-<!--    setUpFlightPlan();-->
-
-<!--    // display initial flight plan-->
-<!--    displayFlightPlan();-->
-
-<!--    // flashing colons-->
-<!--    anime({-->
-<!--        targets: 'span.arrivals_colon',-->
-<!--        color: [-->
-<!--            { value: '#F8E106', duration: 250, delay: 250 },-->
-<!--            { value: '#000000', duration: 250, delay: 250 }-->
-<!--        ],-->
-<!--        easing: 'easeInOutSine',-->
-<!--        loop: true,-->
-<!--    });-->
-<!--    anime({-->
-<!--        targets: 'span#landing',-->
-<!--        color: [-->
-<!--            { value: '#FF0000', duration: 500, delay: 0 },-->
-<!--            { value: '#222222', duration: 500, delay: 0 }-->
-<!--        ],-->
-<!--        easing: 'easeInOutSine',-->
-<!--        loop: true,-->
-<!--    });-->
-
-<!--    // set the time and flight plan-->
-<!--    updateClock();-->
-<!--    updateFlightPlan();-->
-
-<!--    // update clock, and check flight plan once a second-->
-<!--    setInterval(updateClock, 500);-->
-<!--    setInterval(updateFlightPlan, 1000);-->
-<!--</script>-->
 <script src="dist/lost.bundle.js"></script>
 </body>
 </html>

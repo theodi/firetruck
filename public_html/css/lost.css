@@ -1,0 +1,17 @@
+.tr_head {
+    height: 107px;
+}
+#td_head_1, #td_head_14{
+    padding-left: 50px;
+    width: 157px;
+}
+.td_head {
+    width: 107px;
+    height: 107px;
+}
+.head {
+    border:8px black solid;
+}
+.selected_head {
+    border:8px #F8E106 solid;
+}

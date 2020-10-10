@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Mono|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #111111;
+    color:#fff;
+}
+p { font-family: 'Roboto', sans-serif; }
+table {
+    margin:0;
+}
+thead, thead th {
+    background-color: #F8E106;
+    border: 0;
+    vertical-align: middle;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+thead{
+    color: #111111;
+    width:100%;
+}
+
+#eu_flag{
+    float:left;
+    margin-top: 16px;
+    margin-left: 20px;
+    margin-bottom:16px;
+    margin-right: 30px;
+    width:140px;
+}
+#arrivals_title{
+    font-family: 'robotobold', sans-serif;
+    float:left;
+    font-size: 5.5em;
+    font-weight: bolder;
+    letter-spacing:0.08em;
+}
+#arrivals_svg {
+    width: 90px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+span#arrivals_time{
+    font-family: 'PT Mono', monospace;
+    font-weight: bold;
+    text-align: right;
+    font-size:5.5em;
+}
+span#arrivals_hour, span.arrivals_colon, span#arrivals_minute, span#arrivals_second {
+    margin: 0;
+    padding: 0;
+}
+tbody, tbody tr, #td_transfer, #td_onward {
+    background-color: #111111 !important;
+    color:#fff !important;
+    border:0;
+}
+.displays input {
+    background-color: #111111 !important;
+    border: 0;
+}
+
+tbody tr {
+    font-weight: bold;
+    font-size:1.5em;
+}
+tbody td {
+    padding:0;
+}
+#th_time, #th_flight, #th_from, #th_arrived, #th_transfer {
+    font-family: 'robotobold', sans-serif;
+}
+
+tbody td#th_time {
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+
+}
+tbody td.td_time {
+    padding-left: 50px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-family: 'PT Mono', monospace;
+}
+
+.flight_headers {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size:1.5em;
+}
+
+.from_flag{
+    margin-right:5px;
+    vertical-align: middle;
+    width:10%;
+}
+
+.red_text {
+    color: #ff0000;
+}
+
+.flight_number {
+    color: #ffff99;
+    font-family: 'PT Mono', monospace;
+}
+
+
+#th_time {
+    width: 12%;
+
+}
+
+#th_flight {
+    width: 11%;
+}
+
+#th_from {
+    width: 18%;
+
+}
+/*
+#th_remarks {
+    width: 50%;
+}
+*/
+#th_transfer, #td_transfer {
+    width: 8%;
+    padding-left: 40px;
+}
+
+#transfer_svg {
+    width: 120px;
+    float:left;
+}
+#point_left_svg, #point_right_svg {
+    width: 40px;
+    margin-left: 20px;
+}
+#point_left_svg {
+    margin-bottom: 30px;
+}
+
+
+.activity {
+    margin:5px;
+}
+.activity.verse {
+    margin: 50px;
+}
+
+.displays{
+    padding: 15px 35px;
+    width: 1890px;
+    height: 800px;
+}
+
+
+#home_link {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+#home_link span {
+    display: inline-block;
+    color: #111111 !important;
+}
+
+#home_link span object {
+    position: relative;
+    z-index: -1
+}
