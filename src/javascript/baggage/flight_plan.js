@@ -3,7 +3,7 @@ moment().format();
 
 import country_codes from './data/country_codes';
 import translations from './data/translations';
-import Flight from './flight';
+import Flight from './arrivals_flight';
 
 /**
  * Flight Plan

@@ -1,6 +1,6 @@
-import displays_sketch from './fire_truck';
+import displays_sketch from './arrivals/display_sketch';
 import updateClock from "./clock";
-import FlightPlan from './flight_plan';
+import FlightPlan from './arrivals/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
 const p5 = require('p5');
