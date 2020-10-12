@@ -1,3 +1,36 @@
+/*body {*/
+/*    background: url( "../img/lost_bkgd.png");*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: 1920px 1080px;*/
+/*    background-color: #111111;*/
+/*}*/
+
+
+#home_link_rollover{
+    float:left;
+    margin-top: 16px;
+    margin-left: 20px;
+    margin-bottom:16px;
+    margin-right: 30px;
+    width:140px;
+    display: none;
+}
+
+#lost_luggage_title{
+    font-family: 'robotobold', sans-serif;
+    float:left;
+    font-size: 5.5em;
+    font-weight: bolder;
+    letter-spacing:0.08em;
+}
+
+#lost_luggage_svg {
+    width: 90px;
+    float: left;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
 .tr_head {
     height: 107px;
 }
@@ -15,3 +48,39 @@
 .selected_head {
     border:8px #F8E106 solid;
 }
+
+#country_name {
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bolder;
+}
+
+#arrivals_text {
+    color: #F8E106;
+    font-size: 32pt;
+}
+
+#td_arrivals_arrow {
+    padding-left: 20px;
+    vertical-align: top;
+}
+
+#td_flag {
+    width: 220px;
+    padding: 20px;
+    text-align: center
+}
+#td_controls {
+    padding-left: 18px;
+}
+#arrivals_arrow_svg {
+    width:45px;
+}
+#reload_svg, #reload_svg_rollover, #audio_on_svg, #audio_on_rollover_svg, #audio_off_svg, #audio_off_rollover_svg {
+    width:85px;
+}
+#reload_svg_rollover    {     display: none;                        }
+#audio_on_svg           {     margin-left: 12px;                    }
+#audio_on_rollover_svg  {     margin-left: 12px; display: none;     }
+#audio_off_svg          {     margin-left: 12px; display: none;     }
+#audio_off_rollover_svg {     margin-left: 12px; display: none;     }

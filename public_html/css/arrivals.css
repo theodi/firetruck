@@ -1,3 +1,17 @@
+
+#arrivals_title{
+    font-family: 'robotobold', sans-serif;
+    float:left;
+    font-size: 5.5em;
+    font-weight: bolder;
+    letter-spacing:0.08em;
+}
+#arrivals_svg {
+    width: 90px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
 tbody tr:nth-child(even) {
     /*  flight_details  */
     background-color: #222222 !important;
