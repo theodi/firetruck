@@ -3,7 +3,7 @@ import updateClock from "./clock";
 //import FlightPlan from './lost/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
-const p5 = require('p5');
+// const p5 = require('p5');
 
 $(function(){
     let $home_link = $('#home_link')
@@ -38,14 +38,8 @@ $(function(){
 */
     // flashing colons
     anime({
-        targets: 'span.arrivals_colon',
+        targets: 'span.clock_colon',
         color: [{ value: '#F8E106', duration: 250, delay: 250 }, { value: '#000000', duration: 250, delay: 250 }],
-        easing: 'easeInOutSine',
-        loop: true,
-    });
-    anime({
-        targets: 'span#landing',
-        color: [{ value: '#FF0000', duration: 500, delay: 0 }, { value: '#222222', duration: 500, delay: 0 }],
         easing: 'easeInOutSine',
         loop: true,
     });
