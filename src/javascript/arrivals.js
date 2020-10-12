@@ -15,9 +15,8 @@ $(function(){
     // display initial flight plan
     flightPlan.displayFlightPlan();
 
-    // flashing colons
     anime({
-        targets: 'span.arrivals_colon',
+        targets: 'span.clock_colon',
         color: [{ value: '#F8E106', duration: 250, delay: 250 }, { value: '#000000', duration: 250, delay: 250 }],
         easing: 'easeInOutSine',
         loop: true,

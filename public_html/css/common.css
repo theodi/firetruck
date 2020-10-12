@@ -32,13 +32,13 @@ thead{
     margin-right: 30px;
     width:140px;
 }
-span#arrivals_time{
+span#clock_time{
     font-family: 'PT Mono', monospace;
     font-weight: bold;
     text-align: right;
     font-size:5.5em;
 }
-span#arrivals_hour, span.arrivals_colon, span#arrivals_minute, span#arrivals_second {
+span#clock_hour, span.clock_colon, span#clock_minute, span#clock_second {
     margin: 0;
     padding: 0;
 }

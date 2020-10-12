@@ -2,10 +2,10 @@ var moment = require('moment');
 moment().format();
 
 function updateClock() {
-    let now = moment();//new Date();
-    let hour = now.hours();//getHours();
-    let minute = now.minutes();//getMinutes();
-    let second = now.seconds();//getSeconds();
+    let now = moment();
+    let hour = now.hours();
+    let minute = now.minutes();
+    let second = now.seconds();
 
     if (minute < 10) {
         minute = "0" + minute;
@@ -15,9 +15,9 @@ function updateClock() {
     }
 
     // set time on clock
-    $('#arrivals_hour').text(hour);
-    $('#arrivals_minute').text(minute);
-    $('#arrivals_second').text(second);
+    $('#clock_hour').text(hour);
+    $('#clock_minute').text(minute);
+    $('#clock_second').text(second);
 
 }
 
