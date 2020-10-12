@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="281.7" height="194" viewBox="0 0 281.7 194">
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="home_rollover" data-name="home rollover">
+      <g>
+        <rect width="281.7" height="194" fill="#002d8e"/>
+        <path d="M179,145H151a2,2,0,0,1-2-2V117H133v26a2,2,0,0,1-2,2H103a2,2,0,0,1-2-2V93H94.92a2,2,0,0,1-1.32-3.51l46-40a2,2,0,0,1,2.63,0L153,58.8V51a2,2,0,0,1,2-2h16a2,2,0,0,1,2,2V76.09L188.23,89.5a2,2,0,0,1-1.31,3.5H181v50A2,2,0,0,1,179,145Z" fill="#f8e106"/>
+      </g>
+    </g>
+  </g>
+</svg>

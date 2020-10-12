@@ -1,5 +1,6 @@
-import translations from '../data/translations';
+import { translations as raw_translations } from '../data/translations';
 import FireTruckChar from '../fire_truck_char';
+
 
 let displays_sketch = function (p) {
     let offscreenCanvas;
@@ -24,7 +25,8 @@ let displays_sketch = function (p) {
 
     // onscreen characters
     let fireTruckCharacters = [];
-    let currentTranslation = 1;
+    let translate = [];
+//    let currentTranslation = 1;
     let currentCountry = "";
     let timing = 150,
         min_timing = 15,
@@ -256,7 +258,7 @@ let displays_sketch = function (p) {
     }
 
     function getScreenX (col) {
-        return (col * gapX);// + 1marginX;
+        return (col * gapX);
     }
 
     function getRandomInt(max) {

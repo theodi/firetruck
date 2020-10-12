@@ -1,20 +1,20 @@
-import displays_sketch from './lost/display_sketch';
+//import displays_sketch from './lost/display_sketch';
 import updateClock from "./clock";
-import FlightPlan from './lost/flight_plan';
+//import FlightPlan from './lost/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
 const p5 = require('p5');
 
 $(function(){
 
-    let displaysArea = new p5(displays_sketch, 'displays');
+/*    let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);
 
     flightPlan.setUpFlightPlan();
 
     // display initial flight plan
     flightPlan.displayFlightPlan();
-
+*/
     // flashing colons
     anime({
         targets: 'span.arrivals_colon',
@@ -31,7 +31,7 @@ $(function(){
 
     // set the time and flight plan
     updateClock();
-    flightPlan.updateFlightPlan();
+//    flightPlan.updateFlightPlan();
 
     // update clock, once every half second
     setInterval(updateClock, 500);

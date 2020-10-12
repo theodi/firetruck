@@ -5,33 +5,13 @@ class Flight {
         this.country_code = country_code;
         this.code = code;
         this.capital = capital;
-        this.nextDate = nextDate;
-        this.transferDate = transferDate;
         this.poemLines = poemLines;
-        this.poemLinesTranslated = poemLinesTranslated;
         this.flightIndex = flightIndex;
         this.uniqueCharacters = uniqueCharacters;
-        this.uniqueCharactersEnglish = uniqueCharactersEnglish;
-    }
-
-    getNextDate() {
-        return this.nextDate;
     }
 
     getFlightIndex() {
         return this.flightIndex;
-    }
-
-    setNextDate(value) {
-        this.nextDate = value;
-    }
-
-    getTransferDate() {
-        return this.transferDate;
-    }
-
-    setTransferDate(value) {
-        this.transferDate = value;
     }
 
     getDisplayLines(poemLines) {
@@ -53,16 +33,8 @@ class Flight {
         return this.getDisplayLines(this.poemLines);
     }
 
-    getPoemLinesTranslated() {
-        return this.getDisplayLines(this.poemLinesTranslated);
-    }
-
-    getUniqueCharacters(english) {
-        if (english===true) {
-            return this.uniqueCharactersEnglish.join('');
-        } else {
-            return this.uniqueCharacters.join('');
-        }
+    getUniqueCharacters() {
+        return this.uniqueCharacters.join('');
     }
 }
 

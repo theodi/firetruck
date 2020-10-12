@@ -6,31 +6,28 @@ import translations from '../data/translations';
 import Flight from './flight';
 
 /**
- * Flight Plan
+ * Flight Plan (Lost)
  *
  * class and functions for setting up, displaying and updating the flight plan
  */
 
 // states
-const PRE_START         = -1;
+const PRE_VERSES        = -1;
 const START             = 0;
-const ARRIVED           = 1;
-const ARRIVED_SHOWING   = 2;
-const TRANSFER          = 3;
-const TRANSFER_SHOWING  = 4;
+const FIRST_VERSE       = 1;
+const FIRST_VERSE_END   = 2;
+const SECOND_VERSE      = 3;
+const SECOND_VERSE_END  = 4;
+const THIRD_VERSE       = 3;
+const THIRD_VERSE_END   = 4;
+const FOURTH_VERSE      = 3;
+const FOURTH_VERSE_END  = 4;
+const ENDED             = 4;
 
-// const MAX_LINE_LENGTH = 61;
-
-// minutes per language, and translation
-const minutesPerLanguage = 1;
 const flightCodes = "BREXITDISCOMBOBULATION";
 let flightCodeIndex = 0;
-// let $displays = $('input.display');
 let updating = false;
-let landing_updated = false;
-let landing_prewarn_milliseconds = 20000;
 let poem_lines = [];
-// let animation = false;
 
 class FlightPlan {
     constructor(p5DisplaysArea) {
@@ -49,7 +46,7 @@ class FlightPlan {
 
         let flightTransferDate = flight.getTransferDate();
         if (moment(this.lastTransferDate).isBefore(flightTransferDate)) {
-            this.lastTransferDate = flightTransferDate;//new Date(flightTransferDate.getTime());
+            this.lastTransferDate = flightTransferDate;
         }
         if (this.firstCountry === "") {
             this.firstCountry = flight.country;
@@ -63,6 +60,16 @@ class FlightPlan {
         return this.flightsByIndex[index];
     }
 
+    getState() {
+        return this.state;
+    }
+
+    setState(value) {
+        this.state = value;
+    }
+
+
+/*
     getFirstArrivalIndex() {
         return this.flightsByCountryIndex[this.firstCountry];
     }
@@ -73,14 +80,6 @@ class FlightPlan {
 
     getLastTransferDate() {
         return this.lastTransferDate;
-    }
-
-    getState() {
-        return this.state;
-    }
-
-    setState(value) {
-        this.state = value;
     }
 
     setFirstCountry(value) {
@@ -96,7 +95,7 @@ class FlightPlan {
         if (this.lastTransferDate < value) {
             this.lastTransferDate = value;
         }
-    }
+    }*/
 
     setUpFlightPlan() {
         let now = moment();                 // 12:01:23
