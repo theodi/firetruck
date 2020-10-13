@@ -12,7 +12,7 @@ function selection(choices, number) {
 
   while(chosen < number) {
     let select = sample(choices);
-    console.log(select);
+    // console.log(select);
     let already_picked = false;
     for (let sel in selected) {
       if (sel === select) {
@@ -31,7 +31,7 @@ function selection(choices, number) {
 
 function sample(choices) {
   let index = Math.floor(Math.random() * choices.length);
-  console.log(index);
+  // console.log(index);
   return choices[index];
 }
 
