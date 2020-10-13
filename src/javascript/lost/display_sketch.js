@@ -3,36 +3,34 @@ import FireTruckChar from '../fire_truck_char';
 
 
 let displays_sketch = function (p) {
-    let offscreenCanvas;
+    let offscreenCanvasYellow;
+    let offscreenCanvasWhite;
     let font,
         fontsize = 20,
-        arial_font,
-        arial_fontsize = 20;
+        arial_font;
     let width = 1890;
     let height = 690;
     let uniqueCharString = "";
 
     let gapX = 30.5, gapY = 35.5;
     let marginX = 10, marginY = 9;
-    let lastX = 0, lastY = 0;
+
     // offscreen characters
-    let charPositions = new Map();
-    let characterArray = [];
-    let numChars = 0;
+    let charPositionsYellow = new Map();
+    let characterArrayYellow = [];
     let numCols = 60;
     let numRows = 19;
     let updateOffscreenBuffer = true;
 
     // onscreen characters
     let fireTruckCharacters = [];
-    let translate = [];
-//    let currentTranslation = 1;
-//    let currentCountry = "";
+
     let timing = 150,
         min_timing = 15,
         max_timing = 250,
         threshold = 100;
-    let currentFlight = null;//"";
+    let currentFlight = null;
+    let highlightedVerse = -1; // -1 means no highlighted verse
 
     p.preload = function() {
         // Ensure the .ttf or .otf font stored in the assets directory
@@ -43,88 +41,40 @@ let displays_sketch = function (p) {
 
     p.setup = function(){
         p.createCanvas(width, height);
-        offscreenCanvas = p.createGraphics(width, height);
-        offscreenCanvas.background(17, 17, 17);
-        offscreenCanvas.textStyle(p.BOLD);
-        offscreenCanvas.textFont(font);
-        offscreenCanvas.textSize(fontsize);
-        offscreenCanvas.textAlign(p.LEFT, p.TOP);
-        offscreenCanvas.noStroke();
+        offscreenCanvasYellow = p.createGraphics(width, height);
+        offscreenCanvasYellow.background(17, 17, 17);
+        offscreenCanvasYellow.textStyle(p.BOLD);
+        offscreenCanvasYellow.textFont(font);
+        offscreenCanvasYellow.textSize(fontsize);
+        offscreenCanvasYellow.textAlign(p.LEFT, p.TOP);
+        offscreenCanvasYellow.noStroke();
 
         // Set the gap between letters and the left and top margin
-        offscreenCanvas.translate(marginX, marginY);
+        offscreenCanvasYellow.translate(marginX, marginY);
+
+
+
+        offscreenCanvasWhite = p.createGraphics(width, height);
+        offscreenCanvasWhite.background(17, 17, 17);
+        offscreenCanvasWhite.textStyle(p.BOLD);
+        offscreenCanvasWhite.textFont(font);
+        offscreenCanvasWhite.textSize(fontsize);
+        offscreenCanvasWhite.textAlign(p.LEFT, p.TOP);
+        offscreenCanvasWhite.noStroke();
+
+        // Set the gap between letters and the left and top margin
+        offscreenCanvasWhite.translate(marginX, marginY);
+
     };
 
     p.draw = function(){
         /**
          * if offscreen buffer needs updating (for additional characters as they appear, then this
-         * section is triggered
+         * section is triggered)
          */
         if (updateOffscreenBuffer) {
-            let allDone = false;
-
-            // Loop as long as there are letters left
-            for (let y = 0; y < height - (gapY * 2); y += gapY) {
-                if (allDone) {
-                    break;
-                }
-                for (let x = 0; x < width - (gapX *3); x += gapX) {
-                    if (allDone){
-                        characterArray = Array.from(charPositions, ([key, value]) => key);
-                        break;
-                    }
-                    // if we've not got to an empty bit of offscreen canvas, keep going until we get there
-                    if (x <= lastX && y <= lastY) {
-                        break;
-                    }
-
-                    // find next char to draw now we're at a free spot
-                    let letter = uniqueCharString.substring(numChars, numChars+1);
-                    let charToDrawInfo = charPositions.get(letter);
-
-                    // check current charPositions to see if all uniqueCharString has been drawn
-                    while (charToDrawInfo !== undefined) {
-                        charToDrawInfo = undefined;
-                        letter = undefined;
-                        numChars++;
-                        if (numChars === uniqueCharString.length) {
-                            allDone = true;
-                        } else {
-                            letter = uniqueCharString.substring(numChars, numChars+1);
-                            charToDrawInfo = charPositions.get(letter);
-                        }
-                    }
-
-                    // draw letter if defined, and we don't have any info about where it is drawn
-                    if (letter !== undefined && charToDrawInfo === undefined) {
-
-                        let charWidth = gapX - marginX;
-                        let charHeight = gapY - marginY;
-                        offscreenCanvas.fill(51, 51, 51);
-                        offscreenCanvas.rect(x, y, charWidth, charHeight, 2);
-                        offscreenCanvas.fill(248, 225, 6);
-
-                        // if (currentCountry === 'Greek' || currentCountry === 'Maltese') {
-                        //     offscreenCanvas.textFont(arial_font);
-                        //     offscreenCanvas.textSize(arial_fontsize);
-                        //     // Draw the letter to the offscreen graphics
-                        //     offscreenCanvas.text(letter, x + 4, y );
-                        // } else {
-                            offscreenCanvas.textFont(font);
-                            offscreenCanvas.textSize(fontsize);
-                            // Draw the letter to the offscreen graphics
-                            offscreenCanvas.text(letter, x + 5, y + 3);
-                        // }
-
-                        // console.log(currentCountry, letter);
-                        // store position of letter
-                        charPositions.set(letter, {x: x, y: y, width: charWidth, height: charHeight});
-                        // set new lastX and lastY
-                        lastX = x;
-                        lastY = y;
-                    }
-                }
-            }
+            updateOffscreenCanvas(0); // yellow
+            updateOffscreenCanvas(1); // white
             updateOffscreenBuffer = false;
         }
 
@@ -138,11 +88,12 @@ let displays_sketch = function (p) {
                 fireTruckCharacters[i] = [];
             }
 
+            let rowNumber = i;
+
             // blank row?
             if (i === 4 || i === 9 || i === 14) {
                 // i = i - 1;
             } else {
-                let rowNumber = i;
                 if (i > 4 && i < 9) {
                     rowNumber = rowNumber - 1;
                 }
@@ -153,15 +104,29 @@ let displays_sketch = function (p) {
                     rowNumber = rowNumber - 3;
                 }
                 lineTranslations = currentFlight.poemLines[rowNumber];
-                //translations[rowNumber + 1];
             }
+
+            let offscreenCanvas = offscreenCanvasWhite;
+
+            if (highlightedVerse !== -1) {
+
+                // do we know row?
+                let minRow = highlightedVerse * 4;
+                let maxRow = minRow + 3;
+
+                if (rowNumber >= minRow && rowNumber <= maxRow) {
+                    offscreenCanvas = offscreenCanvasYellow;
+                } else {
+                    offscreenCanvas = offscreenCanvasWhite;
+                }
+            }
+
 
             for (let j = 0; j < numCols; j++) {
                 if (fireTruckCharacters[i][j] === undefined) {
                     fireTruckCharacters[i][j] = new FireTruckChar(" ", " ", timing, min_timing, max_timing, threshold, i + 1);
                 }
 
-//                let charIndexToDraw = j;
                 if (lineTranslations !== undefined) {
                     let testinginging = " ";
 
@@ -184,7 +149,7 @@ let displays_sketch = function (p) {
                     // need to update the cell?
                     if (fireTruckCharacters[i][j].getCurrentCharacter() !== testinginging ) {
                         if(!fireTruckCharacters[i][j].getAnimating()) {
-                            fireTruckCharacters[i][j].setCharacterArray(characterArray);
+                            fireTruckCharacters[i][j].setCharacterArray(characterArrayYellow);
                             fireTruckCharacters[i][j].setAnimating(true);
                         }
                         // get cell character top and bottom
@@ -195,7 +160,7 @@ let displays_sketch = function (p) {
                         let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
 
 
-                        let currentCharToDrawInfo = charPositions.get(currentCharacter);
+                        let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
                         let currentOffscreenX = currentCharToDrawInfo.x;
                         let currentOffscreenY = currentCharToDrawInfo.y;
 
@@ -205,9 +170,10 @@ let displays_sketch = function (p) {
                         let backBottomVisible = fireTruckCharacters[i][j].getBackBottomVisible();
                         let nextCharacter = fireTruckCharacters[i][j].getNextCharacter();
 
-                        let nextCharToDrawInfo = charPositions.get(nextCharacter);
+                        let nextCharToDrawInfo = charPositionsYellow.get(nextCharacter);
                         let nextOffscreenX = nextCharToDrawInfo.x;
                         let nextOffscreenY = nextCharToDrawInfo.y;
+
 
                         if (frontTopVisible && frontBottomVisible) {
                             // show current on top
@@ -229,30 +195,23 @@ let displays_sketch = function (p) {
 
                     } else {
                         let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
-                        let currentCharToDrawInfo = charPositions.get(currentCharacter);
+                        let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
                         let currentOffscreenX = currentCharToDrawInfo.x;
                         let currentOffscreenY = currentCharToDrawInfo.y;
 
                         p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, currentOffscreenX + 2, currentOffscreenY, gapX, gapY);
                         fireTruckCharacters[i][j].setAnimating(false);
                     }
-
-                } else {
-
                 }
-
             }
         }
     };
 
     p.updateCharacterSet = function (uf) {
+        // flight has four_countries
         uniqueCharString = uf.getUniqueCharacters();
-        numChars = 0;
         updateOffscreenBuffer = true;
         currentFlight = uf;
-//        currentTranslation = ct;
-//         currentCountry = uf.getCOuntr8i;/
-        // flight has four_countries
     };
 
     function getScreenY (row) {
@@ -263,10 +222,86 @@ let displays_sketch = function (p) {
         return (col * gapX);
     }
 
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
+    function updateOffscreenCanvas(colour) {//offscreenCanvas, charPositions, characterArray) {
+        let allDone = false;
+        let numChars = 0;
+        let lastX = 0, lastY = 0;
 
+        // reset - for 2 colours
+        charPositionsYellow = new Map();
+        characterArrayYellow = [];
+
+            // Loop as long as there are letters left
+            for (let y = 0; y < height - (gapY * 2); y += gapY) {
+                if (allDone) {
+                    break;
+                }
+                // noinspection PointlessBooleanExpressionJS
+                for (let x = 0; x < width - (gapX *3); x += gapX) {
+                    if (allDone){
+                        characterArrayYellow = Array.from(charPositionsYellow, ([key, value]) => key);
+                        break;
+                    }
+                    // if we've not got to an empty bit of offscreen canvas, keep going until we get there
+                    if (x <= lastX && y <= lastY) {
+                        break;
+                    }
+
+                    // find next char to draw now we're at a free spot
+                    let letter = uniqueCharString.substring(numChars, numChars+1);
+                    let charToDrawInfo = charPositionsYellow.get(letter);
+
+                    // check current charPositions to see if all uniqueCharString has been drawn
+                    while (charToDrawInfo !== undefined) {
+                        charToDrawInfo = undefined;
+                        letter = undefined;
+                        numChars++;
+                        if (numChars === uniqueCharString.length) {
+                            allDone = true;
+                        } else {
+                            letter = uniqueCharString.substring(numChars, numChars+1);
+                            charToDrawInfo = charPositionsYellow.get(letter);
+                        }
+                    }
+
+                    // draw letter if defined, and we don't have any info about where it is drawn
+                    // noinspection PointlessBooleanExpressionJS
+                    if (letter !== undefined && charToDrawInfo === undefined) {
+
+                        let charWidth = gapX - marginX;
+                        let charHeight = gapY - marginY;
+
+                        if (colour === 0) {
+                            offscreenCanvasYellow.fill(51, 51, 51);
+                            offscreenCanvasYellow.rect(x, y, charWidth, charHeight, 2);
+                            offscreenCanvasYellow.fill(248, 225, 6);
+                            offscreenCanvasYellow.textFont(font);
+                            offscreenCanvasYellow.textSize(fontsize);
+
+                            // Draw the letter to the offscreen graphics
+                            offscreenCanvasYellow.text(letter, x + 5, y + 3);
+                        } else {
+                            offscreenCanvasWhite.fill(51, 51, 51);
+                            offscreenCanvasWhite.rect(x, y, charWidth, charHeight, 2);
+                            offscreenCanvasWhite.fill(225, 225, 225);
+                            offscreenCanvasWhite.textFont(font);
+                            offscreenCanvasWhite.textSize(fontsize);
+
+                            // Draw the letter to the offscreen graphics
+                            offscreenCanvasWhite.text(letter, x + 5, y + 3);
+                        }
+                        // store position of letter
+                        charPositionsYellow.set(letter, {x: x, y: y, width: charWidth, height: charHeight});
+
+                        // set new lastX and lastY
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
+            }
+
+
+    }
 };
 
 
