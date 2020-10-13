@@ -133,7 +133,7 @@ let displays_sketch = function (p) {
          * if split-flap in operation, each cell of grid will have a current and target character
          */
         for (let i = 0; i <= numRows; i++) {
-            let lineTranslations = ["", ];
+            let lineTranslations = [];
             if (fireTruckCharacters[i] === undefined) {
                 fireTruckCharacters[i] = [];
             }
@@ -161,15 +161,12 @@ let displays_sketch = function (p) {
                     fireTruckCharacters[i][j] = new FireTruckChar(" ", " ", timing, min_timing, max_timing, threshold, i + 1);
                 }
 
-                let charIndexToDraw = j;
-                let testinginging = " ";
+//                let charIndexToDraw = j;
                 if (lineTranslations !== undefined) {
-//currentTranslation >= lineTranslations.length || [currentTranslation]
-                    if (j >= lineTranslations.length) {
-                        testinginging = " ";
-                    } else {
-                        testinginging = lineTranslations[charIndexToDraw];
-//                        testinginging = lineTranslations[currentTranslation][charIndexToDraw];
+                    let testinginging = " ";
+
+                    if (j < lineTranslations.length) {
+                        testinginging = lineTranslations[j];
                     }
                     if (testinginging !== 'ß') {
                         testinginging = testinginging.toUpperCase();
