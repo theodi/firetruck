@@ -33,6 +33,13 @@ class Flight {
     getUniqueCharacters() {
         return this.uniqueCharacters.join('');
     }
+
+    getFourCountries() {
+        return this.four_countries;
+    }
+    getFourCountriesIndexes() {
+        return this.four_countries_indexes;
+    }
 }
 
 export default Flight;

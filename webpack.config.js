@@ -25,6 +25,7 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery',
             p5: 'p5',
+            tone: 'tone',
         }),
     ],
 

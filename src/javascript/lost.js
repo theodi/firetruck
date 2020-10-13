@@ -3,6 +3,8 @@ import updateClock from "./clock";
 import FlightPlan from './lost/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
+import * as Tone from 'tone';
+
 const p5 = require('p5');
 
 $(function(){
@@ -32,6 +34,25 @@ $(function(){
     let flightPlan = new FlightPlan(displaysArea);
 
     flightPlan.setUpFlightPlan();
+    flightPlan.loadAudio();
+
+    //attach a click listener to a play button
+    /*
+    document.querySelector('button')?.addEventListener('click', async () => {
+        await Tone.start()
+        console.log('audio is ready')
+
+        const sampler = new Tone.Sampler({
+            urls: {
+                A1: "A1.mp3",
+                A2: "A2.mp3",
+            },
+            baseUrl: "https://tonejs.github.io/audio/casio/",
+            onload: () => {
+                sampler.triggerAttackRelease(["C1", "E1", "G1", "B1"], 0.5);
+            }
+        }).toDestination();
+    })*/
 
     // display initial flight plan
     // flightPlan.displayFlightPlan();

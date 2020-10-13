@@ -1,7 +1,8 @@
 import FireTruckChar from '../fire_truck_char';
 
 const LOADING           = -1;
-const DISPLAY           = 0;
+const WAITING_FOR_CLICK = 0;
+const DISPLAY           = 1;
 
 let displays_sketch = function (p) {
     let offscreenCanvasYellow;
@@ -11,6 +12,7 @@ let displays_sketch = function (p) {
         arial_font;
     let width = 1890;
     let height = 690;
+    let previousCharString = "";
     let uniqueCharString = "";
 
     let gapX = 30.5, gapY = 35.5;
@@ -31,10 +33,9 @@ let displays_sketch = function (p) {
         max_timing = 250,
         threshold = 100;
     let currentFlight = null;
-    let highlightedVerse = -1; // -1 means no highlighted verse
-
-    let display_state = LOADING;
-
+    let highlightedVerse = 0; // -1 means no highlighted verse
+    let audioLoaded = true;
+//    let display_state = LOADING;
 
     p.preload = function() {
         // Ensure the .ttf or .otf font stored in the assets directory
@@ -64,6 +65,7 @@ let displays_sketch = function (p) {
         offscreenCanvasWhite.noStroke();
         // Set the gap between letters and the left and top margin
         offscreenCanvasWhite.translate(marginX, marginY);
+
     };
 
     p.draw = function(){
@@ -216,7 +218,9 @@ let displays_sketch = function (p) {
 
     p.updateCharacterSet = function (uf) {
         // flight has four_countries
-        uniqueCharString = uf.getUniqueCharacters();
+        let existingCharString = previousCharString;
+        previousCharString = uf.getUniqueCharacters();
+        uniqueCharString = existingCharString + previousCharString;
         updateOffscreenBuffer = true;
         currentFlight = uf;
     };
@@ -306,6 +310,10 @@ let displays_sketch = function (p) {
                 }
             }
         }
+    }
+
+    function setAudioLoaded() {
+        audioLoaded = true;
     }
 };
 

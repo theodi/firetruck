@@ -5,7 +5,9 @@
 /*    background-color: #111111;*/
 /*}*/
 
-
+#displays {
+    background: url('../img/bkgd.png');
+}
 #home_link_rollover{
     float:left;
     margin-top: 16px;

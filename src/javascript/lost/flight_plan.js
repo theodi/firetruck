@@ -7,6 +7,8 @@ import language_sequence from '../data/sequence';
 import translations from '../data/translations';
 import Flight from './flight';
 
+import * as Tone from 'tone';
+
 /**
  * Flight Plan (Lost)
  *
@@ -15,16 +17,19 @@ import Flight from './flight';
 
 // states
 const PRE_VERSES        = -1;
-const START             = 0;
-const FIRST_VERSE       = 1;
-const FIRST_VERSE_END   = 2;
-const SECOND_VERSE      = 3;
-const SECOND_VERSE_END  = 4;
-const THIRD_VERSE       = 3;
-const THIRD_VERSE_END   = 4;
-const FOURTH_VERSE      = 3;
-const FOURTH_VERSE_END  = 4;
-const ENDED             = 4;
+const LOADING_AUDIO     = 0;
+const AUDIO_READY       = 1;
+const WAITING_FOR_CLICK = 2;
+
+const FIRST_VERSE       = 10;
+const FIRST_VERSE_END   = 11;
+const SECOND_VERSE      = 12;
+const SECOND_VERSE_END  = 13;
+const THIRD_VERSE       = 14;
+const THIRD_VERSE_END   = 15;
+const FOURTH_VERSE      = 16;
+const FOURTH_VERSE_END  = 17;
+const ENDED             = 18;
 
 let updating = false;
 
@@ -35,6 +40,7 @@ class FlightPlan {
         this.flight = null;
         this.state = PRE_VERSES;
         this.displaysArea = p5DisplaysArea;
+        this.audioTracks = [];
     }
 
     getState() {
@@ -101,6 +107,11 @@ class FlightPlan {
             poemLines,
             uniqueChars,
         );
+        setInterval(
+            this.updateFlightPlan.bind(this),
+            5000
+        );
+
     }
 
 
@@ -113,14 +124,16 @@ class FlightPlan {
                 case PRE_VERSES:
                     // set up initial character set to be used for first language
                     this.displaysArea.updateCharacterSet(this.loadingFlight);
-                    this.setState(START);
+                    this.setState(LOADING_AUDIO);
                     break;
-                case START:
+                case LOADING_AUDIO:
+                    break;
+                case AUDIO_READY:
+                    this.displaysArea.updateCharacterSet(this.clickToStartFlight);
+                    this.setState(WAITING_FOR_CLICK);
 
-                   // if (now > arrivals[0].getNextDate()) {
-                   //     this.setState(ARRIVED);
-                   // }
-
+                    break;
+                case WAITING_FOR_CLICK:
                     break;
 
             }
@@ -130,50 +143,27 @@ class FlightPlan {
 
 
     displayFlightPlan() {
-        // let arrivals = this.getThreeArrivals();
-        // for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
-        //     let arrival = arrivals[arrival_number - 1];
-        //     // clone top arrival time for calculations
-        //     let topArrivalTime = moment(arrivals[0].getNextDate());         // 12:01
-        //     let arrivalTime = moment(arrival.getNextDate());                // 12:01        12:03       12:05
-        //     let arrivalHour = arrivalTime.hours();
-        //     let arrivalMinutes = arrivalTime.minutes();
-        //
-        //     if (arrival_number > 1) {
-        //         topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
-        //     }
-        //
-        //     let topArrivalTimeDate = moment(topArrivalTime);
-        //
-        //     // set new arrival time if current arrival is before it should be
-        //     if (arrivalTime.isBefore(topArrivalTimeDate)) {
-        //         arrivalTime = topArrivalTimeDate;
-        //         arrivalHour = arrivalTime.hours();
-        //         arrivalMinutes = arrivalTime.minutes();
-        //         this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
-        //         arrival.setNextDate(arrivalTime);
-        //         topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
-        //         let transferTime = new Date(topArrivalTime);
-        //         this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
-        //         arrival.setTransferDate(transferTime);
-        //     }
-        //
-        //     if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
-        //     if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
-        //     $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
-        //
-        //     let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
-        //     $('#flight_' + arrival_number).text(
-        //         flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code
-        //     );
-        //
-        //     let $flagSpan = $('#flag_' + arrival_number);
-        //     $flagSpan.removeClass();
-        //     $flagSpan.addClass('flag-icon');
-        //     $flagSpan.addClass('flag-icon-' + arrival.country_code.toLowerCase());
-        //
-        //     $('#capital_' + arrival_number).text(arrival.capital);
-        // }
+
+    }
+
+    loadAudio() {
+
+        let fourCountries = this.flight?.getFourCountries();
+
+        const sampler = new Tone.Sampler({
+            urls: {
+                A1: "BMMFT_AUDIO_AirportAtmos.mp3",
+                C1: "BMMFT_AUDIO_" + fourCountries[0] + "_V1.mp3",
+                D1: "BMMFT_AUDIO_" + fourCountries[1] + "_V2.mp3",
+                E1: "BMMFT_AUDIO_" + fourCountries[2] + "_V3.mp3",
+                F1: "BMMFT_AUDIO_" + fourCountries[3] + "_V4.mp3",
+            },
+            baseUrl: "/mp3/",
+            onload: () => {
+                this.setState(AUDIO_READY);
+//                sampler.triggerAttackRelease(["C1", "E1", "G1", "B1"], 0.5);
+            }
+        }).toDestination();
     }
 
     getUniqueCharsArray(lineOfChars) {
