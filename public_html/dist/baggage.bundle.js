@@ -98,3 +98,4 @@ eval("\n\n//# sourceURL=webpack:///./src/javascript/baggage.js?");
 /***/ })
 
 /******/ });
+//# sourceMappingURL=baggage.bundle.js.map

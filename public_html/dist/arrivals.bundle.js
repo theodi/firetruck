@@ -1724,3 +1724,4 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(inst
 /***/ })
 
 /******/ });
+//# sourceMappingURL=arrivals.bundle.js.map
