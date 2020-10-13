@@ -6,7 +6,7 @@
 /*}*/
 
 #displays {
-    background: url('../img/bkgd.png');
+    background: url('../img/bkgd.png') no-repeat;
 }
 #home_link_rollover{
     float:left;
