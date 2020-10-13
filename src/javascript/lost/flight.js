@@ -1,5 +1,5 @@
 class Flight {
-    constructor(four_countries, four_countries_indexes, poemLines, uniqueCharacters) {
+    constructor(poemLines, uniqueCharacters, four_countries, four_countries_indexes) {
         this.four_countries = four_countries;
         this.four_countries_indexes = four_countries_indexes;
 

@@ -34,7 +34,7 @@ $(function(){
     flightPlan.setUpFlightPlan();
 
     // display initial flight plan
-    flightPlan.displayFlightPlan();
+    // flightPlan.displayFlightPlan();
 
     // flashing colons
     anime({

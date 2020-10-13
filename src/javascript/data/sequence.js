@@ -1,10 +1,11 @@
 
 const language_sequence = [
-    "German"            ,           // 0: 1 and 2
-    "Latvia"            ,           // 1: 3 and 4
-    "Hungarian"         ,           // 2: 5 and 6
-    "Welsh"             ,           // 3: 7 and 8
-    "Polish"            ,           // 4: 9 and 10
+//    "English"           ,         // 0: *0*
+    "German"            ,           // 1: 1 and *2*
+    "Latvia"            ,           // 2: 3 and *4*
+    "Hungarian"         ,           // 3: 5 and *6*
+    "Welsh"             ,           // 4: 7 and *8*
+    "Polish"            ,           // 5: 9 and *10*
     "Danish"            ,
     "Scottish"          , /* Gaelic */
     "Slovene"           ,

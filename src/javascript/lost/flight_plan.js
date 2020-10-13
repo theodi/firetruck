@@ -6,7 +6,6 @@ moment().format();
 import language_sequence from '../data/sequence';
 import translations from '../data/translations';
 import Flight from './flight';
-import country_codes from "../data/country_codes";
 
 /**
  * Flight Plan (Lost)
@@ -27,39 +26,17 @@ const FOURTH_VERSE      = 3;
 const FOURTH_VERSE_END  = 4;
 const ENDED             = 4;
 
-const flightCodes = "BREXITDISCOMBOBULATION";
-let flightCodeIndex = 0;
 let updating = false;
-let poem_lines = [];
 
 class FlightPlan {
     constructor(p5DisplaysArea) {
-        this.flight = null;//new Flight();
+        this.loadingFlight = null;
+        this.clickToStartFlight = null;
+        this.flight = null;
         this.state = PRE_VERSES;
         this.displaysArea = p5DisplaysArea;
     }
 
-    /*
-    addFlight(flight, index) {
-        this.flightsByIndex[index] = flight;
-        this.flightsByCountryIndex[flight.country] = index;
-
-        let flightTransferDate = flight.getTransferDate();
-        if (moment(this.lastTransferDate).isBefore(flightTransferDate)) {
-            this.lastTransferDate = flightTransferDate;
-        }
-        if (this.firstCountry === "") {
-            this.firstCountry = flight.country;
-        }
-        if (this.lastIndex < index) {
-            this.lastIndex = index;
-        }
-    }
-
-    getFlight(index) {
-        return this.flightsByIndex[index];
-    }
-*/
     getState() {
         return this.state;
     }
@@ -68,70 +45,59 @@ class FlightPlan {
         this.state = value;
     }
 
-
-/*
-    getFirstArrivalIndex() {
-        return this.flightsByCountryIndex[this.firstCountry];
-    }
-
-    getLastIndex() {
-        return this.lastIndex;
-    }
-
-    getLastTransferDate() {
-        return this.lastTransferDate;
-    }
-
-    setFirstCountry(value) {
-        this.firstCountry = value;
-    }
-
-    setFlightNextDate(value, index) {
-        this.flightsByIndex[index].setNextDate(value);
-    }
-
-    setFlightTransferDate(value, index) {
-        this.flightsByIndex[index].setTransferDate(value);
-        if (this.lastTransferDate < value) {
-            this.lastTransferDate = value;
-        }
-    }*/
-
     setUpFlightPlan() {
 
         // get the names of the four countries
-        let four_countries = selection(language_sequence, 4);
-        console.log(four_countries);
+        let sequence = language_sequence;
+        sequence.unshift("English");
+
+        let four_countries = selection(sequence, 4);
 
         // get the translation indexes for the four countries, from the country_codes
         let four_countries_indexes = [0, 0, 0, 0];
         for (let j = 0; j < four_countries.length; j++) {
-            console.log(language_sequence.indexOf(four_countries[j]));
-            four_countries_indexes[j] = language_sequence.indexOf(four_countries[j])
+            four_countries_indexes[j] = sequence.indexOf(four_countries[j])
         }
-        console.log(four_countries_indexes);
 
         // original English - translations [0][0], [1][0]
         // German             translations [[1
         let translationIndex = 0;
         let poemLines = [];
 
-        // i = 0 is just the language
+        // i = 0 is just the language for reference in the translations file
         for (let i = 1; i < translations.length; i++) {
-            if (i < 5)              { translationIndex = (four_countries_indexes[0] + 1) * 2; }
-            if (i >= 5 && i < 9)    { translationIndex = (four_countries_indexes[1] + 1) * 2; }
-            if (i >= 9 && i < 13)   { translationIndex = (four_countries_indexes[2] + 1) * 2; }
-            if (i >= 13 && i < 17)  { translationIndex = (four_countries_indexes[3] + 1) * 2; }
-            console.log(translationIndex);
-
+            if (i < 5)              { translationIndex = four_countries_indexes[0] * 2; }
+            if (i >= 5 && i < 9)    { translationIndex = four_countries_indexes[1] * 2; }
+            if (i >= 9 && i < 13)   { translationIndex = four_countries_indexes[2] * 2; }
+            if (i >= 13 && i < 17)  { translationIndex = four_countries_indexes[3] * 2; }
             poemLines.push(translations[i][translationIndex]);
         }
-        console.log(poemLines);
 
         let uniqueChars = this.getUniqueChars(poemLines);
         this.flight = new Flight(
+            poemLines,
+            uniqueChars,
             four_countries,
             four_countries_indexes,
+        );
+
+        poemLines = [
+            "","","",
+            "                    Loading......",
+            "","","","","","","","","","","","",
+        ];
+        uniqueChars = this.getUniqueChars(poemLines);
+        this.loadingFlight = new Flight(
+            poemLines,
+            uniqueChars
+        );
+        poemLines = [
+            "","","",
+            "                    Click or tap to start ...",
+            "","","","","","","","","","","","",
+        ];
+        uniqueChars = this.getUniqueChars(poemLines);
+        this.clickToStartFlight = new Flight(
             poemLines,
             uniqueChars,
         );
@@ -146,57 +112,17 @@ class FlightPlan {
             switch (this.getState()) {
                 case PRE_VERSES:
                     // set up initial character set to be used for first language
-                    this.displaysArea.updateCharacterSet(this.flight);
+                    this.displaysArea.updateCharacterSet(this.loadingFlight);
                     this.setState(START);
                     break;
                 case START:
-                    // set landing in early
-//                    this.landingInLanguage(momentNow, arrivals[0].getNextDate(), arrivals[0].country);
 
-//                    if (now > arrivals[0].getNextDate()) {
-//                        this.setState(ARRIVED);
-//                    }
+                   // if (now > arrivals[0].getNextDate()) {
+                   //     this.setState(ARRIVED);
+                   // }
 
                     break;
-/*                case ARRIVED:
-                    landing_updated = false;
 
-                    // show poem translation to language
-                    this.updatePoemLines(false);
-
-                    // then change state
-                    this.setState(ARRIVED_SHOWING);
-                    break;
-                case ARRIVED_SHOWING:
-                    this.landingInLanguage(momentNow, transferTime, 'English');
-
-                    // see if we've got to transfer date
-                    if (now > transferTime) {
-                        this.setState(TRANSFER);
-                    }
-                    break;
-                case TRANSFER:
-                    landing_updated = false;
-                    // show poem translation back to English
-                    this.updatePoemLines(true);
-                    this.setState(TRANSFER_SHOWING);
-                    break;
-                case TRANSFER_SHOWING:
-                    this.landingInLanguage(momentNow, nextDateTime, arrivals[1].country);
-
-                    if (now > nextDateTime) {
-                        // if second plane has arrived, hide transfer, and update plane times
-                        flightCodeIndex += 2;
-                        if (flightCodeIndex >= flightCodes.length) {
-                            flightCodeIndex = 0;
-                        }
-                        this.setFirstCountry(arrivals[1].country);
-                        this.setState(ARRIVED);
-                        this.displayFlightPlan();
-                    }
-                    break;
-
- */
             }
             updating = false;
         }
@@ -249,23 +175,6 @@ class FlightPlan {
         //     $('#capital_' + arrival_number).text(arrival.capital);
         // }
     }
-
-
-
-    /*
-    updatePoemLines(translation) {
-        let firstArrivalIndex = this.getFirstArrivalIndex();
-        let arrival = this.getFlight(firstArrivalIndex);
-
-        if (translation) {
-            poem_lines = arrival.getPoemLinesTranslated();
-        } else {
-            poem_lines = arrival.getPoemLines();
-        }
-        this.updateCharacterSet(arrival.getUniqueCharacters(translation), translation, arrival.country);
-    }
-
-     */
 
     getUniqueCharsArray(lineOfChars) {
         return lineOfChars.split('').filter(function (item, i, ar) {
