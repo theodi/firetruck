@@ -27,12 +27,12 @@ let displays_sketch = function (p) {
     let fireTruckCharacters = [];
     let translate = [];
 //    let currentTranslation = 1;
-    let currentCountry = "";
+//    let currentCountry = "";
     let timing = 150,
         min_timing = 15,
         max_timing = 250,
         threshold = 100;
-
+    let currentFlight = null;//"";
 
     p.preload = function() {
         // Ensure the .ttf or .otf font stored in the assets directory
@@ -104,17 +104,17 @@ let displays_sketch = function (p) {
                         offscreenCanvas.rect(x, y, charWidth, charHeight, 2);
                         offscreenCanvas.fill(248, 225, 6);
 
-                        if (currentCountry === 'Greek' || currentCountry === 'Maltese') {
-                            offscreenCanvas.textFont(arial_font);
-                            offscreenCanvas.textSize(arial_fontsize);
-                            // Draw the letter to the offscreen graphics
-                            offscreenCanvas.text(letter, x + 4, y );
-                        } else {
+                        // if (currentCountry === 'Greek' || currentCountry === 'Maltese') {
+                        //     offscreenCanvas.textFont(arial_font);
+                        //     offscreenCanvas.textSize(arial_fontsize);
+                        //     // Draw the letter to the offscreen graphics
+                        //     offscreenCanvas.text(letter, x + 4, y );
+                        // } else {
                             offscreenCanvas.textFont(font);
                             offscreenCanvas.textSize(fontsize);
                             // Draw the letter to the offscreen graphics
                             offscreenCanvas.text(letter, x + 5, y + 3);
-                        }
+                        // }
 
                         // console.log(currentCountry, letter);
                         // store position of letter
@@ -138,6 +138,7 @@ let displays_sketch = function (p) {
                 fireTruckCharacters[i] = [];
             }
 
+            // blank row?
             if (i === 4 || i === 9 || i === 14) {
                 // i = i - 1;
             } else {
@@ -151,7 +152,8 @@ let displays_sketch = function (p) {
                 if (i > 14 && i < numRows) {
                     rowNumber = rowNumber - 3;
                 }
-                lineTranslations = translations[rowNumber + 1];
+                lineTranslations = currentFlight.poemLines[rowNumber];
+                //translations[rowNumber + 1];
             }
 
             for (let j = 0; j < numCols; j++) {
@@ -162,11 +164,12 @@ let displays_sketch = function (p) {
                 let charIndexToDraw = j;
                 let testinginging = " ";
                 if (lineTranslations !== undefined) {
-
-                    if (currentTranslation >= lineTranslations.length || j >= lineTranslations[currentTranslation].length) {
+//currentTranslation >= lineTranslations.length || [currentTranslation]
+                    if (j >= lineTranslations.length) {
                         testinginging = " ";
                     } else {
-                        testinginging = lineTranslations[currentTranslation][charIndexToDraw];
+                        testinginging = lineTranslations[charIndexToDraw];
+//                        testinginging = lineTranslations[currentTranslation][charIndexToDraw];
                     }
                     if (testinginging !== 'ß') {
                         testinginging = testinginging.toUpperCase();
@@ -245,12 +248,14 @@ let displays_sketch = function (p) {
         }
     };
 
-    p.updateCharacterSet = function (uc, ct, cc) {
-        uniqueCharString = uc;
+    p.updateCharacterSet = function (uf) {
+        uniqueCharString = uf.getUniqueCharacters();
         numChars = 0;
         updateOffscreenBuffer = true;
-        currentTranslation = ct;
-        currentCountry = cc;
+        currentFlight = uf;
+//        currentTranslation = ct;
+//         currentCountry = uf.getCOuntr8i;/
+        // flight has four_countries
     };
 
     function getScreenY (row) {

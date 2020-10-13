@@ -1,9 +1,12 @@
+import selection from "../utils";
+
 let moment = require('moment');
 moment().format();
 
-import country_codes from '../data/country_codes';
+import language_sequence from '../data/sequence';
 import translations from '../data/translations';
 import Flight from './flight';
+import country_codes from "../data/country_codes";
 
 /**
  * Flight Plan (Lost)
@@ -31,15 +34,12 @@ let poem_lines = [];
 
 class FlightPlan {
     constructor(p5DisplaysArea) {
-        this.flightsByIndex = [];
-        this.flightsByCountryIndex = [];
-        this.firstCountry = "";
-        this.lastTransferDate = new Date();
-        this.state = PRE_START;
-        this.lastIndex = 0;
+        this.flight = null;//new Flight();
+        this.state = PRE_VERSES;
         this.displaysArea = p5DisplaysArea;
     }
 
+    /*
     addFlight(flight, index) {
         this.flightsByIndex[index] = flight;
         this.flightsByCountryIndex[flight.country] = index;
@@ -59,7 +59,7 @@ class FlightPlan {
     getFlight(index) {
         return this.flightsByIndex[index];
     }
-
+*/
     getState() {
         return this.state;
     }
@@ -98,128 +98,67 @@ class FlightPlan {
     }*/
 
     setUpFlightPlan() {
-        let now = moment();                 // 12:01:23
-        let seconds = now.seconds();        // 23
-        now.add(1, 'm');        // 12:02:23
 
-        // zero seconds
-        now.subtract(seconds, 's');     // 12:02:00
+        // get the names of the four countries
+        let four_countries = selection(language_sequence, 4);
+        console.log(four_countries);
 
-        // create new 'next' Date object
-        let next = moment(now);             // 12:02:00
-
-        // top row - already landed, and transfer (in progress)
-        let alreadyLanded = moment(now);    // 12:02:00
-        let alreadyLandedTransfer = moment(now);    // 12:02:00
-
-        // get initial transfer time
-        now.add(minutesPerLanguage, 'm');                           // 12:03:00
-        alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');    // 12:01:00
-        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:01:00
-        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
-
-        // create new 'transfer' object
-        let transfer = moment(now);                                 // 12:03:00
-
-        // we ignore zero translation - the original
-        let translationIndex = 1;
-        let lastCountryIndex = 49;
-
-        // set up times in initial flight plan
-        for (let country in country_codes) {
-            let poemLines = [];
-            let poemLinesTranslated = [];
-            let randomThreeDigitNumber = Math.floor(Math.random() * (999 - 100 + 1) + 100);
-            for (let i = 0; i < translations.length; i++) {
-                poemLines.push(translations[i][translationIndex]);
-                poemLinesTranslated.push(translations[i][translationIndex + 1]);
-            }
-
-            let uniqueChars = this.getUniqueChars(poemLines);
-            let uniqueCharsEnglish = this.getUniqueChars(poemLinesTranslated);
-
-            let nextDate = moment(next);            // 12:02:00
-            let transferDate = moment(transfer);    // 12:03:00
-
-            // only use already landed for top row (last country in index)
-            if (translationIndex === lastCountryIndex) {
-                nextDate = moment(alreadyLanded);               // 12:00:00
-                transferDate = moment(alreadyLandedTransfer);   // 12:01:00
-            }
-
-            let flightIndex = (translationIndex - 1) / 2;
-            this.addFlight(new Flight(
-                country,
-                country_codes[country]["code"],
-                randomThreeDigitNumber,
-                country_codes[country]["capital"],
-                nextDate,
-                transferDate,
-                poemLines,
-                poemLinesTranslated,
-                flightIndex,
-                uniqueChars,
-                uniqueCharsEnglish
-            ), flightIndex);
-
-            next.add((minutesPerLanguage * 2), 'm');          // 12:04:00
-            transfer.add((minutesPerLanguage * 2), 'm');      // 12:05:00
-            translationIndex += 2;
+        // get the translation indexes for the four countries, from the country_codes
+        let four_countries_indexes = [0, 0, 0, 0];
+        for (let j = 0; j < four_countries.length; j++) {
+            console.log(language_sequence.indexOf(four_countries[j]));
+            four_countries_indexes[j] = language_sequence.indexOf(four_countries[j])
         }
+        console.log(four_countries_indexes);
 
-        setInterval(
-            this.updateFlightPlan.bind(this),
-            1000
+        // original English - translations [0][0], [1][0]
+        // German             translations [[1
+        let translationIndex = 0;
+        let poemLines = [];
+
+        // i = 0 is just the language
+        for (let i = 1; i < translations.length; i++) {
+            if (i < 5)              { translationIndex = (four_countries_indexes[0] + 1) * 2; }
+            if (i >= 5 && i < 9)    { translationIndex = (four_countries_indexes[1] + 1) * 2; }
+            if (i >= 9 && i < 13)   { translationIndex = (four_countries_indexes[2] + 1) * 2; }
+            if (i >= 13 && i < 17)  { translationIndex = (four_countries_indexes[3] + 1) * 2; }
+            console.log(translationIndex);
+
+            poemLines.push(translations[i][translationIndex]);
+        }
+        console.log(poemLines);
+
+        let uniqueChars = this.getUniqueChars(poemLines);
+        this.flight = new Flight(
+            four_countries,
+            four_countries_indexes,
+            poemLines,
+            uniqueChars,
         );
-
     }
 
-    getNextThreeArrivals() {
-        let firstArrivalIndex = this.getFirstArrivalIndex();
-        let arrivals = [];
-        let lastIndex = this.getLastIndex() + 1; // + 1 for modulus-ing
-        arrivals.push(this.getFlight(firstArrivalIndex));
-        arrivals.push(this.getFlight((firstArrivalIndex + 1) % lastIndex));
-        arrivals.push(this.getFlight((firstArrivalIndex + 2) % lastIndex));
-        return arrivals;
-    }
-
-    getThreeArrivals() {
-        let firstArrivalIndex = this.getFirstArrivalIndex();
-        let arrivals = [];
-        let lastIndex = this.getLastIndex() + 1; // + 1 for modulus-ing
-        arrivals.push(this.getFlight((firstArrivalIndex - 1 + lastIndex) % lastIndex));
-        arrivals.push(this.getFlight(firstArrivalIndex));
-        arrivals.push(this.getFlight((firstArrivalIndex + 1) % lastIndex));
-        return arrivals;
-    }
 
     updateFlightPlan() {
         // main loop
         if (updating === false) {
             updating = true;
-            let arrivals = this.getNextThreeArrivals();
-            let now = new Date();
-            let momentNow = moment(now);
-            let transferTime = arrivals[0].getTransferDate();
-            let nextDateTime = arrivals[1].getNextDate();
 
             switch (this.getState()) {
-                case PRE_START:
+                case PRE_VERSES:
                     // set up initial character set to be used for first language
-                    this.updateCharacterSet(arrivals[0].getUniqueCharacters(), false, arrivals[0].country);
+                    this.displaysArea.updateCharacterSet(this.flight);
                     this.setState(START);
                     break;
                 case START:
                     // set landing in early
-                    this.landingInLanguage(momentNow, arrivals[0].getNextDate(), arrivals[0].country);
+//                    this.landingInLanguage(momentNow, arrivals[0].getNextDate(), arrivals[0].country);
 
-                    if (now > arrivals[0].getNextDate()) {
-                        this.setState(ARRIVED);
-                    }
+//                    if (now > arrivals[0].getNextDate()) {
+//                        this.setState(ARRIVED);
+//                    }
 
                     break;
-                case ARRIVED:
+/*                case ARRIVED:
                     landing_updated = false;
 
                     // show poem translation to language
@@ -256,95 +195,64 @@ class FlightPlan {
                         this.displayFlightPlan();
                     }
                     break;
+
+ */
             }
             updating = false;
         }
     }
 
-    updateCharacterSet(characterSet, translation, language) {
-        let arrivalIndex = this.getFirstArrivalIndex();
-        let currentTranslation = (arrivalIndex * 2) + 1;
-        if (translation) {
-            currentTranslation = currentTranslation + 1
-        }
-        this.displaysArea.updateCharacterSet(characterSet, currentTranslation, language);
-    }
-
-    landingInLanguage(momentNow, nextDateTime, country) {
-        let momentNextDateTime = moment(nextDateTime);
-
-        if (momentNow > momentNextDateTime - landing_prewarn_milliseconds && !landing_updated) {
-            let arrivalHour = momentNextDateTime.hours();
-            let arrivalMinutes = momentNextDateTime.minutes();
-            if (arrivalHour < 10) {
-                arrivalHour = "0" + arrivalHour;
-            }
-
-            if (arrivalMinutes < 10) {
-                arrivalMinutes = "0" + arrivalMinutes;
-            }
-            let landing;
-            if (country === 'English') {
-                landing = 'Arriving in ';
-            } else {
-                landing = 'Landing in ';
-            }
-
-            $('#landing').html(landing + ' <span id="landing_language"></span> at <span id="landing_time"></span>');
-            $('#landing_language').text(country);
-            $('#landing_time').text(arrivalHour + ":" + arrivalMinutes);
-            landing_updated = true;
-        }
-
-    }
 
     displayFlightPlan() {
-        let arrivals = this.getThreeArrivals();
-        for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
-            let arrival = arrivals[arrival_number - 1];
-            // clone top arrival time for calculations
-            let topArrivalTime = moment(arrivals[0].getNextDate());         // 12:01
-            let arrivalTime = moment(arrival.getNextDate());                // 12:01        12:03       12:05
-            let arrivalHour = arrivalTime.hours();
-            let arrivalMinutes = arrivalTime.minutes();
-
-            if (arrival_number > 1) {
-                topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
-            }
-
-            let topArrivalTimeDate = moment(topArrivalTime);
-
-            // set new arrival time if current arrival is before it should be
-            if (arrivalTime.isBefore(topArrivalTimeDate)) {
-                arrivalTime = topArrivalTimeDate;
-                arrivalHour = arrivalTime.hours();
-                arrivalMinutes = arrivalTime.minutes();
-                this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
-                arrival.setNextDate(arrivalTime);
-                topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
-                let transferTime = new Date(topArrivalTime);
-                this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
-                arrival.setTransferDate(transferTime);
-            }
-
-            if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
-            if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
-            $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
-
-            let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
-            $('#flight_' + arrival_number).text(
-                flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code
-            );
-
-            let $flagSpan = $('#flag_' + arrival_number);
-            $flagSpan.removeClass();
-            $flagSpan.addClass('flag-icon');
-            $flagSpan.addClass('flag-icon-' + arrival.country_code.toLowerCase());
-
-            $('#capital_' + arrival_number).text(arrival.capital);
-        }
+        // let arrivals = this.getThreeArrivals();
+        // for (let arrival_number = 1; arrival_number <= 3; arrival_number++) {
+        //     let arrival = arrivals[arrival_number - 1];
+        //     // clone top arrival time for calculations
+        //     let topArrivalTime = moment(arrivals[0].getNextDate());         // 12:01
+        //     let arrivalTime = moment(arrival.getNextDate());                // 12:01        12:03       12:05
+        //     let arrivalHour = arrivalTime.hours();
+        //     let arrivalMinutes = arrivalTime.minutes();
+        //
+        //     if (arrival_number > 1) {
+        //         topArrivalTime = topArrivalTime.add(minutesPerLanguage * 2 * (arrival_number - 1), 'minutes');
+        //     }
+        //
+        //     let topArrivalTimeDate = moment(topArrivalTime);
+        //
+        //     // set new arrival time if current arrival is before it should be
+        //     if (arrivalTime.isBefore(topArrivalTimeDate)) {
+        //         arrivalTime = topArrivalTimeDate;
+        //         arrivalHour = arrivalTime.hours();
+        //         arrivalMinutes = arrivalTime.minutes();
+        //         this.setFlightNextDate(arrivalTime, arrival.getFlightIndex());
+        //         arrival.setNextDate(arrivalTime);
+        //         topArrivalTime = topArrivalTime.add(minutesPerLanguage, 'minutes');
+        //         let transferTime = new Date(topArrivalTime);
+        //         this.setFlightTransferDate(transferTime, arrival.getFlightIndex());
+        //         arrival.setTransferDate(transferTime);
+        //     }
+        //
+        //     if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
+        //     if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
+        //     $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
+        //
+        //     let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
+        //     $('#flight_' + arrival_number).text(
+        //         flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code
+        //     );
+        //
+        //     let $flagSpan = $('#flag_' + arrival_number);
+        //     $flagSpan.removeClass();
+        //     $flagSpan.addClass('flag-icon');
+        //     $flagSpan.addClass('flag-icon-' + arrival.country_code.toLowerCase());
+        //
+        //     $('#capital_' + arrival_number).text(arrival.capital);
+        // }
     }
 
+
+
+    /*
     updatePoemLines(translation) {
         let firstArrivalIndex = this.getFirstArrivalIndex();
         let arrival = this.getFlight(firstArrivalIndex);
@@ -357,6 +265,7 @@ class FlightPlan {
         this.updateCharacterSet(arrival.getUniqueCharacters(translation), translation, arrival.country);
     }
 
+     */
 
     getUniqueCharsArray(lineOfChars) {
         return lineOfChars.split('').filter(function (item, i, ar) {

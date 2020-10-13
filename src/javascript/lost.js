@@ -1,9 +1,9 @@
-//import displays_sketch from './lost/display_sketch';
+import displays_sketch from './lost/display_sketch';
 import updateClock from "./clock";
-//import FlightPlan from './lost/flight_plan';
+import FlightPlan from './lost/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
-// const p5 = require('p5');
+const p5 = require('p5');
 
 $(function(){
     let $home_link = $('#home_link')
@@ -28,14 +28,14 @@ $(function(){
     $audio_off.on('mouseout', function()       {   $audio_off.show();     $audio_off_rollover.hide();      });
     $audio_off.on('mouseleave', function()     {   $audio_off.show();     $audio_off_rollover.hide();      });
 
-/*    let displaysArea = new p5(displays_sketch, 'displays');
+    let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);
 
     flightPlan.setUpFlightPlan();
 
     // display initial flight plan
     flightPlan.displayFlightPlan();
-*/
+
     // flashing colons
     anime({
         targets: 'span.clock_colon',
@@ -46,7 +46,7 @@ $(function(){
 
     // set the time and flight plan
     updateClock();
-//    flightPlan.updateFlightPlan();
+    flightPlan.updateFlightPlan();
 
     // update clock, once every half second
     setInterval(updateClock, 500);

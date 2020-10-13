@@ -1,12 +1,9 @@
 class Flight {
-    constructor(country, country_code, code, capital, nextDate, transferDate, poemLines, poemLinesTranslated, flightIndex, uniqueCharacters, uniqueCharactersEnglish) {
+    constructor(four_countries, four_countries_indexes, poemLines, uniqueCharacters) {
+        this.four_countries = four_countries;
+        this.four_countries_indexes = four_countries_indexes;
 
-        this.country = country;
-        this.country_code = country_code;
-        this.code = code;
-        this.capital = capital;
         this.poemLines = poemLines;
-        this.flightIndex = flightIndex;
         this.uniqueCharacters = uniqueCharacters;
     }
 
