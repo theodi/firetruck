@@ -1,6 +1,8 @@
 // Webpack uses this to work with directories
 var webpack = require('webpack');
 const path = require('path');
+const { SourceMapDevToolPlugin } = require("webpack");
+
 
 // This is the main configuration object.
 // Here you write different options and tell Webpack what to do
@@ -27,10 +29,18 @@ module.exports = {
             p5: 'p5',
             tone: 'tone',
         }),
+        new SourceMapDevToolPlugin({
+            filename: "[file].map"
+        }),
     ],
 
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                use: ['source-map-loader'],
+            },
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
