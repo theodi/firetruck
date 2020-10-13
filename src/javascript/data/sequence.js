@@ -1,13 +1,13 @@
 
 const language_sequence = [
-//    "English"           ,         // 0: *0*
+    "English"           ,         // 0: *0*
     "German"            ,           // 1: 1 and *2*
-    "Latvia"            ,           // 2: 3 and *4*
-    "Hungarian"         ,           // 3: 5 and *6*
+    "Latvian"           ,           // 2: 3 and *4*
+    "Hungarian"         ,           // 3: 5 and *6*     MISSING
     "Welsh"             ,           // 4: 7 and *8*
     "Polish"            ,           // 5: 9 and *10*
     "Danish"            ,
-    "Scottish"          , /* Gaelic */
+    "ScotsGaelic"       , /* Gaelic */
     "Slovene"           ,
     "Spanish"           , /* (Casillian) */
     "Finnish"           ,
@@ -20,7 +20,7 @@ const language_sequence = [
     "Bulgarian"         ,
     "Lithuanian"        ,
     "Romanian"          ,
-    "Irish"             ,
+    "IrishGaelic"       ,
     "Portuguese"        ,
     "Dutch"             ,
     "Italian"           ,

@@ -41,6 +41,7 @@ class FlightPlan {
         this.state = PRE_VERSES;
         this.displaysArea = p5DisplaysArea;
         this.audioTracks = [];
+        this.interval;
     }
 
     getState() {
@@ -54,15 +55,12 @@ class FlightPlan {
     setUpFlightPlan() {
 
         // get the names of the four countries
-        let sequence = language_sequence;
-        sequence.unshift("English");
-
-        let four_countries = selection(sequence, 4);
+        let four_countries = selection(language_sequence, 4);
 
         // get the translation indexes for the four countries, from the country_codes
         let four_countries_indexes = [0, 0, 0, 0];
         for (let j = 0; j < four_countries.length; j++) {
-            four_countries_indexes[j] = sequence.indexOf(four_countries[j])
+            four_countries_indexes[j] = language_sequence.indexOf(four_countries[j])
         }
 
         // original English - translations [0][0], [1][0]
@@ -107,9 +105,9 @@ class FlightPlan {
             poemLines,
             uniqueChars,
         );
-        setInterval(
+        this.interval = setInterval(
             this.updateFlightPlan.bind(this),
-            5000
+            3000
         );
 
     }
@@ -131,9 +129,14 @@ class FlightPlan {
                 case AUDIO_READY:
                     this.displaysArea.updateCharacterSet(this.clickToStartFlight);
                     this.setState(WAITING_FOR_CLICK);
-
+                    clearInterval(this.interval);
+                    this.interval = setInterval(
+                        this.updateFlightPlan.bind(this),
+                        1000
+                    );
                     break;
                 case WAITING_FOR_CLICK:
+                    // console.log(new Date());
                     break;
 
             }
