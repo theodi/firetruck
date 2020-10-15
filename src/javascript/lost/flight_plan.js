@@ -42,6 +42,12 @@ class FlightPlan {
         this.displaysArea = p5DisplaysArea;
         this.audioTracks = [];
         this.interval;
+        this.sampler;
+
+        this.backgroundPlayer;
+        this.versePlayers = [];
+        this.soundsLoaded = 0;
+//        this.verseAudioEvents = [];
     }
 
     getState() {
@@ -114,6 +120,7 @@ class FlightPlan {
 
 
     updateFlightPlan() {
+        let _this = this;
         // main loop
         if (updating === false) {
             updating = true;
@@ -125,19 +132,55 @@ class FlightPlan {
                     this.setState(LOADING_AUDIO);
                     break;
                 case LOADING_AUDIO:
+                    if (this.soundsLoaded === 5) {
+                        this.setState(AUDIO_READY);
+                    }
                     break;
                 case AUDIO_READY:
                     this.displaysArea.updateCharacterSet(this.clickToStartFlight);
-                    this.setState(WAITING_FOR_CLICK);
                     clearInterval(this.interval);
                     this.interval = setInterval(
                         this.updateFlightPlan.bind(this),
                         1000
                     );
+
+                    $('#displays').on('click', function() {
+                        Tone.start()
+                        console.log('audio is ready')
+                        _this.setState(FIRST_VERSE);
+                        _this.displaysArea.updateCharacterSet(_this.flight);
+                        console.log(_this);
+
+                        // verse one note
+//                        _this.sampler.triggerAttack("C1");
+
+                        /*
+                        let playNoteEvent = ((time, noteLetter) => {
+                            console.log("play note: " + noteLetter);
+                            _this.sampler.triggerAttack(noteLetter);
+                        });
+
+                        verseAudioEvents[0] = new Tone.ToneEvent(playNoteEvent, "C1");
+                        verseAudioEvents[1] = new Tone.ToneEvent(playNoteEvent, "C2");
+                        verseAudioEvents[2] = new Tone.ToneEvent(playNoteEvent, "C3");
+                        verseAudioEvents[3] = new Tone.ToneEvent(playNoteEvent, "C4");
+
+                        //start the note at the beginning of the Transport timeline
+                        note.start();
+                        Tone.Transport.start();
+                         */
+                    });
+
+                    this.setState(WAITING_FOR_CLICK);
+
                     break;
                 case WAITING_FOR_CLICK:
+
                     // console.log(new Date());
                     break;
+                case FIRST_VERSE:
+
+                    break
 
             }
             updating = false;
@@ -149,11 +192,20 @@ class FlightPlan {
 
     }
 
+
     loadAudio() {
 
         let fourCountries = this.flight?.getFourCountries();
+        this.backgroundPlayer = new Tone.Player({url:"/mp3/BMMFT_AUDIO_AirportAtmos.mp3", onload: () => this.soundsLoaded++ }).toDestination();
 
-        const sampler = new Tone.Sampler({
+        this.versePlayers[0] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[0] + "_V1.mp3", onload: () => this.soundsLoaded++ }).toDestination();
+        this.versePlayers[1] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[1] + "_V2.mp3", onload: () => this.soundsLoaded++ }).toDestination();
+        this.versePlayers[2] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[2] + "_V3.mp3", onload: () => this.soundsLoaded++ }).toDestination();
+        this.versePlayers[3] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[3] + "_V4.mp3", onload: () => this.soundsLoaded++ }).toDestination();
+
+
+/*
+        this.sampler = new Tone.Sampler({
             urls: {
                 A1: "BMMFT_AUDIO_AirportAtmos.mp3",
                 C1: "BMMFT_AUDIO_" + fourCountries[0] + "_V1.mp3",
@@ -164,9 +216,10 @@ class FlightPlan {
             baseUrl: "/mp3/",
             onload: () => {
                 this.setState(AUDIO_READY);
-//                sampler.triggerAttackRelease(["C1", "E1", "G1", "B1"], 0.5);
             }
         }).toDestination();
+
+ */
     }
 
     getUniqueCharsArray(lineOfChars) {
