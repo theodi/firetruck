@@ -239,6 +239,21 @@ class FlightPlan {
         $('.td_head img').removeClass('selected_head');
         $face.addClass('selected_head');
 
+        // yellow heads
+        for(let i = 1; i <=26; i++) {
+            let $headimg = $('#td_head_' + i + ' img');
+            let headsrc = $headimg.attr('src')
+            let yelindex = headsrc.indexOf('_yel');
+            if (yelindex !== -1) {
+                $headimg.attr('src', headsrc.substring(0, yelindex) + headsrc.substring(yelindex+4));
+            } else {
+                if (i === (country_indexes[verse] + 1)) {
+                    let dotindex = headsrc.indexOf('.');
+                    $headimg.attr('src', headsrc.substring(0, dotindex) + '_yel' + headsrc.substring(dotindex));
+                }
+            }
+        }
+
         $('.flag_svg').hide();
         let $flagSVG = $('#flag_svg_' + (country_indexes[verse] + 1));
         $flagSVG.show();
