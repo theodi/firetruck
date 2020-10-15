@@ -58,6 +58,7 @@ class FlightPlan {
         this.backgroundPlayer;
         this.versePlayers = [];
         this.soundsLoaded = 0;
+        this.muted = false;
     }
 
     getState() {
@@ -121,11 +122,15 @@ class FlightPlan {
             poemLines,
             uniqueChars,
         );
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
         this.interval = setInterval(
             this.updateFlightPlan.bind(this),
             3000
         );
-
+        this.soundsLoaded = 0;
+        this.setState(PRE_VERSES);
     }
 
 
@@ -151,7 +156,7 @@ class FlightPlan {
                     clearInterval(this.interval);
                     this.interval = setInterval(
                         this.updateFlightPlan.bind(this),
-                        1000
+                        500
                     );
 
                     $('#displays').on('click', function() {
@@ -165,6 +170,7 @@ class FlightPlan {
                 case WAITING_FOR_CLICK:
                     break;
                 case FIRST_VERSE:
+                    this.backgroundPlayer.start();
                     this.playVerseAndSelectCountryImages(FIRST);
                     this.setState(FIRST_VERSE_READING);
                     break;
@@ -226,11 +232,6 @@ class FlightPlan {
         }
     }
 
-
-    displayFlightPlan() {
-
-    }
-
     playVerseAndSelectCountryImages(verse) {
         let country_indexes = this.flight?.getFourCountriesIndexes();
         let fourCountries = this.flight?.getFourCountries();
@@ -251,29 +252,36 @@ class FlightPlan {
 
         let fourCountries = this.flight?.getFourCountries();
         this.backgroundPlayer = new Tone.Player({url:"/mp3/BMMFT_AUDIO_AirportAtmos.mp3", onload: () => this.soundsLoaded++ }).toDestination();
-
+        this.backgroundPlayer.loop = true;
         this.versePlayers[0] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[0] + "_V1.mp3", onload: () => this.soundsLoaded++ }).toDestination();
         this.versePlayers[1] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[1] + "_V2.mp3", onload: () => this.soundsLoaded++ }).toDestination();
         this.versePlayers[2] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[2] + "_V3.mp3", onload: () => this.soundsLoaded++ }).toDestination();
         this.versePlayers[3] = new Tone.Player({url: "/mp3/BMMFT_AUDIO_" + fourCountries[3] + "_V4.mp3", onload: () => this.soundsLoaded++ }).toDestination();
+    }
 
+    toggleAudioMute() {
+        this.muted = !this.muted;
+        console.log("muted = " + this.muted);
+        // if (this.muted) {
+        // .fadeOut();//
+        // }
+        this.backgroundPlayer.mute = this.muted;
+        this.versePlayers[0].mute = this.muted;
+        this.versePlayers[1].mute = this.muted;
+        this.versePlayers[2].mute = this.muted;
+        this.versePlayers[3].mute = this.muted;
+    }
 
-/*
-        this.sampler = new Tone.Sampler({
-            urls: {
-                A1: "BMMFT_AUDIO_AirportAtmos.mp3",
-                C1: "BMMFT_AUDIO_" + fourCountries[0] + "_V1.mp3",
-                D1: "BMMFT_AUDIO_" + fourCountries[1] + "_V2.mp3",
-                E1: "BMMFT_AUDIO_" + fourCountries[2] + "_V3.mp3",
-                F1: "BMMFT_AUDIO_" + fourCountries[3] + "_V4.mp3",
-            },
-            baseUrl: "/mp3/",
-            onload: () => {
-                this.setState(AUDIO_READY);
-            }
-        }).toDestination();
+    getMuted() {
+        return this.muted;
+    }
 
- */
+    stopAudio(){
+        this.backgroundPlayer.fadeOut();
+        this.versePlayers[0].fadeOut();
+        this.versePlayers[1].fadeOut();
+        this.versePlayers[2].fadeOut();
+        this.versePlayers[3].fadeOut();
     }
 
     getUniqueCharsArray(lineOfChars) {

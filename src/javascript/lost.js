@@ -3,8 +3,6 @@ import updateClock from "./clock";
 import FlightPlan from './lost/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
-import * as Tone from 'tone';
-
 const p5 = require('p5');
 
 $(function(){
@@ -14,58 +12,57 @@ $(function(){
     $home_link.on('mouseleave', function()  {   $('#eu_flag').show();     $('#home_link_rollover').hide();      });
 
     let $reload = $('#reload');
-    let $reload_svg = $('#reload_svg');
-    let $reload_rollover = $('#reload_svg_rollover');
     let $audio_switch = $('#audio_switch');
-    let $audio_on = $('#audio_on_svg');
-    let $audio_on_rollover = $('#audio_on_rollover_svg');
-    let $audio_off = $('#audio_off_svg');
-    let $audio_off_rollover = $('#audio_off_rollover_svg');
 
-    $reload.on('mouseover', function()      {   $reload_svg.hide();     $reload_rollover.show();      });
-    $reload.on('mouseout', function()       {   $reload_svg.show();     $reload_rollover.hide();      });
-    $reload.on('mouseleave', function()     {   $reload_svg.show();     $reload_rollover.hide();      });
-    $audio_switch.on('mouseover', function()      {
-        $audio_on.hide();
-        $audio_on_rollover.show();
-    });
-    $audio_switch.on('mouseout', function()       {
-        $audio_on.show();
-        $audio_on_rollover.hide();      });
-    $audio_switch.on('mouseleave', function()     {
-        $audio_on.show();
-        $audio_on_rollover.hide();
-    });
-    //$audio_off.on('mouseover', function()      {   $audio_off.hide();     $audio_off_rollover.show();      });
-    //$audio_off.on('mouseout', function()       {   $audio_off.show();     $audio_off_rollover.hide();      });
-    //$audio_off.on('mouseleave', function()     {   $audio_off.show();     $audio_off_rollover.hide();      });
+    let animateReloadOver = function()      {
+        anime({ targets: '#reload_path', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+    };
+    let animateReloadOut = function()      {
+        anime({ targets: '#reload_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+    }
+
+    $reload.on('mouseover', animateReloadOver);
+    $reload.on('mouseout', animateReloadOut);
+
+    let animateAudioOver = function()      {
+        let muted = flightPlan.getMuted();
+        anime({ targets: '#audio_path_1', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
+        if (!muted) {
+            anime({ targets: '#audio_path_2', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
+            anime({ targets: '#audio_path_3', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
+        }
+    }
+    let animateAudioOut = function()      {
+        anime({ targets: '#audio_path_1', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
+        if (!muted) {
+            anime({targets: '#audio_path_2', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250});
+            anime({targets: '#audio_path_3', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250});
+        }
+    }
+
+    $audio_switch.on('mouseover', animateAudioOver);
+    $audio_switch.on('mouseout', animateAudioOut);
 
     let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);
 
     flightPlan.setUpFlightPlan();
     flightPlan.loadAudio();
-
-    //attach a click listener to a play button
-    /*
-    document.querySelector('button')?.addEventListener('click', async () => {
-        await Tone.start()
-        console.log('audio is ready')
-
-        const sampler = new Tone.Sampler({
-            urls: {
-                A1: "A1.mp3",
-                A2: "A2.mp3",
-            },
-            baseUrl: "https://tonejs.github.io/audio/casio/",
-            onload: () => {
-                sampler.triggerAttackRelease(["C1", "E1", "G1", "B1"], 0.5);
-            }
-        }).toDestination();
-    })*/
-
-    // display initial flight plan
-    // flightPlan.displayFlightPlan();
+    $reload.on('click', function()          {
+        flightPlan.stopAudio();//reset();
+        flightPlan.setUpFlightPlan();//reset();
+    });
+    $audio_switch.on('click', function() {
+        flightPlan.toggleAudioMute();
+        let muted = flightPlan.getMuted();
+        if (muted) {
+            anime({ targets: '#audio_path_2', fill: ['#f8e106', '#000'], easing: 'easeInOutSine', duration: 250   });
+            anime({ targets: '#audio_path_3', fill: ['#f8e106', '#000'], easing: 'easeInOutSine', duration: 250   });
+        } else {
+            anime({ targets: '#audio_path_2', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
+            anime({ targets: '#audio_path_3', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
+        }
+    })
 
     // flashing colons
     anime({

@@ -1,12 +1,7 @@
-/*body {*/
-/*    background: url( "../img/lost_bkgd.png");*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: 1920px 1080px;*/
-/*    background-color: #111111;*/
-/*}*/
 
 #displays {
     background: url('../img/bkgd.png') no-repeat;
+    width: 1890px;
 }
 #home_link_rollover{
     float:left;
@@ -80,14 +75,9 @@
 }
 #reload, #audio_switch {
     float: left;
-    width: 100px;
+    width: 85px;
+    margin: 7px;
 }
-
-#reload_svg, #reload_svg_rollover, #audio_on_svg, #audio_on_rollover_svg, #audio_off_svg, #audio_off_rollover_svg {
-    width:85px;
+#reload:focus, #audio_switch:focus {
+    outline: 0;
 }
-#reload_svg_rollover    {     display: none;                        }
-#audio_on_svg           {     margin-left: 12px;                    }
-#audio_on_rollover_svg  {     margin-left: 12px; display: none;     }
-#audio_off_svg          {     margin-left: 12px; display: none;     }
-#audio_off_rollover_svg {     margin-left: 12px; display: none;     }
