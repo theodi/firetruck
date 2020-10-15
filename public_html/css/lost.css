@@ -78,6 +78,11 @@
 #arrivals_arrow_svg {
     width:45px;
 }
+#reload, #audio_switch {
+    float: left;
+    width: 100px;
+}
+
 #reload_svg, #reload_svg_rollover, #audio_on_svg, #audio_on_rollover_svg, #audio_off_svg, #audio_off_rollover_svg {
     width:85px;
 }

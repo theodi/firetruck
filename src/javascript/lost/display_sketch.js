@@ -1,8 +1,5 @@
 import FireTruckChar from '../fire_truck_char';
 
-const LOADING           = -1;
-const WAITING_FOR_CLICK = 0;
-const DISPLAY           = 1;
 
 let displays_sketch = function (p) {
     let offscreenCanvasYellow;
@@ -34,8 +31,6 @@ let displays_sketch = function (p) {
         threshold = 100;
     let currentFlight = null;
     let highlightedVerse = 0; // -1 means no highlighted verse
-    let audioLoaded = true;
-//    let display_state = LOADING;
 
     p.preload = function() {
         // Ensure the .ttf or .otf font stored in the assets directory
@@ -314,10 +309,6 @@ let displays_sketch = function (p) {
                 }
             }
         }
-    }
-
-    function setAudioLoaded() {
-        audioLoaded = true;
     }
 };
 
