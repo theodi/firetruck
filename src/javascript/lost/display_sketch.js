@@ -225,6 +225,10 @@ let displays_sketch = function (p) {
         currentFlight = uf;
     };
 
+    p.setHighlightedVerse = function(v) {
+        highlightedVerse = v;
+    }
+
     function getScreenY (row) {
         return (row * gapY) + marginY;
     }

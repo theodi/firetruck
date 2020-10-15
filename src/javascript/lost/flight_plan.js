@@ -21,15 +21,26 @@ const LOADING_AUDIO     = 0;
 const AUDIO_READY       = 1;
 const WAITING_FOR_CLICK = 2;
 
-const FIRST_VERSE       = 10;
-const FIRST_VERSE_END   = 11;
-const SECOND_VERSE      = 12;
-const SECOND_VERSE_END  = 13;
-const THIRD_VERSE       = 14;
-const THIRD_VERSE_END   = 15;
-const FOURTH_VERSE      = 16;
-const FOURTH_VERSE_END  = 17;
-const ENDED             = 18;
+const FIRST_VERSE           = 10;
+const FIRST_VERSE_READING   = 11;
+const FIRST_VERSE_END       = 12;
+const SECOND_VERSE          = 20;
+const SECOND_VERSE_READING  = 21;
+const SECOND_VERSE_END      = 22;
+const THIRD_VERSE           = 30;
+const THIRD_VERSE_READING   = 31;
+const THIRD_VERSE_END       = 32;
+const FOURTH_VERSE          = 40;
+const FOURTH_VERSE_READING  = 41;
+const FOURTH_VERSE_END      = 42;
+const ENDED                 = 50;
+
+// constance
+const FIRST = 0;
+const SECOND = 1;
+const THIRD = 2;
+const FOURTH = 3;
+
 
 let updating = false;
 
@@ -47,7 +58,6 @@ class FlightPlan {
         this.backgroundPlayer;
         this.versePlayers = [];
         this.soundsLoaded = 0;
-//        this.verseAudioEvents = [];
     }
 
     getState() {
@@ -146,42 +156,71 @@ class FlightPlan {
 
                     $('#displays').on('click', function() {
                         Tone.start()
-                        console.log('audio is ready')
-                        _this.setState(FIRST_VERSE);
                         _this.displaysArea.updateCharacterSet(_this.flight);
-                        console.log(_this);
-
-                        // verse one note
-//                        _this.sampler.triggerAttack("C1");
-
-                        /*
-                        let playNoteEvent = ((time, noteLetter) => {
-                            console.log("play note: " + noteLetter);
-                            _this.sampler.triggerAttack(noteLetter);
-                        });
-
-                        verseAudioEvents[0] = new Tone.ToneEvent(playNoteEvent, "C1");
-                        verseAudioEvents[1] = new Tone.ToneEvent(playNoteEvent, "C2");
-                        verseAudioEvents[2] = new Tone.ToneEvent(playNoteEvent, "C3");
-                        verseAudioEvents[3] = new Tone.ToneEvent(playNoteEvent, "C4");
-
-                        //start the note at the beginning of the Transport timeline
-                        note.start();
-                        Tone.Transport.start();
-                         */
+                        _this.setState(FIRST_VERSE);
                     });
 
                     this.setState(WAITING_FOR_CLICK);
-
                     break;
                 case WAITING_FOR_CLICK:
-
-                    // console.log(new Date());
                     break;
                 case FIRST_VERSE:
+                    this.playVerseAndSelectCountryImages(FIRST);
+                    this.setState(FIRST_VERSE_READING);
+                    break;
+                case FIRST_VERSE_READING:
+                    if (this.versePlayers[FIRST].state === 'stopped') {
+                        this.setState(FIRST_VERSE_END);
+                    }
+                    break;
+                case FIRST_VERSE_END:
+                    // remove yellow head while we know
+                    this.setState(SECOND_VERSE);
+                    break;
 
-                    break
+                case SECOND_VERSE:
+                    this.playVerseAndSelectCountryImages(SECOND);
+                    this.setState(SECOND_VERSE_READING);
+                    break;
+                case SECOND_VERSE_READING:
+                    if (this.versePlayers[SECOND].state === 'stopped') {
+                        this.setState(SECOND_VERSE_END);
+                    }
+                    break;
+                case SECOND_VERSE_END:
+                    // remove yellow head while we know
+                    this.setState(THIRD_VERSE);
+                    break;
 
+                case THIRD_VERSE:
+                    this.playVerseAndSelectCountryImages(THIRD);
+                    this.setState(THIRD_VERSE_READING);
+                    break;
+                case THIRD_VERSE_READING:
+                    if (this.versePlayers[THIRD].state === 'stopped') {
+                        this.setState(THIRD_VERSE_END);
+                    }
+                    break;
+                case THIRD_VERSE_END:
+                    this.setState(FOURTH_VERSE);
+                    break;
+
+                case FOURTH_VERSE:
+                    this.playVerseAndSelectCountryImages(FOURTH);
+                    this.setState(FOURTH_VERSE_READING);
+                    break;
+                case FOURTH_VERSE_READING:
+                    if (this.versePlayers[FOURTH].state === 'stopped') {
+                        this.setState(FOURTH_VERSE_END);
+                    }
+                    break;
+                case FOURTH_VERSE_END:
+                    // remove yellow head while we know
+                    this.setState(ENDED);
+                    break;
+
+                case ENDED:
+                    break;
             }
             updating = false;
         }
@@ -192,6 +231,21 @@ class FlightPlan {
 
     }
 
+    playVerseAndSelectCountryImages(verse) {
+        let country_indexes = this.flight?.getFourCountriesIndexes();
+        let fourCountries = this.flight?.getFourCountries();
+        let $face = $('#td_head_' + (country_indexes[verse] + 1) + ' img');
+        $('.td_head img').removeClass('selected_head');
+        $face.addClass('selected_head');
+
+        $('.flag_svg').hide();
+        let $flagSVG = $('#flag_svg_' + (country_indexes[verse] + 1));
+        $flagSVG.show();
+
+        $('#country_name').text(fourCountries[verse]).show();
+        this.versePlayers[verse].start();
+        this.displaysArea.setHighlightedVerse(verse);
+    }
 
     loadAudio() {
 
