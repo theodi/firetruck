@@ -33,6 +33,7 @@ $(function(){
         }
     }
     let animateAudioOut = function()      {
+        let muted = flightPlan.getMuted();
         anime({ targets: '#audio_path_1', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
         if (!muted) {
             anime({targets: '#audio_path_2', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250});
