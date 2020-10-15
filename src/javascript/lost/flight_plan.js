@@ -127,9 +127,12 @@ class FlightPlan {
         }
         this.interval = setInterval(
             this.updateFlightPlan.bind(this),
-            3000
+            5000
         );
+        this.displaysArea.setHighlightedVerse(0);
         this.soundsLoaded = 0;
+        this.setHeads(-1);
+        this.loadAudio();
         this.setState(PRE_VERSES);
     }
 
@@ -239,28 +242,33 @@ class FlightPlan {
         $('.td_head img').removeClass('selected_head');
         $face.addClass('selected_head');
 
-        // yellow heads
-        for(let i = 1; i <=26; i++) {
-            let $headimg = $('#td_head_' + i + ' img');
-            let headsrc = $headimg.attr('src')
-            let yelindex = headsrc.indexOf('_yel');
-            if (yelindex !== -1) {
-                $headimg.attr('src', headsrc.substring(0, yelindex) + headsrc.substring(yelindex+4));
-            } else {
-                if (i === (country_indexes[verse] + 1)) {
-                    let dotindex = headsrc.indexOf('.');
-                    $headimg.attr('src', headsrc.substring(0, dotindex) + '_yel' + headsrc.substring(dotindex));
-                }
-            }
-        }
+        this.setHeads((country_indexes[verse] + 1));
 
         $('.flag_svg').hide();
         let $flagSVG = $('#flag_svg_' + (country_indexes[verse] + 1));
         $flagSVG.show();
 
         $('#country_name').text(fourCountries[verse]).show();
+
         this.versePlayers[verse].start();
         this.displaysArea.setHighlightedVerse(verse);
+    }
+
+    setHeads(headNumber) {
+        // yellow heads
+        for(let i = 1; i <= 26; i++) {
+            let $headimg = $('#td_head_' + i + ' img');
+            let headsrc = $headimg.attr('src')
+            let yelindex = headsrc.indexOf('_yel');
+            if (yelindex !== -1) {
+                $headimg.attr('src', headsrc.substring(0, yelindex) + headsrc.substring(yelindex+4));
+            } else {
+                if (i === headNumber) {
+                    let dotindex = headsrc.indexOf('.');
+                    $headimg.attr('src', headsrc.substring(0, dotindex) + '_yel' + headsrc.substring(dotindex));
+                }
+            }
+        }
     }
 
     loadAudio() {
@@ -292,11 +300,11 @@ class FlightPlan {
     }
 
     stopAudio(){
-        this.backgroundPlayer.fadeOut();
-        this.versePlayers[0].fadeOut();
-        this.versePlayers[1].fadeOut();
-        this.versePlayers[2].fadeOut();
-        this.versePlayers[3].fadeOut();
+        this.backgroundPlayer.stop();
+        this.versePlayers[0].stop();
+        this.versePlayers[1].stop();
+        this.versePlayers[2].stop();
+        this.versePlayers[3].stop();
     }
 
     getUniqueCharsArray(lineOfChars) {

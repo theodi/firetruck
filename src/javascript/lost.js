@@ -48,10 +48,10 @@ $(function(){
     let flightPlan = new FlightPlan(displaysArea);
 
     flightPlan.setUpFlightPlan();
-    flightPlan.loadAudio();
+
     $reload.on('click', function()          {
-        flightPlan.stopAudio();//reset();
-        flightPlan.setUpFlightPlan();//reset();
+        flightPlan.stopAudio();
+        flightPlan.setUpFlightPlan();
     });
     $audio_switch.on('click', function() {
         flightPlan.toggleAudioMute();
