@@ -67,6 +67,11 @@
     padding: 20px;
     text-align: center
 }
+#flag {
+    width: 180px;
+    height: 180px;
+}
+
 #td_controls {
     padding-left: 18px;
 }
