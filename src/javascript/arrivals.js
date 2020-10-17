@@ -6,6 +6,19 @@ import anime from 'animejs/lib/anime.es.js';
 const p5 = require('p5');
 
 $(function(){
+    let $home = $('#home_span')
+
+    let animateHomeOver = function()      {
+        $('#eu_flag').hide();
+        $('#home_link_rollover').show();
+    };
+    let animateHomeOut = function()      {
+        $('#eu_flag').show();
+        $('#home_link_rollover').hide();
+    }
+
+    $home.on('mouseover', animateHomeOver);
+    $home.on('mouseout', animateHomeOut);
 
     let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);

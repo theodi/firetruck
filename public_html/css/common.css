@@ -24,14 +24,6 @@ thead{
     width:100%;
 }
 
-#eu_flag{
-    float:left;
-    margin-top: 16px;
-    margin-left: 20px;
-    margin-bottom:16px;
-    margin-right: 30px;
-    width:140px;
-}
 span#clock_time{
     font-family: 'PT Mono', monospace;
     font-weight: bold;
@@ -147,7 +139,15 @@ tbody td.td_time {
     height: 800px;
 }
 
-
+#eu_flag{
+    float:left;
+    margin-top: 16px;
+    margin-left: 20px;
+    margin-bottom:16px;
+    margin-right: 30px;
+    width:140px;
+    height: 96px;
+}
 #home_link {
     display: inline-block;
     position: relative;
@@ -161,4 +161,19 @@ tbody td.td_time {
 #home_link span object {
     position: relative;
     z-index: -1
+}
+
+#home_link_rollover{
+    float:left;
+    margin-top: 16px;
+    margin-left: 20px;
+    margin-bottom:16px;
+    margin-right: 30px;
+    width:140px;
+    height: 96px;
+    display: none;
+}
+
+#home_span {
+    height: 132px;
 }
