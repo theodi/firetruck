@@ -22,17 +22,21 @@
 .tr_head {
     height: 107px;
 }
+
 #td_head_1, #td_head_14{
     padding-left: 50px;
     width: 157px;
 }
+
 .td_head {
     width: 107px;
     height: 107px;
 }
+
 .head {
     border:8px black solid;
 }
+
 .selected_head {
     border:8px #F8E106 solid;
 }
@@ -48,16 +52,16 @@
     font-size: 32pt;
     float: left;
 }
-#arrivals_link:hover span {
-    color: #fff;
-}
+
 #td_arrivals_arrow {
     padding-left: 20px;
     vertical-align: top;
 }
+
 #arrivals_arrow_div {
     padding-top: 18px;
     margin-left: 150px;
+    width:45px;
 }
 
 #td_flag {
@@ -65,6 +69,7 @@
     padding: 20px;
     text-align: center
 }
+
 #flag {
     width: 180px;
     height: 180px;
@@ -73,14 +78,17 @@
 #td_controls {
     padding-left: 18px;
 }
+/*
 #arrivals_arrow_svg {
     width:45px;
 }
+*/
 #reload, #audio_switch {
     float: left;
     width: 85px;
     margin: 7px;
 }
+
 #reload:focus, #audio_switch:focus {
     outline: 0;
 }

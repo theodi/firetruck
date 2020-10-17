@@ -24,10 +24,15 @@ $(function(){
 
     let animateArrivalsOver = function()      {
         anime({ targets: '#arrivals_arrow_path', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+        anime({ targets: '#arrivals_text', color: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
     };
-    $arrivals_link.on('mouseover', function() {
+    let animateArrivalsOut = function()      {
+        anime({ targets: '#arrivals_arrow_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        anime({ targets: '#arrivals_text', color: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+    };
+    $arrivals_link.on('mouseover', animateArrivalsOver);
+    $arrivals_link.on('mouseout', animateArrivalsOut);
 
-    })
     let $reload = $('#reload');
     let $audio_switch = $('#audio_switch');
 
