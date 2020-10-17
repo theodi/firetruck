@@ -46,11 +46,18 @@
 #arrivals_text {
     color: #F8E106;
     font-size: 32pt;
+    float: left;
 }
-
+#arrivals_link:hover span {
+    color: #fff;
+}
 #td_arrivals_arrow {
     padding-left: 20px;
     vertical-align: top;
+}
+#arrivals_arrow_div {
+    padding-top: 18px;
+    margin-left: 150px;
 }
 
 #td_flag {

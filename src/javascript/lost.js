@@ -6,7 +6,7 @@ import anime from 'animejs/lib/anime.es.js';
 const p5 = require('p5');
 
 $(function(){
-    let $home = $('#home_span')
+    let $home = $('#home_span');
 
     let animateHomeOver = function()      {
         $('#eu_flag').hide();
@@ -20,6 +20,14 @@ $(function(){
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
 
+    let $arrivals_link = $('#arrivals_link');
+
+    let animateArrivalsOver = function()      {
+        anime({ targets: '#arrivals_arrow_path', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+    };
+    $arrivals_link.on('mouseover', function() {
+
+    })
     let $reload = $('#reload');
     let $audio_switch = $('#audio_switch');
 
