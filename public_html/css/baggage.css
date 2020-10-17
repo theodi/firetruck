@@ -1,0 +1,72 @@
+html, body {
+    height: 100%;
+}
+body {
+    background: url( "../img/baggage_bkgd.png");
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+    background-color: #111111;
+}
+.fifth_column {
+    width: 360px;
+    height: 680px;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 17px;
+}
+#col_1 {  position: absolute; left:0; }
+#col_2 {  position: absolute; left:380px; }
+#col_3 {  position: absolute; left:760px; }
+#col_4 {  position: absolute; left:1140px; }
+#col_5 {  position: absolute; left:1520px; }
+
+h1, h2, h3 {
+    font-family: 'PT Mono', monospace;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+    font-weight: lighter;
+    font-kerning: none;
+}
+h1#first_line {
+    line-height: 48px;
+    padding-bottom: 8px;
+}
+h1, h2 {
+    font-size: 32pt;
+    letter-spacing: 20px;
+}
+h3 {
+    font-size: 22pt;
+    letter-spacing: 6px;
+}
+.grey_column {
+    background-color: #333333;
+    font-family: 'PT Mono', monospace;
+    color: #F8E106;
+}
+.clear_column {
+    background-color: transparent;
+}
+#lost_luggage {
+    position: absolute;
+    top: 66px;
+    left: 1616px;
+    width: 208px;
+    background: #F8E106;
+    padding: 0px;
+}
+#lost_luggage:hover {
+    background: #FFFFFF;
+}
+
+#wrapper {
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+.footer {
+    height: 50px;
+    background: #F8E106;
+    color: #0a0a0a;
+}

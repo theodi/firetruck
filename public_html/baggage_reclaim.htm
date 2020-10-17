@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bring Me My Firetruck</title>
+  <title>Bring Me My Firetruck: Baggage Reclaim</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -18,73 +18,121 @@
   <link href="css/vendor/foundation.css" type="text/css" rel="stylesheet" />
   <link href="fonts/roboto-fontfacekit/web fonts/roboto_bold_macroman/stylesheet.css" type="text/css" rel="stylesheet" />
   <link href="css/baggage.css" type="text/css" rel="stylesheet">
-  <link href="css/common.css" type="text/css" rel="stylesheet">
-  <link href="css/flag-icon.css" type="text/css" rel="stylesheet">
+<!--  <link href="css/common.css" type="text/css" rel="stylesheet">-->
+<!--  <link href="css/flag-icon.css" type="text/css" rel="stylesheet">-->
 </head>
 
 <body>
-<header>
-  <table>
-    <thead>
-    <tr>
-      <th colspan="4">
-        <a href="index.htm" id="home_link"><span><object id="eu_flag" type="image/svg+xml" data="svg/eu_flag.svg">No SVG</object>
-        <span id="arrivals_title" class="roboto">Baggage Reclaim</span>
-        <object id="arrivals_svg" type="image/svg+xml" data="svg/arrivals.svg">No SVG</object>
-        </span></a>
-      </th>
-      <th colspan="2"><span id="clock_time" class="pt_mono"><span id="clock_hour"></span><span class="clock_colon"></span><span id="clock_minute"></span><span class="clock_colon"></span><span id="clock_second"></span></span></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr>
-      <td></td>
-      <!--        <td id="th_time" class="td_time flight_headers roboto">Time</td>-->
-      <!--        <td id="th_flight" class="flight_headers roboto">Flight</td>-->
-      <!--        <td id="th_from" class="flight_headers roboto">From</td>-->
-      <!--        <td id="th_arrived" class="flight_headers roboto">Remarks</td>-->
-      <!--        <td id="th_transfer" class="flight_headers roboto">Transfer</td>-->
-      <!--        <td id="th_onward" class="flight_headers roboto">Onward</td>-->
-    </tr>
-    <tr>
-      <!--        <td class="td_time pt_mono" id="time_1">11:19</td>-->
-      <!--        <td class="flight_number pt_mono" id="flight_1">BR 656</td>-->
-      <!--        <td class="roboto"><span id="flag_1" class="flag-icon flag-icon-es"></span> <span id="capital_1">Madrid</span></td>-->
-      <!--        <td class="roboto">Landed</td>-->
-      <!--        <td id="td_transfer" rowspan="3">-->
-      <!--          <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>-->
-      <!--          <object id="point_left_svg" type="image/svg+xml" data="svg/point_left.svg">No SVG</object><br />-->
-      <!--          <object id="point_right_svg" type="image/svg+xml" data="svg/point_right.svg">No SVG</object>-->
-      <!--        </td>-->
-      <!--        <td id="td_onward" class="roboto" rowspan="3"><a href="baggage_reclaim.htm">B</a> | <a href="lost_luggage.htm">L</a></td>-->
-      <!--      </tr>-->
-      <!--      <tr>-->
-      <!--        <td class="td_time pt_mono" id="time_2">11:24</td>-->
-      <!--        <td class="flight_number pt_mono" id="flight_2">EX 478</td>-->
-      <!--        <td class="roboto"><span id="flag_2" class="flag-icon flag-icon-de"></span> <span id="capital_2">Berlin</span></td>-->
-      <!--        <td class="red_text roboto"><span id="landing">Obtaining information</span></td>-->
-      <!--      </tr>-->
-      <!--      <tr>-->
-      <!--        <td class="td_time pt_mono" id="time_3">11:25</td>-->
-      <!--        <td class="flight_number pt_mono" id="flight_3">IT 537</td>-->
-      <!--        <td class="roboto"><span id="flag_3" class="flag-icon flag-icon-dk"></span> <span id="capital_3">Copenhagen</span></td>-->
-      <!--        <td class="roboto">On time</td>-->
-    </tr>
-    </tbody>
-  </table>
-</header>
-<section>
-  <div class="grid-container fluid">
-    <ul>
-      <li>Cases with flag ‘labels’ move along the conveyor belt, underneath the information screen. When flag is clicked or tapped the video of the participant from that country appears in the information screen and plays the native language poem followed by their English version.</li>
-      <li>A ticker tape runs along the bottom of the screen (nb: full screen or just the video in the information screen?) which constantly highlights incoming flights linked to the same live data in the Arrivals Board.</li>
-      <li>Design builds on style of Arrivals Board, using similar icons, same colour scheme and fonts.</li>
-    </ul>
-
-    <p><a href="arrivals_board.htm">Arrivals Board</a> | <a href="lost_luggage.htm">Lost Luggage</a></p>
+<section id="wrapper">
+  <div class="fifth_column clear_column" id="col_1">
+<!--    <div class="hamburger home_div_margins">-->
+<!--      <div class="bar1"></div>-->
+<!--      <div class="bar2"></div>-->
+<!--      <div class="bar3"></div>-->
+<!--    </div>-->
+<!--    <div id="hamenu">-->
+<!--      <a href="#about_mr_gee">About Mr Gee</a><br/><br/>-->
+<!--      <a href="#credits">Credits</a><br/><br/>-->
+<!--      <a href="http://culture.theodi.org/copythat" target="_blank">Copy That?</a><br/><br/>-->
+<!--    </div>-->
+<!--    <div id="home_div_margin_1" class="home_div_margins">-->
+<!--      William Blake's poem Jerusalem has been hailed as the unofficial English anthem, the defining narrative of-->
+<!--      this ‘green and pleasant land’. But, by subjecting Blake's mastery of language to the forces of Google-->
+<!--      Translator, which uses Artificial Intelligence to translate a chosen language into another, other tales of-->
+<!--      England begin to emerge. In Bring Me My Firetruck, poet Mr Gee explores the ‘soul of Brexit’ through-->
+<!--      combining Blake’s poem with the visual metaphor of an airport arrivals board-->
+<!--    </div>-->
   </div>
+  <div class="fifth_column clear_column" id="col_2">
+
+<!--    <div class="home_div_margins">-->
+<!--      As we stare at the board, incoming planes are landing from countries of the European Union, bringing with-->
+<!--      them the free movement of people, the free movement of language, and the free movement of interpretation. By-->
+<!--      translating the English poem through the 23 other official languages of the European Union and Welsh, Mr Gee-->
+<!--      reveals a rib-tickling series of new versions: ‘O Clouds unfold’ becomes ‘Get my bed’ and ‘Bring me my-->
+<!--      Chariot of fire!’ is transformed into the title of this new piece, ‘Bring Me My Fire Truck’. Old meanings-->
+<!--      deteriorate and new ideas emerge according to algorithmic assumptions and corruptions. The poem’s point of-->
+<!--      view shifts between the sinister, the banal, and the absurd, raising a few wry smiles along the way.-->
+<!--    </div>-->
+  </div>
+  <div class="fifth_column clear_column" id="col_3">
+<!--    <div class="home_div_margins">-->
+<!--      <h1 id="first_line">BRING</h1>-->
+<!--      <h1>ME<br/>MY<br/>FIRE<br/>TRUCK</h1>-->
+<!--      <h3>(the New Jerusalem?)</h3>-->
+<!--      <br/>-->
+<!--      <br/>-->
+<!--      <h2>MR GEE</h2>-->
+<!--    </div>-->
+  </div>
+  <div class="fifth_column clear_column" id="col_4"></div>
+  <div class="fifth_column clear_column" id="col_5"></div>
+  <div id="lost_luggage"><a href="lost_luggage.htm"><img src="img/baggage_lost_luggage.png" alt="Lost Luggage"></a></div>
+<!--  <div id="theodi"><a href="https://theodi.org" target="_blank">The ODI</a></div>-->
 </section>
+<footer class="footer">bottom bar</footer>
+<!--<header>-->
+<!--  <table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th colspan="4">-->
+<!--        <a href="index.htm" id="home_link"><span><object id="eu_flag" type="image/svg+xml" data="svg/eu_flag.svg">No SVG</object>-->
+<!--        <span id="arrivals_title" class="roboto">Baggage Reclaim</span>-->
+<!--        <object id="arrivals_svg" type="image/svg+xml" data="svg/arrivals.svg">No SVG</object>-->
+<!--        </span></a>-->
+<!--      </th>-->
+<!--      <th colspan="2"><span id="clock_time" class="pt_mono"><span id="clock_hour"></span><span class="clock_colon"></span><span id="clock_minute"></span><span class="clock_colon"></span><span id="clock_second"></span></span></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--      <td></td>-->
+<!--      &lt;!&ndash;        <td id="th_time" class="td_time flight_headers roboto">Time</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="th_flight" class="flight_headers roboto">Flight</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="th_from" class="flight_headers roboto">From</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="th_arrived" class="flight_headers roboto">Remarks</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="th_transfer" class="flight_headers roboto">Transfer</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="th_onward" class="flight_headers roboto">Onward</td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      &lt;!&ndash;        <td class="td_time pt_mono" id="time_1">11:19</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="flight_number pt_mono" id="flight_1">BR 656</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="roboto"><span id="flag_1" class="flag-icon flag-icon-es"></span> <span id="capital_1">Madrid</span></td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="roboto">Landed</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="td_transfer" rowspan="3">&ndash;&gt;-->
+<!--      &lt;!&ndash;          <object id="transfer_svg" type="image/svg+xml" data="svg/transfer.svg">No SVG</object>&ndash;&gt;-->
+<!--      &lt;!&ndash;          <object id="point_left_svg" type="image/svg+xml" data="svg/point_left.svg">No SVG</object><br />&ndash;&gt;-->
+<!--      &lt;!&ndash;          <object id="point_right_svg" type="image/svg+xml" data="svg/point_right.svg">No SVG</object>&ndash;&gt;-->
+<!--      &lt;!&ndash;        </td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td id="td_onward" class="roboto" rowspan="3"><a href="baggage_reclaim.htm">B</a> | <a href="lost_luggage.htm">L</a></td>&ndash;&gt;-->
+<!--      &lt;!&ndash;      </tr>&ndash;&gt;-->
+<!--      &lt;!&ndash;      <tr>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="td_time pt_mono" id="time_2">11:24</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="flight_number pt_mono" id="flight_2">EX 478</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="roboto"><span id="flag_2" class="flag-icon flag-icon-de"></span> <span id="capital_2">Berlin</span></td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="red_text roboto"><span id="landing">Obtaining information</span></td>&ndash;&gt;-->
+<!--      &lt;!&ndash;      </tr>&ndash;&gt;-->
+<!--      &lt;!&ndash;      <tr>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="td_time pt_mono" id="time_3">11:25</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="flight_number pt_mono" id="flight_3">IT 537</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="roboto"><span id="flag_3" class="flag-icon flag-icon-dk"></span> <span id="capital_3">Copenhagen</span></td>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <td class="roboto">On time</td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</header>-->
+<!--<section>-->
+<!--  <div class="grid-container fluid">-->
+<!--    <ul>-->
+<!--      <li>Cases with flag ‘labels’ move along the conveyor belt, underneath the information screen. When flag is clicked or tapped the video of the participant from that country appears in the information screen and plays the native language poem followed by their English version.</li>-->
+<!--      <li>A ticker tape runs along the bottom of the screen (nb: full screen or just the video in the information screen?) which constantly highlights incoming flights linked to the same live data in the Arrivals Board.</li>-->
+<!--      <li>Design builds on style of Arrivals Board, using similar icons, same colour scheme and fonts.</li>-->
+<!--    </ul>-->
+
+<!--    <p><a href="arrivals_board.htm">Arrivals Board</a> | <a href="lost_luggage.htm">Lost Luggage</a></p>-->
+<!--  </div>-->
+<!--</section>-->
 <script src="dist/baggage.bundle.js"></script>
 </body>
 </html>
