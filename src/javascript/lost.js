@@ -6,10 +6,19 @@ import anime from 'animejs/lib/anime.es.js';
 const p5 = require('p5');
 
 $(function(){
-    let $home_link = $('#home_link')
-    $home_link.on('mouseover', function()   {   $('#eu_flag').hide();     $('#home_link_rollover').show();      });
-    $home_link.on('mouseout', function()    {   $('#eu_flag').show();     $('#home_link_rollover').hide();      });
-    $home_link.on('mouseleave', function()  {   $('#eu_flag').show();     $('#home_link_rollover').hide();      });
+    let $home = $('#home_span')
+
+    let animateHomeOver = function()      {
+        $('#eu_flag').hide();
+        $('#home_link_rollover').show();
+    };
+    let animateHomeOut = function()      {
+        $('#eu_flag').show();
+        $('#home_link_rollover').hide();
+    }
+
+    $home.on('mouseover', animateHomeOver);
+    $home.on('mouseout', animateHomeOut);
 
     let $reload = $('#reload');
     let $audio_switch = $('#audio_switch');

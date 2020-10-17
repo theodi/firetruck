@@ -3,15 +3,6 @@
     background: url('../img/bkgd.png') no-repeat;
     width: 1890px;
 }
-#home_link_rollover{
-    float:left;
-    margin-top: 16px;
-    margin-left: 20px;
-    margin-bottom:16px;
-    margin-right: 30px;
-    width:140px;
-    display: none;
-}
 
 #lost_luggage_title{
     font-family: 'robotobold', sans-serif;
