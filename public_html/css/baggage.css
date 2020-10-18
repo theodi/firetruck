@@ -55,29 +55,39 @@ h3 {
     top: 97px;
     left: 697px;
     width: 530px;
-    background: #F8E106;
+    /*background: #F8E106;*/
     padding: 0;
 }
 #flight_times table {
     width: 530px;
 }
+#flight_times tr {
+    height: 40px;
+}
+#flight_times thead, #flight_times thead th {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 #flight_times #home_span {
     height: 36px;
-}
-#flight_times #th_clock {
-    padding-right: 10px;
 }
 #flight_times #eu_flag{
     float:left;
     margin-top: 6px;
     margin-left: 0;
-    margin-bottom:6px;
+    margin-bottom:3px;
     margin-right: 10px;
     width:40px;
     height: 26px;
 }
+#flight_times #th_clock {
+    padding-right: 10px;
+}
+
 #flight_times span#clock_time{
-    font-size:1.5em;
+    font-size:1.2em;
 }
 #baggage_title{
     font-family: 'robotobold', sans-serif;
@@ -92,6 +102,23 @@ h3 {
     margin-top: 10px;
     margin-left: 10px;
 }
+#flight_times tr {
+    font-size: 100%;
+}
+#flight_times .flight_headers {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size:1.2em;
+}
+tbody tr:nth-child(even) {
+    /*  flight_details  */
+    background-color: #222222 !important;
+}
+
+#flight_times #th_time      {   width: 25%;     }
+#flight_times #th_flight    {   width: 24%;     }
+#flight_times #th_from      {   width: 24%;     }
+#flight_times #th_clock     {      width: 24%;   }
 #lost_luggage {
     position: absolute;
     top: 66px;
