@@ -20,7 +20,7 @@ $(function(){
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
 
-    let $baggage_reclaim_div = $('#baggage_reclaim_div');
+    let $baggage_reclaim_svg = $('#baggage_reclaim_svg');
 
     let animateBaggageOver = function()      {
         anime({ targets: '#baggage_reclaim_bg', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
@@ -28,8 +28,8 @@ $(function(){
     let animateBaggageOut = function()      {
         anime({ targets: '#baggage_reclaim_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
     };
-    $baggage_reclaim_div.on('mouseover', animateBaggageOver);
-    $baggage_reclaim_div.on('mouseout', animateBaggageOut);
+    $baggage_reclaim_svg.on('mouseover', animateBaggageOver);
+    $baggage_reclaim_svg.on('mouseout', animateBaggageOut);
 
     let $lost_luggage_svg = $('#lost_luggage_svg');
 
