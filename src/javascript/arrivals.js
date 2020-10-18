@@ -20,6 +20,29 @@ $(function(){
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
 
+    let $baggage_reclaim_div = $('#baggage_reclaim_div');
+
+    let animateBaggageOver = function()      {
+        anime({ targets: '#baggage_reclaim_bg', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+    };
+    let animateBaggageOut = function()      {
+        anime({ targets: '#baggage_reclaim_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+    };
+    $baggage_reclaim_div.on('mouseover', animateBaggageOver);
+    $baggage_reclaim_div.on('mouseout', animateBaggageOut);
+
+    let $lost_luggage_svg = $('#lost_luggage_svg');
+
+    let animateLuggageOver = function()      {
+        anime({ targets: '#lost_luggage_bg', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+    };
+    let animateLuggageOut = function()      {
+        anime({ targets: '#lost_luggage_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+    };
+    $lost_luggage_svg.on('mouseover', animateLuggageOver);
+    $lost_luggage_svg.on('mouseout', animateLuggageOut);
+
+
     let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);
 

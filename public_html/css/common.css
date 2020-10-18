@@ -24,6 +24,10 @@ thead{
     width:100%;
 }
 
+#th_clock {
+    text-align: right;
+    padding-right: 40px;
+}
 span#clock_time{
     font-family: 'PT Mono', monospace;
     font-weight: bold;
@@ -108,15 +112,7 @@ tbody td.td_time {
     width: 50%;
 }
 */
-#th_transfer, #td_transfer {
-    width: 8%;
-    padding-left: 40px;
-}
 
-#transfer_svg {
-    width: 120px;
-    float:left;
-}
 #point_left_svg, #point_right_svg {
     width: 40px;
     margin-left: 20px;

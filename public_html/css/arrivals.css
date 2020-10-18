@@ -1,4 +1,3 @@
-
 #arrivals_title{
     font-family: 'robotobold', sans-serif;
     float:left;
@@ -15,4 +14,34 @@
 tbody tr:nth-child(even) {
     /*  flight_details  */
     background-color: #222222 !important;
+}
+
+
+#th_transfer, #td_transfer {
+    padding-left: 20px;
+}
+
+#transfer_svg {
+    width: 120px;
+    float:left;
+}
+
+#th_transfer. #td_transfer {
+    width: 200px;
+    text-align: right;
+}
+
+#th_onward, #td_onward {
+    width: 260px;
+    padding-right: 16px;
+}
+
+#baggage_reclaim_div, #lost_luggage_div {
+    width: 186px;
+    height: 80px;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-bottom: 0;
+    margin-right: 30px;
+    border: #3b3b3b solid 10px;
 }
