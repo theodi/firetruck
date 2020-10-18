@@ -49,13 +49,56 @@ h3 {
 .clear_column {
     background-color: transparent;
 }
+
+#flight_times {
+    position: absolute;
+    top: 97px;
+    left: 697px;
+    width: 530px;
+    background: #F8E106;
+    padding: 0;
+}
+#flight_times table {
+    width: 530px;
+}
+#flight_times #home_span {
+    height: 36px;
+}
+#flight_times #th_clock {
+    padding-right: 10px;
+}
+#flight_times #eu_flag{
+    float:left;
+    margin-top: 6px;
+    margin-left: 0;
+    margin-bottom:6px;
+    margin-right: 10px;
+    width:40px;
+    height: 26px;
+}
+#flight_times span#clock_time{
+    font-size:1.5em;
+}
+#baggage_title{
+    font-family: 'robotobold', sans-serif;
+    float:left;
+    font-size: 1.5em;
+    font-weight: bolder;
+    letter-spacing:0.08em;
+}
+#baggage_svg {
+    width: 20px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 #lost_luggage {
     position: absolute;
     top: 66px;
     left: 1616px;
     width: 208px;
     background: #F8E106;
-    padding: 0px;
+    padding: 0;
 }
 #lost_luggage:hover {
     background: #FFFFFF;
@@ -65,6 +108,30 @@ h3 {
     min-height: 100%;
     margin-bottom: -50px;
 }
+
+#belt {
+    position: absolute;
+    left: 0;
+    top: 459px;
+    /*background: #ff0000;*/
+    width:1920px;
+    height:227px;
+    vertical-align: baseline;
+}
+
+#baggages {
+    height:227px;
+
+}
+
+.baggage {
+    position: absolute;
+    bottom: 0;
+    margin-left: 10px;
+    width: 150px;
+}
+
+
 .footer {
     height: 50px;
     background: #F8E106;
