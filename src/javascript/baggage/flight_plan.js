@@ -261,11 +261,13 @@ class FlightPlan {
             if (arrivalHour < 10)       {   arrivalHour = "0" + arrivalHour;        }
             if (arrivalMinutes < 10)    {  arrivalMinutes = "0" + arrivalMinutes;   }
             $('#time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
+            $('.ticker_time_' + arrival_number).text(arrivalHour + ":" + arrivalMinutes);
 
             let arrivalFlightCodeIndex = (flightCodeIndex + ((arrival_number - 1) * 2)) % flightCodes.length;
-            $('#flight_' + arrival_number).text(
-                flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code
-            );
+            let flightCode = flightCodes.substr(arrivalFlightCodeIndex, 2) + " " + arrival.code;
+
+            $('#flight_' + arrival_number).text(flightCode);
+            $('.ticker_flight_' + arrival_number).text(flightCode);
 
             let $flagSpan = $('#flag_' + arrival_number);
             $flagSpan.removeClass();
@@ -273,6 +275,7 @@ class FlightPlan {
             $flagSpan.addClass('flag-icon-' + arrival.country_code.toLowerCase());
 
             $('#capital_' + arrival_number).text(arrival.capital);
+            $('.ticker_capital_' + arrival_number).text(arrival.capital);
         }
     }
 }

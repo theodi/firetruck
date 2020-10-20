@@ -129,7 +129,7 @@ tbody tr:nth-child(even) {
     color: #0a0a0a;
 }
 #arrivals table {
-    width: 530px;
+    width: 1920px;
 
 }
 #arrivals tr {
@@ -141,6 +141,9 @@ tbody tr:nth-child(even) {
     padding-bottom: 0;
     padding-left: 5px;
     padding-right: 5px;
+}
+#arrivals #th_home {
+    width:250px;
 }
 #arrivals #home_span_2 {
     height: 36px;
@@ -163,6 +166,21 @@ tbody tr:nth-child(even) {
     letter-spacing:0.08em;
 }
 
+/*#ticker {*/
+/*    overflow: hidden;*/
+/*    width: 800px;*/
+/*    height: 30px;*/
+/*}*/
+
+/*.arrivals_flight {*/
+/*    margin-right: 40px;*/
+/*    font-family: 'PT Mono', monospace;*/
+/*    float:left;*/
+/*    font-size: 1.5em;*/
+/*    font-weight: bolder;*/
+/*    color: #111111;*/
+/*    letter-spacing:0.08em;*/
+/*}*/
 #lost_luggage {
     position: absolute;
     top: 66px;
@@ -203,3 +221,44 @@ tbody tr:nth-child(even) {
 }
 
 
+/* https://tympanus.net/codrops/2020/03/31/css-only-marquee-effect/ */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    --offset: 20vw;
+    --move-initial: calc(-25% + var(--offset));
+    --move-final: calc(-50% + var(--offset));
+}
+
+.marquee__inner {
+    width: fit-content;
+    display: flex;
+    position: relative;
+    transform: translate3d(var(--move-initial), 0, 0);
+    animation: marquee 5s linear infinite;
+    animation-play-state: running;
+}
+
+.marquee span.marquee_repeat {
+    margin-right: 40px;
+    font-family: 'PT Mono', monospace;
+    float:left;
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #111111;
+    letter-spacing:0.08em;
+    /*font-size: 1.5em;*/
+    /*padding: 0 2vw;*/
+    height: 40px;
+}
+
+
+@keyframes marquee {
+    0% {
+        transform: translate3d(var(--move-initial), 0, 0);
+    }
+
+    100% {
+        transform: translate3d(var(--move-final), 0, 0);
+    }
+}
