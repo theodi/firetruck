@@ -1,25 +1,21 @@
 // import displays_sketch from './baggage/display_sketch';
 import updateClock from "./clock";
-// import FlightPlan from './baggage/flight_plan';
+import FlightPlan from './baggage/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 
 // const p5 = require('p5');
 
 $(function(){
 
-
-
-    /*
-
-    let displaysArea = new p5(displays_sketch, 'displays');
-    let flightPlan = new FlightPlan(displaysArea);
+    //let displaysArea = new p5(displays_sketch, 'displays');
+    let flightPlan = new FlightPlan();//displaysArea);
 
     flightPlan.setUpFlightPlan();
 
 
     // set the time and flight plan
-    updateClock();
-*/
+////    updateClock();
+//
     // flashing colons
     anime({
         targets: 'span.clock_colon',
@@ -30,11 +26,14 @@ $(function(){
 
     // set the time and flight plan
     updateClock();
-    /*
-        flightPlan.updateFlightPlan();
+
+    flightPlan.updateFlightPlan();
+
+    // display initial flight plan
+    flightPlan.displayFlightPlan();
 
     // update clock, once every half second
-    setInterval(updateClock, 500);*/
+    setInterval(updateClock, 500);
 
 
 });
