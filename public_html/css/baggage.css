@@ -235,12 +235,89 @@ tbody tr:nth-child(even) {
     left: 320px;
     margin: auto;
     width: 1280px;
-    height: 960px;
+    height: 720px;
     z-index: 100;
     display: none;
 }
 
 
+#poem_details {
+    position: absolute;
+    top: 740px;
+    left: 320px;
+    width: 1280px;
+    height: 150px;
+
+}
+
+
+#poem_text {
+    position: absolute;
+    top: 0;
+    width: 772px;
+    height: 150px;
+    color: #111111;
+    background-color: #f1f1f1;
+    font-family: 'robotobold', sans-serif;
+
+    /*overflow: scroll;*/
+    overflow: auto;
+    margin: 0 10px;
+    border-radius: 2px;
+}
+
+#poem_content {
+    width: 752px;
+    height: 500px;
+    background-color: #f1f1f1;
+    font-family: 'robotobold', sans-serif;
+    padding: 10px 20px;
+}
+
+
+.scroll4::-webkit-scrollbar {
+    width: 20px;
+}
+
+.scroll4::-webkit-scrollbar-thumb {
+    background: #666;
+    /*border-radius: 20px;*/
+}
+
+.scroll4::-webkit-scrollbar-track {
+    background: #ddd;
+    /*border-radius: 20px;*/
+}
+
+
+#poem_country {
+    position: absolute;
+    line-height: 270px;
+    text-align: right;
+    bottom: 0;
+    left: 830px;
+    width: 235px;
+    color: #f1f1f1;
+    height: 150px;
+
+    font-family: 'robotobold', sans-serif;
+    font-size: 1.5em;
+    font-weight: bolder;
+    letter-spacing:0.08em;
+}
+#poem_flag {
+    position: absolute;
+    top: 15px;
+    left: 1090px;
+    width: 180px;
+    height: 135px;
+    text-align: center;
+    /*background-color: #d7ecfa;*/
+}
+#flag {
+    width: 180px;
+    height: 180px;
+}
 
 /* https://tympanus.net/codrops/2020/03/31/css-only-marquee-effect/ */
 .marquee {

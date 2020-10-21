@@ -3,6 +3,7 @@ import updateClock from "./clock";
 import FlightPlan from './baggage/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
 import youtube_urls from "./data/youtube";
+import translations from './data/translations';
 
 $(function(){
     // Replace the 'ytplayer' element with an <iframe> and
@@ -64,40 +65,82 @@ $(function(){
         let country_id = this.id;
         let video_id = youtube_urls[country_id]['video'];
         let $ytplayer = $('#ytplayer');
+        let englishPlayed = false;
         $ytplayer.show();
         if (player) {
             player.loadVideoById({
                 'videoId': video_id,
-                'startSeconds': 5,
-                'endSeconds': 60
             });
         } else {
             player = new YT.Player('ytplayer', {
-                // autoplay: 1,
-                // controls: 0,
-                height: '720', //: 360',
-                width: '1280', //#640',
+                height: '720',
+                width: '1280',
                 videoId: video_id,
-                // playerVars: {
-                //     'autoplay': 1,
-                //     'controls': 0
-                // },
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,
+                    'fs' : 0,
+                },
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
                 }
             });
         }
+        showTextCountryAndFlag(country_id, false);
 
-        let done = false;
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING && !done) {
-                setTimeout(stopVideo, 6000);
-                done = true;
+            if (event.data === YT.PlayerState.ENDED) {
+                playNext();
             }
         }
-        function stopVideo() {
-            player.stopVideo();
+        function playNext() {
+
+            if (!englishPlayed) {
+                video_id = youtube_urls[country_id]['video_en'];
+                player.loadVideoById({
+                    'videoId': video_id,
+                });
+                showTextCountryAndFlag(country_id, true);
+
+                englishPlayed = true;
+            } else {
+                let $ytplayer = $('#ytplayer');
+                $ytplayer.hide();
+                $('#poem_text').hide();
+                $('#poem_country').hide();
+                $('.flag_svg').hide();
+
+            }
+        }
+
+        function showTextCountryAndFlag(country_id, english) {
+
+            let translation_index = youtube_urls[country_id]['translation_index'];
+            let translation_country = youtube_urls[country_id]['country'];
+
+            let poem_text = "";
+            if (english) {
+                translation_index = translation_index + 1;
+            }
+            for(let i = 1; i < translations.length; i++) {
+                poem_text += translations[i][translation_index] + "<br>";
+            }
+
+            $('#poem_content').html(poem_text);
+            $('#poem_text').show();
+            $('#poem_country').text(translation_country).show();
+
+            $('.flag_svg').hide();
+
+            let flagIndex = 0;
+            if (translation_index > 0) {
+                flagIndex = Math.floor((translation_index + 1) / 2) + 1;
+            }
+
+            let $flagSVG = $('#flag_svg_' + flagIndex);
+            $flagSVG.show();
+
         }
     });
 
