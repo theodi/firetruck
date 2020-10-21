@@ -40,7 +40,7 @@ $(function(){
     function scroll() {
         $('#baggages').animate({
             right: $width
-        }, 50000, 'linear', function() {
+        }, 150000, 'linear', function() {
             $('#baggages').css({'right': -$scrollWidth + 'px'});
             scroll();
         });
@@ -66,12 +66,25 @@ $(function(){
         let $ytplayer = $('#ytplayer');
         $ytplayer.show();
         player = new YT.Player('ytplayer', {
-            autoplay: 1,
+            // autoplay: 1,
+            // controls: 0,
             height: '720', //: 360',
             width: '1280', //#640',
-            videoId: 'A64KAgWrQBI'
+            videoId: 'A64KAgWrQBI',
+            playerVars: {
+                'autoplay': 1,
+                'controls': 0
+            },
+            //events: {
+            //    'onReady': onPlayerReady,
+            //    // 'onStateChange': onPlayerStateChange
+            //}
         });
     });
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
 
     // Load the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
