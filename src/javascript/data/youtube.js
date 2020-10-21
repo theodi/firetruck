@@ -1,133 +1,107 @@
 const youtube_urls = {
-    "English": {
-        "code": "GB",
-        "video_en": "https://youtu.be/A64KAgWrQBI",
-        "video": "https://youtu.be/A64KAgWrQBI"
+    "GB": {
+        "video_en": "A64KAgWrQBI",
+        "video":    "A64KAgWrQBI"
     },
-    "German": {
-        "code": "DE",
-        "video_en": "https://youtu.be/wKoDqJh3scc",
-        "video": "https://youtu.be/RseRqX884Cg"
+    "DE": {
+        "video_en": "wKoDqJh3scc",
+        "video":    "RseRqX884Cg"
     },
-    "Latvian": {
-        "code": "LV",
-        "video_en": "https://youtu.be/ihv-MKA8Llw",
-        "video": "https://youtu.be/LVEB-cmP8Q8"
+    "LV": {
+        "video_en": "ihv-MKA8Llw",
+        "video":    "LVEB-cmP8Q8"
     },
-    "Hungarian": {
-        "code": "HU",
-        "video_en": "https://youtu.be/UzV2OjeCUsY",
-        "video": "https://youtu.be/tNHVXPeCNys"
+    "HU": {
+        "video_en": "UzV2OjeCUsY",
+        "video":    "tNHVXPeCNys"
     },
-    "Welsh": {
-        "code": "GB-WLS",
-        "video_en": "https://youtu.be/l0RzlMSU4Xk",
-        "video": "https://youtu.be/209vA_2fcCo"
+    "GB-WLS": {
+        "video_en": "l0RzlMSU4Xk",
+        "video":    "209vA_2fcCo"
     },
-    "Polish": {
-        "code": "PL",
-        "video_en": "https://youtu.be/tGgoRdp_x_c",
-        "video": "https://youtu.be/LTqdiz-i3jg"
+    "PL": {
+        "video_en": "tGgoRdp_x_c",
+        "video":    "LTqdiz-i3jg"
     },
-    "Danish": {
-        "code": "DK",
-        "video_en": "https://youtu.be/541MfGkauco",
-        "video": "https://youtu.be/N1UqY9FAQhI"
+    "DK": {
+        "video_en": "541MfGkauco",
+        "video":    "N1UqY9FAQhI"
     },
-    "Scottish Gaelic": {
-        "code": "GB-SCT",
-        "video_en": "https://youtu.be/Gb6eyJW8vJ8",
-        "video": "https://youtu.be/fPzfPcOgqIE"
+    "GB-SCT": {
+        "video_en": "Gb6eyJW8vJ8",
+        "video":    "fPzfPcOgqIE"
     },
-    "Slovene": {
-        "code": "SI",
-        "video_en": "https://youtu.be/oH8uBl-Dvds",
-        "video": "https://youtu.be/rJocbt23Th0"
+    "SI": {
+        "video_en": "oH8uBl-Dvds",
+        "video":    "rJocbt23Th0"
     },
-    "Spanish (Castilian)": {
-        "code": "ES",
-        "video_en": "https://youtu.be/JOsSa9UasS8",
-        "video": "https://youtu.be/X8hT8fqq7L0"
+    "ES": {
+        "video_en": "JOsSa9UasS8",
+        "video":    "X8hT8fqq7L0"
     },
-    "Finnish": {
-        "code": "FI",
-        "video_en": "https://youtu.be/M5HiX7eI_mE",
-        "video": "https://youtu.be/E3BQt2MfGkU"
+    "FI": {
+        "video_en": "M5HiX7eI_mE",
+        "video":    "E3BQt2MfGkU"
     },
-    "Greek": {
-        "code": "GR",
-        "video_en": "https://youtu.be/MP1TgH0Cqpo",
-        "video": "https://youtu.be/B8uUwRzq6Pc"
+    "GR": {
+        "video_en": "MP1TgH0Cqpo",
+        "video":    "B8uUwRzq6Pc"
     },
-    "Swedish": {
-        "code": "SE",
-        "video_en": "https://youtu.be/l3ycSivCImA",
-        "video": "https://youtu.be/kAIOGqguqqU"
+    "SE": {
+        "video_en": "l3ycSivCImA",
+        "video":    "kAIOGqguqqU"
     },
-    "Czech": {
-        "code": "CZ",
-        "video_en": "https://youtu.be/LWCiNehQN9c",
-        "video": "https://youtu.be/IP7_S7k2D3A"
+    "CZ": {
+        "video_en": "LWCiNehQN9c",
+        "video":    "IP7_S7k2D3A"
     },
-    "Croatian": {
-        "code": "HR",
-        "video_en": "https://youtu.be/wtAMGvqJAYM",
-        "video": "https://youtu.be/G0J7DCt_AjQ"
+    "HR": {
+        "video_en": "wtAMGvqJAYM",
+        "video":    "G0J7DCt_AjQ"
     },
-    "Estonian": {
-        "code": "EE",
-        "video_en": "https://youtu.be/Uh1UsVE0B5Y",
-        "video": "https://youtu.be/-Li4ueQ7qHc"
+    "EE": {
+        "video_en": "Uh1UsVE0B5Y",
+        "video":    "-Li4ueQ7qHc"
     },
-    "Maltese": {
-        "code": "MT",
-        "video_en": "https://youtu.be/L-ZiOhNZ6lc",
-        "video": "https://youtu.be/VPJRKFosN20"
+    "MT": {
+        "video_en": "L-ZiOhNZ6lc",
+        "video":    "VPJRKFosN20"
     },
-    "Bulgarian": {
-        "code": "BG",
-        "video_en": "https://youtu.be/EyTnfocEFaQ",
-        "video": "https://youtu.be/BMZihdzMAKk"
+    "BG": {
+        "video_en": "EyTnfocEFaQ",
+        "video":    "BMZihdzMAKk"
     },
-    "Lithuanian": {
-        "code": "LT",
-        "video_en": "https://youtu.be/IdYbpVuKOXM",
-        "video": "https://youtu.be/Z39E96f0p5U"
+    "LT": {
+        "video_en": "IdYbpVuKOXM",
+        "video":    "Z39E96f0p5U"
     },
-    "Romanian": {
-        "code": "RO",
-        "video_en": "https://youtu.be/3xF1M7z6Pp0",
-        "video": "https://youtu.be/8DNoZGbbKr0"
+    "RO": {
+        "video_en": "3xF1M7z6Pp0",
+        "video":    "8DNoZGbbKr0"
     },
-    "Irish": {
-        "code": "IE",
-        "video_en": "https://youtu.be/7kzFy1ZHniM",
-        "video": "https://youtu.be/oYWrMEf-mHM"
+    "IE": {
+        "video_en": "7kzFy1ZHniM",
+        "video":    "oYWrMEf-mHM"
     },
-    "Portuguese": {
-        "code": "PT",
-        "video_en": "https://youtu.be/nhSLPoULJ3g",
-        "video": "https://youtu.be/voUE1D8dUng"
+    "PT": {
+        "video_en": "nhSLPoULJ3g",
+        "video":    "voUE1D8dUng"
     },
-    "Dutch": {
-        "code": "NL",
-        "video_en": "https://youtu.be/aT8ae51I5wU",
-        "video": "https://youtu.be/EHmGJ0RsnZg"
+    "NL": {
+        "video_en": "aT8ae51I5wU",
+        "video":    "EHmGJ0RsnZg"
     },
-    "Italian": {
-        "code": "IT",
-        "video_en": "https://youtu.be/i53B8Ab1Cxk",
-        "video": "https://youtu.be/17nWg5CowiM"
+    "IT": {
+        "video_en": "i53B8Ab1Cxk",
+        "video":    "17nWg5CowiM"
     },
-    "Slovak": {
-        "code": "SK",
-        "video_en": "https://youtu.be/2L7rHibRhZE",
-        "video": "https://youtu.be/ApyBI9rHs00"
+    "SK": {
+        "video_en": "2L7rHibRhZE",
+        "video":    "ApyBI9rHs00"
     },
-    "French": {
-        "code": "FR",
-        "video_en": "https://youtu.be/xyXR445DOR0",
-        "video": "https://youtu.be/C7TM4mwJvE8"
+    "FR": {
+        "video_en": "xyXR445DOR0",
+        "video":    "C7TM4mwJvE8"
     }
 };
 

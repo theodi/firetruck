@@ -2,8 +2,7 @@
 import updateClock from "./clock";
 import FlightPlan from './baggage/flight_plan';
 import anime from 'animejs/lib/anime.es.js';
-
-// const p5 = require('p5');
+import youtube_urls from "./data/youtube";
 
 $(function(){
     // Replace the 'ytplayer' element with an <iframe> and
@@ -24,8 +23,7 @@ $(function(){
     $home_2.on('mouseover', animateHomeOver_2);
     $home_2.on('mouseout', animateHomeOut_2);
 
-    //let displaysArea = new p5(displays_sketch, 'displays');
-    let flightPlan = new FlightPlan();//displaysArea);
+    let flightPlan = new FlightPlan();
 
     flightPlan.setUpFlightPlan();
 
@@ -63,23 +61,44 @@ $(function(){
     $bag_roll.on('mouseout', animateBaggageOut);
 
     $bag_roll.on('click', function() {
+        let country_id = this.id;
+        let video_id = youtube_urls[country_id]['video'];
         let $ytplayer = $('#ytplayer');
         $ytplayer.show();
-        player = new YT.Player('ytplayer', {
-            // autoplay: 1,
-            // controls: 0,
-            height: '720', //: 360',
-            width: '1280', //#640',
-            videoId: 'A64KAgWrQBI',
-            playerVars: {
-                'autoplay': 1,
-                'controls': 0
-            },
-            //events: {
-            //    'onReady': onPlayerReady,
-            //    // 'onStateChange': onPlayerStateChange
-            //}
-        });
+        if (player) {
+            player.loadVideoById({
+                'videoId': video_id,
+                'startSeconds': 5,
+                'endSeconds': 60
+            });
+        } else {
+            player = new YT.Player('ytplayer', {
+                // autoplay: 1,
+                // controls: 0,
+                height: '720', //: 360',
+                width: '1280', //#640',
+                videoId: video_id,
+                // playerVars: {
+                //     'autoplay': 1,
+                //     'controls': 0
+                // },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        let done = false;
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING && !done) {
+                setTimeout(stopVideo, 6000);
+                done = true;
+            }
+        }
+        function stopVideo() {
+            player.stopVideo();
+        }
     });
 
     function onPlayerReady(event) {
