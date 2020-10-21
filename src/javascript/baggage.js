@@ -6,6 +6,10 @@ import anime from 'animejs/lib/anime.es.js';
 // const p5 = require('p5');
 
 $(function(){
+    // Replace the 'ytplayer' element with an <iframe> and
+    // YouTube player after the API code downloads.
+    let player;
+    let player_ready = false;
 
     let $home = $('#home_span')
     let $home_2 = $('#home_span_2');
@@ -58,6 +62,26 @@ $(function(){
     $bag_roll.on('mouseover', animateBaggageOver);
     $bag_roll.on('mouseout', animateBaggageOut);
 
+    $bag_roll.on('click', function() {
+        let $ytplayer = $('#ytplayer');
+        $ytplayer.show();
+        player = new YT.Player('ytplayer', {
+            autoplay: 1,
+            height: '720', //: 360',
+            width: '1280', //#640',
+            videoId: 'A64KAgWrQBI'
+        });
+    });
+
+    // Load the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    function onYouTubePlayerAPIReady() {
+        player_ready = true;
+    }
 
     // set the time and flight plan
 ////    updateClock();

@@ -229,6 +229,14 @@ tbody tr:nth-child(even) {
 
 }
 
+#ytplayer {
+    margin: auto;
+    width: 1280px;
+    height: 960px;
+    display: none;
+}
+
+
 
 /* https://tympanus.net/codrops/2020/03/31/css-only-marquee-effect/ */
 .marquee {
