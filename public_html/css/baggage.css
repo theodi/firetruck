@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
 }
-body {
+#wrapper {
     background: url( "../img/baggage_bkgd.png");
     background-repeat: no-repeat;
     background-size: 1920px 1080px;
@@ -124,17 +124,16 @@ tbody tr:nth-child(even) {
 
 
 #arrivals {
-    height: 50px;
+    height: 88px;
     background: #F8E106;
     color: #0a0a0a;
+    width: 1920px;
 }
 #arrivals table {
     width: 1920px;
-
 }
 #arrivals tr {
-    height: 40px;
-
+    height: 88px;
 }
 #arrivals thead, #arrivals thead th {
     padding-top: 0;
@@ -143,18 +142,20 @@ tbody tr:nth-child(even) {
     padding-right: 5px;
 }
 #arrivals #th_home {
-    width:250px;
+    width:400px;
 }
 #arrivals #home_span_2 {
-    height: 36px;
+    height: 80px;
 }
+
 #arrivals #eu_flag_2 {
     float:left;
     margin-top: 6px;
     margin-left: 0;
     margin-bottom:3px;
     margin-right: 10px;
-    width:55px;
+    width: 94px;
+    height: 65px;
     /*height: 26px;*/
 }
 #arrivals_title {
@@ -195,7 +196,7 @@ tbody tr:nth-child(even) {
 
 #wrapper {
     min-height: 100%;
-    margin-bottom: -50px;
+    margin-bottom: -88px;
 }
 
 #belt {
