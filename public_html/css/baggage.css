@@ -4,7 +4,7 @@ html, body {
 #wrapper {
     background: url( "../img/baggage_bkgd.png");
     background-repeat: no-repeat;
-    background-size: 100% 1080px;
+    background-size: 1920px 1080px;
     background-color: #111111;
 }
 .fifth_column {

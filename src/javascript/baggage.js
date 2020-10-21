@@ -37,11 +37,26 @@ $(function(){
         $('#baggages').animate({
             right: $width
         }, 50000, 'linear', function() {
-            $('.scroll').css({'right': -$scrollWidth + 'px'});
+            $('#baggages').css({'right': -$scrollWidth + 'px'});
             scroll();
         });
     }
     scroll();
+
+
+    let $bag_roll = $('.bag_roll');
+    let animateBaggageOver = function()      {
+
+        let this_id = this.id;
+        anime({ targets: '#' + this_id, fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 50   });
+    }
+    let animateBaggageOut = function()      {
+        let this_id = this.id;
+        anime({ targets: '#' + this_id, fill: ['#f8e106', '#000'], easing: 'easeInOutSine', duration: 50   });
+    }
+
+    $bag_roll.on('mouseover', animateBaggageOver);
+    $bag_roll.on('mouseout', animateBaggageOut);
 
 
     // set the time and flight plan
