@@ -209,15 +209,7 @@ tbody tr:nth-child(even) {
 }
 
 #baggages {
-
-
-}
-
-.baggage {
-    position: absolute;
-    bottom: 0;
-    margin-left: 10px;
-    width: 150px;
+    height: 500px;
 }
 
 
@@ -226,20 +218,20 @@ tbody tr:nth-child(even) {
     position: relative;
     overflow: hidden;
     --offset: 20vw;
-    --move-initial: calc(-25% + var(--offset));
-    --move-final: calc(-50% + var(--offset));
+/*    --move-initial: calc(-25% + var(--offset));
+    --move-final: calc(-50% + var(--offset));*/
 }
 
 .marquee__inner {
     width: fit-content;
     display: flex;
     position: relative;
-    transform: translate3d(var(--move-initial), 0, 0);
+/*    transform: translate3d(var(--move-initial), 0, 0);
     animation: marquee 5s linear infinite;
-    animation-play-state: running;
+    animation-play-state: running;*/
 }
 
-.marquee span.marquee_repeat {
+.marquee div.marquee_repeat {
     margin-right: 40px;
     font-family: 'PT Mono', monospace;
     float:left;
@@ -252,7 +244,11 @@ tbody tr:nth-child(even) {
     height: 40px;
 }
 
+.marquee span.marquee_repeat span {
+    float:left;
+}
 
+/*
 @keyframes marquee {
     0% {
         transform: translate3d(var(--move-initial), 0, 0);
@@ -262,3 +258,4 @@ tbody tr:nth-child(even) {
         transform: translate3d(var(--move-final), 0, 0);
     }
 }
+*/
