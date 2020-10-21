@@ -7,6 +7,19 @@ import anime from 'animejs/lib/anime.es.js';
 
 $(function(){
 
+    let $home = $('#home_span')
+    let $home_2 = $('#home_span_2');
+
+    let animateHomeOver = function()    {   $('#eu_flag').hide();   $('#home_link_rollover').show();    };
+    let animateHomeOut = function()     {   $('#eu_flag').show();   $('#home_link_rollover').hide();    };
+    let animateHomeOver_2 = function()    {   $('#eu_flag_2').hide();   $('#home_link_rollover_2').show();    };
+    let animateHomeOut_2 = function()     {   $('#eu_flag_2').show();   $('#home_link_rollover_2').hide();    };
+
+    $home.on('mouseover', animateHomeOver);
+    $home.on('mouseout', animateHomeOut);
+    $home_2.on('mouseover', animateHomeOver_2);
+    $home_2.on('mouseout', animateHomeOut_2);
+
     //let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan();//displaysArea);
 

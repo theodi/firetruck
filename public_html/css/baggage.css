@@ -73,7 +73,7 @@ h3 {
 #flight_times #home_span {
     height: 36px;
 }
-#flight_times #eu_flag{
+#flight_times #eu_flag, #flight_times #home_link_rollover{
     float:left;
     margin-top: 6px;
     margin-left: 0;
@@ -81,6 +81,9 @@ h3 {
     margin-right: 10px;
     width:40px;
     height: 26px;
+}
+#flight_times #home_link_rollover{
+    display: none;
 }
 #flight_times #th_clock {
     padding-right: 10px;
@@ -143,25 +146,29 @@ tbody tr:nth-child(even) {
 }
 #arrivals #th_home {
     width:400px;
+    padding-left: 0;
+    padding-right: 0;
 }
 #arrivals #home_span_2 {
     height: 80px;
 }
 
-#arrivals #eu_flag_2 {
+#arrivals #eu_flag_2, #arrivals #home_link_rollover_2 {
     float:left;
-    margin-top: 6px;
-    margin-left: 0;
+    margin-top: 10px;
+    margin-left: 18px;
     margin-bottom:3px;
-    margin-right: 10px;
+    margin-right: 18px;
     width: 94px;
     height: 65px;
-    /*height: 26px;*/
+}
+#arrivals #home_link_rollover_2 {
+    display: none;
 }
 #arrivals_title {
     font-family: 'robotobold', sans-serif;
     float:left;
-    font-size: 2em;
+    font-size: 3.5em;
     font-weight: bolder;
     color: #111111;
     letter-spacing:0.08em;
