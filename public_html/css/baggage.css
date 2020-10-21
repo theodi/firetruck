@@ -4,7 +4,7 @@ html, body {
 #wrapper {
     background: url( "../img/baggage_bkgd.png");
     background-repeat: no-repeat;
-    background-size: 1920px 1080px;
+    background-size: 100% 1080px;
     background-color: #111111;
 }
 .fifth_column {
@@ -206,18 +206,27 @@ tbody tr:nth-child(even) {
     margin-bottom: -88px;
 }
 
+
+
+
 #belt {
+    overflow: hidden;
     position: absolute;
     left: 0;
-    top: 459px;
-    /*background: #ff0000;*/
+    top: 480px;
+    /*!*background: #ff0000;*!*/
     width:1920px;
     height:230px;
-    vertical-align: baseline;
+    /*vertical-align: baseline;*/
 }
 
 #baggages {
+    position:absolute;
+    /*top: 480px;*/
+    white-space: nowrap;
     height: 500px;
+    width: 5000px;
+
 }
 
 

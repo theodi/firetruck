@@ -26,6 +26,24 @@ $(function(){
     flightPlan.setUpFlightPlan();
 
 
+    // initialize
+    let $width = $('#belt').width();
+    let $baggages = $('#baggages');
+    let $scrollWidth = $baggages.outerWidth();
+    $baggages.css({'right': -$scrollWidth + 'px'});
+
+    // animate
+    function scroll() {
+        $('#baggages').animate({
+            right: $width
+        }, 50000, 'linear', function() {
+            $('.scroll').css({'right': -$scrollWidth + 'px'});
+            scroll();
+        });
+    }
+    scroll();
+
+
     // set the time and flight plan
 ////    updateClock();
 //
