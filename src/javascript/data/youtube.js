@@ -23,7 +23,7 @@ const youtube_urls = {
         "country":  "Hungary",
         "translation_index": 5
     },
-    "GB_WLS": {
+    "GB-WLS": {
         "video_en": "l0RzlMSU4Xk",
         "video":    "209vA_2fcCo",
         "country":  "Wales",
@@ -41,7 +41,7 @@ const youtube_urls = {
         "country":  "Denmark",
         "translation_index": 11
     },
-    "GB_SCT": {
+    "GB-SCT": {
         "video_en": "Gb6eyJW8vJ8",
         "video":    "fPzfPcOgqIE",
         "country":  "Scotland",

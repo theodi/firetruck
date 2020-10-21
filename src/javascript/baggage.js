@@ -134,8 +134,11 @@ $(function(){
             $('.flag_svg').hide();
 
             let flagIndex = 0;
+            // English is 0, and doesn't have a 2nd (english) version
             if (translation_index > 0) {
                 flagIndex = Math.floor((translation_index + 1) / 2) + 1;
+            } else {
+                flagIndex = 1;
             }
 
             let $flagSVG = $('#flag_svg_' + flagIndex);

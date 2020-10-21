@@ -324,37 +324,41 @@ tbody tr:nth-child(even) {
     position: relative;
     overflow: hidden;
     --offset: 20vw;
-/*    --move-initial: calc(-25% + var(--offset));
-    --move-final: calc(-50% + var(--offset));*/
+    --move-initial: calc(-25% + var(--offset));
+    --move-final: calc(-50% + var(--offset));
 }
 
 .marquee__inner {
     width: fit-content;
     display: flex;
     position: relative;
-/*    transform: translate3d(var(--move-initial), 0, 0);
-    animation: marquee 5s linear infinite;
-    animation-play-state: running;*/
+    transform: translate3d(var(--move-initial), 0, 0);
+    animation: marquee 25s linear infinite;
+    animation-play-state: running;
 }
 
 .marquee div.marquee_repeat {
     margin-right: 40px;
-    font-family: 'PT Mono', monospace;
     float:left;
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #111111;
-    letter-spacing:0.08em;
     /*font-size: 1.5em;*/
     /*padding: 0 2vw;*/
     height: 40px;
 }
-
+.marquee_repeat {
+    width: 3000px;
+}
 .marquee span.marquee_repeat span {
     float:left;
+    white-space: nowrap;
+    font-family: 'PT Mono', monospace;
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #111111;
+    letter-spacing:0.08em;
 }
 
-/*
+
 @keyframes marquee {
     0% {
         transform: translate3d(var(--move-initial), 0, 0);
@@ -364,4 +368,3 @@ tbody tr:nth-child(even) {
         transform: translate3d(var(--move-final), 0, 0);
     }
 }
-*/
