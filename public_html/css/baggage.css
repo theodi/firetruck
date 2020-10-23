@@ -162,9 +162,11 @@ tbody tr:nth-child(even) {
     width: 94px;
     height: 65px;
 }
+
 #arrivals #home_link_rollover_2 {
     display: none;
 }
+
 #arrivals_title {
     font-family: 'robotobold', sans-serif;
     float:left;
@@ -174,21 +176,6 @@ tbody tr:nth-child(even) {
     letter-spacing:0.08em;
 }
 
-/*#ticker {*/
-/*    overflow: hidden;*/
-/*    width: 800px;*/
-/*    height: 30px;*/
-/*}*/
-
-/*.arrivals_flight {*/
-/*    margin-right: 40px;*/
-/*    font-family: 'PT Mono', monospace;*/
-/*    float:left;*/
-/*    font-size: 1.5em;*/
-/*    font-weight: bolder;*/
-/*    color: #111111;*/
-/*    letter-spacing:0.08em;*/
-/*}*/
 #lost_luggage {
     position: absolute;
     top: 66px;
@@ -205,8 +192,6 @@ tbody tr:nth-child(even) {
     min-height: 100%;
     margin-bottom: -88px;
 }
-
-
 
 
 #belt {
@@ -326,6 +311,8 @@ tbody tr:nth-child(even) {
     --offset: 20vw;
     --move-initial: calc(-25% + var(--offset));
     --move-final: calc(-50% + var(--offset));
+    left:15px;
+    width: 1560px;
 }
 
 .marquee__inner {
