@@ -10,6 +10,8 @@ $(function(){
     // YouTube player after the API code downloads.
     let player;
     let player_ready = false;
+    let video_country_id = "";
+    let englishPlayed = false;
 
     let $home = $('#home_link')
     let $home_2 = $('#home_link_2');
@@ -39,11 +41,12 @@ $(function(){
     function scroll() {
         $baggages.animate({
             right: $width
-        }, 150000, 'linear', function() {
+        }, 280000, 'linear', function() {
             $baggages.css({'right': -$scrollWidth + 'px'});
             scroll();
         });
     }
+    /*150000*/
     scroll();
 
 
@@ -62,10 +65,22 @@ $(function(){
     $bag_roll.on('mouseout', animateBaggageOut);
 
     $bag_roll.on('click', function() {
-        let country_id = this.id;
-        let video_id = youtube_urls[country_id]['video'];
+        video_country_id = this.id;
+        englishPlayed = false;
+        if (video_country_id.indexOf('-') !== -1){
+            // "GB"         2
+            // "GB-3"       4
+            // "GB-WLS"     5
+            // "GB-WLS-3"   7
+
+            if (video_country_id.length !== 6) {
+                video_country_id = video_country_id.substring(0, video_country_id.lastIndexOf('-'));
+            }
+        }
+        let video_id = youtube_urls[video_country_id]['video'];
+        // noinspection JSJQueryEfficiency
         let $ytplayer = $('#ytplayer');
-        let englishPlayed = false;
+
         $ytplayer.show();
         if (player) {
             player.loadVideoById({
@@ -87,7 +102,7 @@ $(function(){
                 }
             });
         }
-        showTextCountryAndFlag(country_id, false);
+        showTextCountryAndFlag(video_country_id, false);
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
@@ -97,11 +112,11 @@ $(function(){
         function playNext() {
 
             if (!englishPlayed) {
-                video_id = youtube_urls[country_id]['video_en'];
+                video_id = youtube_urls[video_country_id]['video_en'];
                 player.loadVideoById({
                     'videoId': video_id,
                 });
-                showTextCountryAndFlag(country_id, true);
+                showTextCountryAndFlag(video_country_id, true);
 
                 englishPlayed = true;
             } else {
@@ -110,7 +125,7 @@ $(function(){
                 $('#poem_text').hide();
                 $('#poem_country').hide();
                 $('.flag_svg').hide();
-
+                englishPlayed = false;
             }
         }
 
