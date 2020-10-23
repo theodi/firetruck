@@ -1,4 +1,4 @@
-# Bring Me My Fire Truck (the New Jerusalam?) 2019/2020
+# Bring Me My Fire Truck (the New Jerusalam?) 2019 - 2020
 
 [BMMFT](http://culture.theodi.org/firetruck/) is an artwork by Mr Gee. It is one of a series of commissioned works from the ODI's latest curatorial theme: [Copy That? Surplus Data in an Age of Repetitive Duplication](http://culture.theodi.org/category/exhibition/copythat/).
 
@@ -6,7 +6,17 @@ This is the new online version which includes Lost Luggage and Baggage Reclaim.
 
 ## About the artwork
 
-William Blake's poem Jerusalem has been hailed as the unofficial English anthem, the defining narrative of this ‘green and pleasant land’. But, by subjecting Blake's mastery of language to the forces of Google Translator, which uses Artificial Intelligence to translate a chosen language into another, other tales of England begin to emerge. In Bring Me My Firetruck, poet Mr Gee explores the ‘soul of Brexit’ through combining Blake’s poem with the visual metaphor of an airport arrivals board. As we stare at the board, incoming planes are landing from countries of the European Union, bringing with them the free movement of people, the free movement of language, and the free movement of interpretation. By translating the English poem through the 23 other official languages of the European Union and Welsh, Mr Gee reveals a rib-tickling series of new versions: ‘O Clouds unfold’ becomes ‘Get my bed’ and ‘Bring me my Chariot of fire!’ is transformed into the title of this new piece, ‘Bring Me My Fire Truck’. Old meanings deteriorate and new ideas emerge according to algorithmic assumptions and corruptions. The poem’s point of view shifts between the sinister, the banal, and the absurd, raising a few wry smiles along the way.
+An animation of William Blake’s Jerusalem running through the 24 official languages of the European Union with Welsh and Scots Gaelic via Google Translate
+Commissioned by Data as Culture at the ODI.
+ 
+William Blake's Jerusalem is considered the defining narrative of this ‘green and pleasant land’. Mr Gee explores the poem through the 24 official languages of the European Union as well as Welsh and Scots Gaelic, via Google Translate’s AI system. Using the visual metaphor of an airport arrivals board, incoming ‘planes’ bring the free movement of people, language, and interpretation. Old meanings deteriorate as new ideas emerge according to algorithmic assumptions and corruptions. 
+ 
+In this interactive online version, you are invited to maneouver your way through the ‘airport’ to decide where you want the poem to take you. In ‘Arrivals’, you can watch the animation cycle before moving on to the interactive sections: ‘Baggage Reclaim’ and ‘Lost Luggage’. 
+ 
+In ‘Baggage Reclaim’, you select luggage from across the EU to access videos of native speakers reciting the mistranslations. New meanings are found and old sentiments deteriorate as the poem moves between different voices, languages and dialects. 
+ 
+In ‘Lost Luggage’ random verses from each translation are combined together to form an aggregate poem of multiple voices and mistranslations which changes upon each playing. The original poem’s point of view shifts between the sinister, the banal, the hilarious and the absurd.
+
 
 ## About the artist
 
@@ -47,17 +57,13 @@ Set window to full screen
 
 
 
-
 ## Credits
 
-The work was commissioned by ODI's [Data as Culture](culture.theodi.org) programme for the latest curatorial theme: Copy That? Surplus Data in an Age of Repetitive Duplication curated by Hannah Redler Hawes, Julie Freeman and Anna Scott. Exhibition runs Feb 2020 to Dec 2020.
+The work was commissioned by ODI's [Data as Culture](culture.theodi.org) programme for the latest curatorial theme: Copy That? Surplus Data in an Age of Repetitive Duplication curated by Hannah Redler Hawes, Julie Freeman and Anna Scott. Exhibition opened Feb 2020, curtailed due to COVID-19.
 
-The work has been produced by Julie Freeman and Stephen Wolff of [Translating Nature Ltd](translatingnature.org)
+Producer: Julie Freeman [Translating Nature](translatingnature.org)
+Technical: Stephen Wolff [Maxgate Digital](maxgatedigital.com)
 
-Arrival icon by [Daniela Baptista from the Noun Project](https://thenounproject.com/daniela.baptista/)
-
-Plane icons by [Denis Sazhin from the Noun Project](https://thenounproject.com/iconka/)
-
-Country flags via http://flag-icon-css.lip.is
-
+Country flags via flag-icon-css.lip.is
 Split-flap animation adapted from Flapper
+Icons from Noun Project contributors: Daniela Baptista, Denis Sazhin, Luis Prado, Saee Vaze, Stanislav Levin, iconsmind.com, Tommy Lau, icon 54, Eugene So, Mike Rowe, Ralf Schmitzer, Rudy Jaspers, Shmidt Sergey, Aldric Rodríguez, Mahmure Alp, Adrien Coquet, Yeoul Kwon, Strokeicon, glyph.faisalovers.
