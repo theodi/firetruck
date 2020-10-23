@@ -37,10 +37,10 @@ $(function(){
 
     // animate
     function scroll() {
-        $('#baggages').animate({
+        $baggages.animate({
             right: $width
         }, 150000, 'linear', function() {
-            $('#baggages').css({'right': -$scrollWidth + 'px'});
+            $baggages.css({'right': -$scrollWidth + 'px'});
             scroll();
         });
     }
