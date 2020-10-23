@@ -11,8 +11,8 @@ $(function(){
     let player;
     let player_ready = false;
 
-    let $home = $('#home_span')
-    let $home_2 = $('#home_span_2');
+    let $home = $('#home_link')
+    let $home_2 = $('#home_link_2');
 
     let animateHomeOver = function()    {   $('#eu_flag').hide();   $('#home_link_rollover').show();    };
     let animateHomeOut = function()     {   $('#eu_flag').show();   $('#home_link_rollover').hide();    };

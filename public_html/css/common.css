@@ -144,20 +144,20 @@ tbody td.td_time {
     width:140px;
     height: 96px;
 }
-#home_link {
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-}
-#home_link span {
-    display: inline-block;
-    color: #111111 !important;
-}
+/*#home_link {*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/
+/*#home_link span {*/
+/*    display: inline-block;*/
+/*    color: #111111 !important;*/
+/*}*/
 
-#home_link span object {
-    position: relative;
-    z-index: -1
-}
+/*#home_link span object {*/
+/*    position: relative;*/
+/*    z-index: -1*/
+/*}*/
 
 #home_link_rollover{
     float:left;

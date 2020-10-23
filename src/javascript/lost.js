@@ -6,7 +6,7 @@ import anime from 'animejs/lib/anime.es.js';
 const p5 = require('p5');
 
 $(function(){
-    let $home = $('#home_span');
+    let $home = $('#home_link');
 
     let animateHomeOver = function()      {
         $('#eu_flag').hide();
