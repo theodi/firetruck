@@ -62,9 +62,8 @@ tbody td {
 tbody td#th_time {
     padding-top: 2px;
     padding-bottom: 2px;
-
-
 }
+
 tbody td.td_time {
     padding-left: 50px;
     padding-top: 8px;
@@ -104,14 +103,13 @@ tbody td.td_time {
 }
 
 #th_from {
-    width: 18%;
+    width: 20%;
+}
 
+#th_arrived {
+    width: 30%;
 }
-/*
-#th_remarks {
-    width: 50%;
-}
-*/
+
 
 #point_left_svg, #point_right_svg {
     width: 40px;
@@ -144,20 +142,6 @@ tbody td.td_time {
     width:140px;
     height: 96px;
 }
-/*#home_link {*/
-/*    display: inline-block;*/
-/*    position: relative;*/
-/*    z-index: 1;*/
-/*}*/
-/*#home_link span {*/
-/*    display: inline-block;*/
-/*    color: #111111 !important;*/
-/*}*/
-
-/*#home_link span object {*/
-/*    position: relative;*/
-/*    z-index: -1*/
-/*}*/
 
 #home_link_rollover{
     float:left;

@@ -36,7 +36,7 @@ tbody tr:nth-child(even) {
     padding-right: 16px;
 }
 
-#baggage_reclaim_div, #lost_luggage_div {
+#baggage_reclaim, #lost_luggage {
     width: 186px;
     height: 80px;
     margin-left: 20px;
@@ -44,4 +44,9 @@ tbody tr:nth-child(even) {
     margin-bottom: 0;
     margin-right: 30px;
     border: #3b3b3b solid 10px;
+    background: #F8E106;
+    padding: 0;
+}
+#baggage_reclaim:hover, #lost_luggage:hover {
+    background: #FFFFFF;
 }
