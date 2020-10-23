@@ -37,6 +37,14 @@
     border:8px black solid;
 }
 
+img.head_row_1 {
+    margin-top: 16px;
+}
+
+/*img.head_row_2 {*/
+/*    margin-bottom: 16px;*/
+/*}*/
+
 .selected_head {
     border:8px #F8E106 solid;
 }
@@ -48,9 +56,11 @@
 }
 
 #arrivals_text {
+    margin-top:16px;
     color: #F8E106;
     font-size: 32pt;
     float: left;
+    letter-spacing:0.08em;
 }
 
 #td_arrivals_arrow {
@@ -59,8 +69,9 @@
 }
 
 #arrivals_arrow_div {
+    margin-top:16px;
     padding-top: 18px;
-    margin-left: 150px;
+    margin-left: 180px;
     width:45px;
 }
 
