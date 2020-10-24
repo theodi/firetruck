@@ -104,7 +104,7 @@ class FlightPlan {
 
         poemLines = [
             "",
-            ""," Loading......","",
+            " Loading......","",
             "","","","","","","","","","","","",
         ];
         uniqueChars = this.getUniqueChars(poemLines);
@@ -114,7 +114,7 @@ class FlightPlan {
         );
         poemLines = [
             "",
-            ""," Click or tap to start ...","",
+            " Click or tap to start ...","",
             "","","","","","","","","","","","",
         ];
         uniqueChars = this.getUniqueChars(poemLines);
