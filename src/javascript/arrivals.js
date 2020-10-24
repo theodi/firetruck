@@ -7,44 +7,69 @@ const p5 = require('p5');
 
 $(function(){
     let $home = $('#home_link');
+    let $baggage_reclaim_svg = $('#baggage_reclaim_svg');
+    let $lost_luggage_svg = $('#lost_luggage_svg');
+    let displaysArea = new p5(displays_sketch, 'displays');
+    let flightPlan = new FlightPlan(displaysArea);
+    let $pointLeft = $('#point_left_div');
+    let $pointRight = $('#point_right_div');
 
     let animateHomeOver = function()      {
-        $('#eu_flag').hide();
-        $('#home_link_rollover').show();
+        $('#eu_flag').hide();       $('#home_link_rollover').show();
     };
     let animateHomeOut = function()      {
-        $('#eu_flag').show();
-        $('#home_link_rollover').hide();
+        $('#eu_flag').show();       $('#home_link_rollover').hide();
     }
-
-    $home.on('mouseover', animateHomeOver);
-    $home.on('mouseout', animateHomeOut);
-
-    let $baggage_reclaim_svg = $('#baggage_reclaim_svg');
-
     let animateBaggageOver = function()      {
         anime({ targets: '#baggage_reclaim_bg', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
     };
     let animateBaggageOut = function()      {
         anime({ targets: '#baggage_reclaim_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
     };
-    $baggage_reclaim_svg.on('mouseover', animateBaggageOver);
-    $baggage_reclaim_svg.on('mouseout', animateBaggageOut);
-
-    let $lost_luggage_svg = $('#lost_luggage_svg');
-
     let animateLuggageOver = function()      {
         anime({ targets: '#lost_luggage_bg', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
     };
     let animateLuggageOut = function()      {
         anime({ targets: '#lost_luggage_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
     };
+    let animatePointLeftOver = function()       {
+        let currentFill = $('#point_left_path').attr('fill');
+        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
+            anime({ targets: '#point_left_path', fill: ['#f8e106', '#ffffff'], easing: 'easeInOutSine', duration: 250  });
+        }
+    }
+    let animatePointLeftOut = function()       {
+        let currentFill = $('#point_left_path').attr('fill');
+        if (currentFill === "rgba(255,255,255,1)") {
+            anime({ targets: '#point_left_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        }
+    }
+    let animatePointRightOver = function()       {
+        let currentFill = $('#point_right_path').attr('fill');
+        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
+            anime({ targets: '#point_right_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 250  });
+        }
+    }
+    let animatePointRightOut = function()       {
+        let currentFill = $('#point_right_path').attr('fill');
+        if (currentFill !== "rgba(248,225,6,1)") {
+            anime({ targets: '#point_right_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        }
+    }
+
+
+    $home.on('mouseover', animateHomeOver);
+    $home.on('mouseout', animateHomeOut);
+    $baggage_reclaim_svg.on('mouseover', animateBaggageOver);
+    $baggage_reclaim_svg.on('mouseout', animateBaggageOut);
     $lost_luggage_svg.on('mouseover', animateLuggageOver);
     $lost_luggage_svg.on('mouseout', animateLuggageOut);
-
-
-    let displaysArea = new p5(displays_sketch, 'displays');
-    let flightPlan = new FlightPlan(displaysArea);
+    $pointLeft.on('mouseover', animatePointLeftOver);
+    $pointLeft.on('mouseout', animatePointLeftOut);
+    $pointLeft.on('mouseleave', animatePointLeftOut);
+    $pointRight.on('mouseover', animatePointRightOver);
+    $pointRight.on('mouseout', animatePointRightOut);
+    $pointRight.on('mouseleave', animatePointRightOut);
 
     flightPlan.setUpFlightPlan();
 

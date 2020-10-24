@@ -25,6 +25,12 @@ tbody tr:nth-child(even) {
     width: 120px;
     float:left;
 }
+#point_left_div, #point_right_div {
+    width: 40px;
+    margin: 10px;
+    display: inline-block;
+    float:left;
+}
 
 #th_transfer. #td_transfer {
     width: 200px;

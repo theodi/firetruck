@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96.33 73.79"><defs><style>.cls-1{fill:#f8e106;}</style></defs><title>Asset 3</title><g id="Layer_2" data-name="Layer 2"><g id="header_components" data-name="header components"><path class="cls-1" d="M0,36.9,36.9,0H55.3L24.92,30.38H96.33v13H24.92L55.3,73.79H36.9Z"/></g></g></svg>
+<svg viewBox="0 0 96.33 73.79">
+    <g>
+        <path id="point_left_path" fill="#f8e106" d="M0,36.9,36.9,0H55.3L24.92,30.38H96.33v13H24.92L55.3,73.79H36.9Z"/>
+    </g>
+</svg>
