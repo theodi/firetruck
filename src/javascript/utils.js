@@ -35,4 +35,13 @@ function sample(choices) {
   return choices[index];
 }
 
-export default selection;
+
+function clamp(num, min, max) {
+  return num <= min ? min : num >= max ? max : num;
+}
+
+
+export {
+  selection,
+  clamp
+}

@@ -1,4 +1,4 @@
-import selection from "../utils";
+import { selection } from "../utils";
 
 let moment = require('moment');
 moment().format();

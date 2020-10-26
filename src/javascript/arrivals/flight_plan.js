@@ -18,19 +18,18 @@ const ARRIVED           = 1;
 const ARRIVED_SHOWING   = 2;
 const TRANSFER          = 3;
 const TRANSFER_SHOWING  = 4;
-
-// const MAX_LINE_LENGTH = 61;
+const TIME_UPDATE       = 5;
 
 // minutes per language, and translation
 const minutesPerLanguage = 1;
 const flightCodes = "BREXITDISCOMBOBULATION";
 let flightCodeIndex = 0;
-// let $displays = $('input.display');
+
 let updating = false;
 let landing_updated = false;
 let landing_prewarn_milliseconds = 20000;
 let poem_lines = [];
-// let animation = false;
+
 
 class FlightPlan {
     constructor(p5DisplaysArea) {
@@ -41,6 +40,8 @@ class FlightPlan {
         this.state = PRE_START;
         this.lastIndex = 0;
         this.displaysArea = p5DisplaysArea;
+        this.adjustmentSeconds = 0;
+        this.previousAdjustmentSeconds = 0;
     }
 
     addFlight(flight, index) {
@@ -49,10 +50,11 @@ class FlightPlan {
 
         let flightTransferDate = flight.getTransferDate();
         if (moment(this.lastTransferDate).isBefore(flightTransferDate)) {
-            this.lastTransferDate = flightTransferDate;//new Date(flightTransferDate.getTime());
+            this.lastTransferDate = flightTransferDate;
         }
         if (this.firstCountry === "") {
             this.firstCountry = flight.country;
+            console.log("firstCountry: " + this.firstCountry);
         }
         if (this.lastIndex < index) {
             this.lastIndex = index;
@@ -98,6 +100,15 @@ class FlightPlan {
         }
     }
 
+    setAdjustmentSeconds(clockAdjustmentSeconds) {
+        if (this.adjustmentSeconds !== clockAdjustmentSeconds) {
+            this.adjustmentSeconds = clockAdjustmentSeconds;
+            this.updateFlightPlanTimes();//setState(TIME_UPDATE);
+        }
+
+        this.previousAdjustmentSeconds = this.adjustmentSeconds;
+    }
+
     setUpFlightPlan() {
         let now = moment();                 // 12:01:23
         let seconds = now.seconds();        // 23
@@ -120,7 +131,7 @@ class FlightPlan {
         alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
 
         // create new 'transfer' object
-        let transfer = moment(now);                                 // 12:03:00
+        let transfer = moment(now);//.add(this.adjustmentSeconds, 'seconds');                                 // 12:03:00
 
         // we ignore zero translation - the original
         let translationIndex = 1;
@@ -201,17 +212,20 @@ class FlightPlan {
             updating = true;
             let arrivals = this.getNextThreeArrivals();
             let now = new Date();
-            let momentNow = moment(now);
+            let momentNow = moment(now).add(this.adjustmentSeconds, 'seconds');
             let transferTime = arrivals[0].getTransferDate();
             let nextDateTime = arrivals[1].getNextDate();
 
             switch (this.getState()) {
                 case PRE_START:
+                    console.log("PRE_START");
+
                     // set up initial character set to be used for first language
                     this.updateCharacterSet(arrivals[0].getUniqueCharacters(), false, arrivals[0].country);
                     this.setState(START);
                     break;
                 case START:
+                    console.log("START");
                     // set landing in early
                     this.landingInLanguage(momentNow, arrivals[0].getNextDate(), arrivals[0].country);
 
@@ -221,6 +235,7 @@ class FlightPlan {
 
                     break;
                 case ARRIVED:
+                    console.log("ARRIVED");
                     landing_updated = false;
 
                     // show poem translation to language
@@ -230,6 +245,7 @@ class FlightPlan {
                     this.setState(ARRIVED_SHOWING);
                     break;
                 case ARRIVED_SHOWING:
+                    console.log("ARRIVED_SHOWING");
                     this.landingInLanguage(momentNow, transferTime, 'English');
 
                     // see if we've got to transfer date
@@ -239,11 +255,13 @@ class FlightPlan {
                     break;
                 case TRANSFER:
                     landing_updated = false;
+                    console.log("TRANSFER");
                     // show poem translation back to English
                     this.updatePoemLines(true);
                     this.setState(TRANSFER_SHOWING);
                     break;
                 case TRANSFER_SHOWING:
+                    console.log("TRANSFER_SHOWING");
                     this.landingInLanguage(momentNow, nextDateTime, arrivals[1].country);
 
                     if (now > nextDateTime) {
@@ -257,11 +275,86 @@ class FlightPlan {
                         this.displayFlightPlan();
                     }
                     break;
+                // case TIME_UPDATE:
+                //     this.updateFlightPlanTimes();
+                //     break;
             }
             updating = false;
         }
     }
 
+    updateFlightPlanTimes() {
+
+        let now = moment().add(this.adjustmentSeconds, 'seconds');                 // 12:01:23
+        let seconds = now.seconds();        // 23
+        now.add(1, 'm');        // 12:02:23
+
+        // zero seconds
+        now.subtract(seconds, 's');     // 12:02:00
+
+        // top row - already landed, and transfer (in progress)
+        let alreadyLanded = moment(now);    // 12:02:00
+        let alreadyLandedTransfer = moment(now);    // 12:02:00
+
+        // get initial transfer time
+        now.add(minutesPerLanguage, 'm');                           // 12:03:00
+        alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');    // 12:01:00
+        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:01:00
+        alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
+
+        let previousFirstCountry = this.firstCountry;
+        let countryFound = false;
+        let translating = false;
+
+        // search for 'firstCountry' now time has changed
+        // NB if not found = need to work backwards from index - 1, and set datetimes
+        for (let country in country_codes) {
+
+            let flightIndex = this.flightsByCountryIndex[country];
+            let flightNextDate = this.flightsByIndex[flightIndex].getNextDate();
+            let flightTransferDate = this.flightsByIndex[flightIndex].getTransferDate();
+
+            if (alreadyLanded.isSame(flightNextDate, 'hour') && alreadyLanded.isSame(flightNextDate, 'minute')) {
+                // firstCountry?
+                this.firstCountry = country;
+                console.log("firstCountry now: " + this.firstCountry);
+
+                countryFound = true;
+            }
+            if (alreadyLanded.isSame(flightTransferDate, 'hour') && alreadyLanded.isSame(flightTransferDate, 'minute')) {
+                // firstCountry?
+                this.firstCountry = country;
+                countryFound = true;
+                translating = true;
+                console.log("firstCountry now: " + this.firstCountry + ", translating");
+
+            }
+        }
+
+        if (!countryFound) {
+
+//            gone back in time?
+            console.log('gone back in time?')
+        }
+
+        // adjust flightCodeIndex
+
+
+
+        if (this.firstCountry !== previousFirstCountry) {
+            // now what?
+            this.setState(START);
+        } else {
+            if (translating && (this.getState() !== TRANSFER && this.getState() !== TRANSFER_SHOWING)) {
+                this.setState(TRANSFER);
+            }
+        }
+
+        //}//else {
+            // work out next state and set
+        //    this.setState(PRE_START);
+        //}
+    }
     updateCharacterSet(characterSet, translation, language) {
         let arrivalIndex = this.getFirstArrivalIndex();
         let currentTranslation = (arrivalIndex * 2) + 1;
@@ -357,7 +450,6 @@ class FlightPlan {
         }
         this.updateCharacterSet(arrival.getUniqueCharacters(translation), translation, arrival.country);
     }
-
 
     getUniqueCharsArray(lineOfChars) {
         return lineOfChars.split('').filter(function (item, i, ar) {

@@ -30,6 +30,7 @@ let displays_sketch = function (p) {
         min_timing = 15,
         max_timing = 250,
         threshold = 100;
+    let pauseWhileTimeUpdating = false;
 
 
     p.preload = function() {
@@ -256,7 +257,7 @@ let displays_sketch = function (p) {
     }
 
     function getScreenX (col) {
-        return (col * gapX);// + 1marginX;
+        return (col * gapX);
     }
 
     function getRandomInt(max) {

@@ -5,7 +5,22 @@ import anime from 'animejs/lib/anime.es.js';
 
 const p5 = require('p5');
 
+let clockAdjustmentSeconds = 0;
+
+
 $(function(){
+    let leftMouseButtonOnlyDown = false;
+
+    function setLeftButtonState(e) {
+        leftMouseButtonOnlyDown = e.buttons === undefined
+            ? e.which === 1
+            : e.buttons === 1;
+    }
+
+    document.body.onmousedown = setLeftButtonState;
+    document.body.onmousemove = setLeftButtonState;
+    document.body.onmouseup = setLeftButtonState;
+
     let $home = $('#home_link');
     let $baggage_reclaim_svg = $('#baggage_reclaim_svg');
     let $lost_luggage_svg = $('#lost_luggage_svg');
@@ -35,28 +50,35 @@ $(function(){
     let animatePointLeftOver = function()       {
         let currentFill = $('#point_left_path').attr('fill');
         if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
-            anime({ targets: '#point_left_path', fill: ['#f8e106', '#ffffff'], easing: 'easeInOutSine', duration: 250  });
+            anime({ targets: '#point_left_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 50  });
         }
     }
     let animatePointLeftOut = function()       {
         let currentFill = $('#point_left_path').attr('fill');
-        if (currentFill === "rgba(255,255,255,1)") {
-            anime({ targets: '#point_left_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        if (currentFill !== "rgba(248,225,6,1)") {
+            anime({ targets: '#point_left_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50  });
         }
     }
     let animatePointRightOver = function()       {
         let currentFill = $('#point_right_path').attr('fill');
         if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
-            anime({ targets: '#point_right_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 250  });
+            anime({ targets: '#point_right_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 50  });
         }
     }
     let animatePointRightOut = function()       {
         let currentFill = $('#point_right_path').attr('fill');
         if (currentFill !== "rgba(248,225,6,1)") {
-            anime({ targets: '#point_right_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+            anime({ targets: '#point_right_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50  });
         }
     }
-
+    let increaseTime = function() {
+        clockAdjustmentSeconds += 60;
+        console.log("up:   clockAdjustmentSeconds = " + clockAdjustmentSeconds);
+    };
+    let decreaseTime = function () {
+        clockAdjustmentSeconds -= 60;
+        console.log("down: clockAdjustmentSeconds = " + clockAdjustmentSeconds);
+    }
 
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
@@ -64,12 +86,16 @@ $(function(){
     $baggage_reclaim_svg.on('mouseout', animateBaggageOut);
     $lost_luggage_svg.on('mouseover', animateLuggageOver);
     $lost_luggage_svg.on('mouseout', animateLuggageOut);
+
     $pointLeft.on('mouseover', animatePointLeftOver);
     $pointLeft.on('mouseout', animatePointLeftOut);
     $pointLeft.on('mouseleave', animatePointLeftOut);
+    $pointLeft.on('click', decreaseTime);
+
     $pointRight.on('mouseover', animatePointRightOver);
     $pointRight.on('mouseout', animatePointRightOut);
     $pointRight.on('mouseleave', animatePointRightOut);
+    $pointRight.on('click', increaseTime);
 
     flightPlan.setUpFlightPlan();
 
@@ -90,10 +116,14 @@ $(function(){
     });
 
     // set the time and flight plan
-    updateClock();
+    updateClock(clockAdjustmentSeconds);
     flightPlan.updateFlightPlan();
 
     // update clock, once every half second
-    setInterval(updateClock, 500);
+    setInterval(function() {
+        updateClock(clockAdjustmentSeconds)
+        flightPlan.setAdjustmentSeconds(clockAdjustmentSeconds);
+    }, 500);
+
 });
 
