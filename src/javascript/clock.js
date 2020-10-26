@@ -1,9 +1,9 @@
 var moment = require('moment');
 moment().format();
 
-function updateClock(clockAdjustmentSeconds = 0) {
+function updateClock() { // clockAdjustmentSeconds = 0) {
 
-    let now = moment().add(clockAdjustmentSeconds, 'seconds');
+    let now = moment(); //.add(clockAdjustmentSeconds, 'seconds');
     let hour = now.hours();
     let minute = now.minutes();
     let second = now.seconds();

@@ -5,7 +5,7 @@ import anime from 'animejs/lib/anime.es.js';
 
 const p5 = require('p5');
 
-let clockAdjustmentSeconds = 0;
+// let clockAdjustmentSeconds = 0;
 
 
 $(function(){
@@ -71,14 +71,14 @@ $(function(){
             anime({ targets: '#point_right_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50  });
         }
     }
-    let increaseTime = function() {
-        clockAdjustmentSeconds += 60;
-        console.log("up:   clockAdjustmentSeconds = " + clockAdjustmentSeconds);
-    };
-    let decreaseTime = function () {
-        clockAdjustmentSeconds -= 60;
-        console.log("down: clockAdjustmentSeconds = " + clockAdjustmentSeconds);
-    }
+    // let increaseTime = function() {
+    //     clockAdjustmentSeconds += 60;
+    //     console.log("up:   clockAdjustmentSeconds = " + clockAdjustmentSeconds);
+    // };
+    // let decreaseTime = function () {
+    //     clockAdjustmentSeconds -= 60;
+    //     console.log("down: clockAdjustmentSeconds = " + clockAdjustmentSeconds);
+    // }
 
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
@@ -90,12 +90,12 @@ $(function(){
     $pointLeft.on('mouseover', animatePointLeftOver);
     $pointLeft.on('mouseout', animatePointLeftOut);
     $pointLeft.on('mouseleave', animatePointLeftOut);
-    $pointLeft.on('click', decreaseTime);
+    // $pointLeft.on('click', decreaseTime);
 
     $pointRight.on('mouseover', animatePointRightOver);
     $pointRight.on('mouseout', animatePointRightOut);
     $pointRight.on('mouseleave', animatePointRightOut);
-    $pointRight.on('click', increaseTime);
+    // $pointRight.on('click', increaseTime);
 
     flightPlan.setUpFlightPlan();
 
@@ -116,13 +116,13 @@ $(function(){
     });
 
     // set the time and flight plan
-    updateClock(clockAdjustmentSeconds);
+    updateClock() ;//clockAdjustmentSeconds);
     flightPlan.updateFlightPlan();
 
     // update clock, once every half second
     setInterval(function() {
-        updateClock(clockAdjustmentSeconds)
-        flightPlan.setAdjustmentSeconds(clockAdjustmentSeconds);
+        updateClock();//clockAdjustmentSeconds)
+        // flightPlan.setAdjustmentSeconds(clockAdjustmentSeconds);
     }, 500);
 
 });

@@ -30,7 +30,7 @@ let displays_sketch = function (p) {
         min_timing = 15,
         max_timing = 250,
         threshold = 100;
-    let pauseWhileTimeUpdating = false;
+    // let pauseWhileTimeUpdating = false;
 
 
     p.preload = function() {
