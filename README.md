@@ -58,8 +58,11 @@ Set window to full screen
 
 
 ## Credits
+Mr Gee
+Bring Me My Firetruck (the New Jerusalem?)  2019 - 2020
+Animation of William Blake’s Jerusalem running through the 24 official languages of the European Union with Welsh and Scots Gaelic via Google Translate
 
-The work was commissioned by ODI's [Data as Culture](culture.theodi.org) programme for the latest curatorial theme: Copy That? Surplus Data in an Age of Repetitive Duplication curated by Hannah Redler Hawes, Julie Freeman and Anna Scott. Exhibition opened Feb 2020, curtailed due to COVID-19.
+The work was commissioned by ODI's [Data as Culture](culture.theodi.org) programme for the curatorial theme: Copy That? Surplus Data in an Age of Repetitive Duplication curated by Hannah Redler Hawes, Julie Freeman and Anna Scott.
 
 Producer: Julie Freeman [Translating Nature](translatingnature.org)
 Technical: Stephen Wolff [Maxgate Digital](maxgatedigital.com)
@@ -67,3 +70,6 @@ Technical: Stephen Wolff [Maxgate Digital](maxgatedigital.com)
 Country flags via flag-icon-css.lip.is
 Split-flap animation adapted from Flapper
 Icons from Noun Project contributors: Daniela Baptista, Denis Sazhin, Luis Prado, Saee Vaze, Stanislav Levin, iconsmind.com, Tommy Lau, icon 54, Eugene So, Mike Rowe, Ralf Schmitzer, Rudy Jaspers, Shmidt Sergey, Aldric Rodríguez, Mahmure Alp, Adrien Coquet, Yeoul Kwon, Strokeicon, glyph.faisalovers.
+
+
+
