@@ -37,34 +37,54 @@ $(function(){
     let $audio_switch = $('#audio_switch');
 
     let animateReloadOver = function()      {
-        anime({ targets: '#reload_path', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+        let currentFill = $('#reload_path').attr('fill');
+        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,225,255,1)") {
+            anime({targets: '#reload_path', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
+        }
     };
     let animateReloadOut = function()      {
-        anime({ targets: '#reload_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        let currentFill = $('#reload_path').attr('fill');
+        if (currentFill !== "rgba(248,225,6,1)") {
+            anime({targets: '#reload_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
+        }
     }
 
     $reload.on('mouseover', animateReloadOver);
     $reload.on('mouseout', animateReloadOut);
 
     let animateAudioOver = function()      {
+        let currentFill = $('#audio_path_1').attr('fill');
         let muted = flightPlan.getMuted();
-        anime({ targets: '#audio_path_1', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
-        if (!muted) {
-            anime({ targets: '#audio_path_2', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
-            anime({ targets: '#audio_path_3', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250   });
+        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,225,255,1)") {
+            anime({targets: '#audio_path_1', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
+            if (!muted) {
+                anime({targets: '#audio_path_2', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
+                anime({targets: '#audio_path_3', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
+            } else {
+                anime({ targets: '#audio_path_2', fill: [currentFill, '#000'], easing: 'easeInOutSine', duration: 250   });
+                anime({ targets: '#audio_path_3', fill: [currentFill, '#000'], easing: 'easeInOutSine', duration: 250   });
+            }
+
         }
     }
     let animateAudioOut = function()      {
-        let muted = flightPlan.getMuted();
-        anime({ targets: '#audio_path_1', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
-        if (!muted) {
-            anime({targets: '#audio_path_2', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250});
-            anime({targets: '#audio_path_3', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250});
+        let currentFill = $('#audio_path_1').attr('fill');
+        if (currentFill !== "rgba(248,225,6,1)") {
+            let muted = flightPlan.getMuted();
+            anime({targets: '#audio_path_1', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
+            if (!muted) {
+                anime({targets: '#audio_path_2', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
+                anime({targets: '#audio_path_3', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
+            } else {
+                anime({ targets: '#audio_path_2', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
+                anime({ targets: '#audio_path_3', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
+            }
         }
     }
 
     $audio_switch.on('mouseover', animateAudioOver);
     $audio_switch.on('mouseout', animateAudioOut);
+    $audio_switch.on('mouseleave', animateAudioOut);
 
     let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);

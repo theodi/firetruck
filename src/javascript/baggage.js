@@ -52,13 +52,20 @@ $(function(){
 
     let $bag_roll = $('.bag_roll');
     let animateBaggageOver = function()      {
-
         let this_id = this.id;
-        anime({ targets: '#' + this_id, fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 50   });
+        let currentFill = $('#' + this_id).attr('fill');
+
+        if (currentFill !== "rgba(248,225,6,1)")         {
+            anime({ targets: '#' + this_id, fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50   });
+        }
     }
     let animateBaggageOut = function()      {
         let this_id = this.id;
-        anime({ targets: '#' + this_id, fill: ['#f8e106', '#000'], easing: 'easeInOutSine', duration: 50   });
+        let currentFill = $('#' + this_id).attr('fill');
+
+        if (currentFill !== '#000000' && currentFill !== "rgba(0,0,0,1)") {
+            anime({targets: '#' + this_id, fill: [currentFill, '#000'], easing: 'easeInOutSine', duration: 50});
+        }
     }
 
     $bag_roll.on('mouseover', animateBaggageOver);
@@ -176,9 +183,6 @@ $(function(){
         player_ready = true;
     }
 
-    // set the time and flight plan
-////    updateClock();
-//
     // flashing colons
     anime({
         targets: 'span.clock_colon',
