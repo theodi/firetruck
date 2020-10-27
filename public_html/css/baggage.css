@@ -170,7 +170,7 @@ tbody tr:nth-child(even) {
 #arrivals_title {
     font-family: 'robotobold', sans-serif;
     float:left;
-    font-size: 3.5em;
+    font-size: 54px;
     font-weight: bolder;
     color: #111111;
     letter-spacing:0.08em;
@@ -333,6 +333,7 @@ tbody tr:nth-child(even) {
 }
 .marquee_repeat {
     width: 3000px;
+    flex-shrink: 0;
 }
 .marquee span.marquee_repeat span {
     float:left;
