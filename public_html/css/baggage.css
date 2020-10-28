@@ -175,6 +175,9 @@ tbody tr:nth-child(even) {
     color: #111111;
     letter-spacing:0.08em;
 }
+#arrivals_title a {
+    color: #111111;
+}
 
 #lost_luggage {
     position: absolute;
@@ -211,7 +214,6 @@ tbody tr:nth-child(even) {
     white-space: nowrap;
     height: 500px;
     width: 10500px;
-
 }
 
 #ytplayer {
