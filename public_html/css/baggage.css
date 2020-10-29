@@ -216,15 +216,32 @@ tbody tr:nth-child(even) {
     width: 10500px;
 }
 
-#ytplayer {
+#ytwrap {
     position:absolute;
-    top: 20px;
-    left: 320px;
+    top: 10px;
+    left: 310px;
     margin: auto;
+    width: 1300px;
+    height: 740px;
+    z-index: 100;
+    background: #333333;
+    display: none;
+}
+#ytplayer {
+    position: absolute;
     width: 1280px;
     height: 720px;
-    z-index: 100;
-    display: none;
+    top: 10px;
+    left: 10px;
+    margin: auto;
+    background: #111111;
+}
+#ytplayer span {
+    position: absolute;
+
+    padding:60px;
+    font-family: 'PT Mono', monospace;
+    color: #F8E106;
 }
 
 
@@ -240,12 +257,12 @@ tbody tr:nth-child(even) {
 
 #poem_text {
     position: absolute;
-    top: 0;
+    top: 30px;
     width: 772px;
     height: 150px;
-    color: #111111;
-    background-color: #f1f1f1;
-    font-family: 'robotobold', sans-serif;
+    color: #F8E106;
+    background-color: #333333;
+    font-family: 'PT Mono', monospace;
 
     /*overflow: scroll;*/
     overflow: auto;
@@ -256,14 +273,15 @@ tbody tr:nth-child(even) {
 #poem_content {
     width: 752px;
     height: 500px;
-    background-color: #f1f1f1;
-    font-family: 'robotobold', sans-serif;
+    background-color: #333333;
+
+    font-family: 'PT Mono', monospace;
     padding: 10px 20px;
 }
 
 
 .scroll4::-webkit-scrollbar {
-    width: 20px;
+    width: 30px;
 }
 
 .scroll4::-webkit-scrollbar-thumb {
@@ -272,7 +290,7 @@ tbody tr:nth-child(even) {
 }
 
 .scroll4::-webkit-scrollbar-track {
-    background: #ddd;
+    background: #999999;
     /*border-radius: 20px;*/
 }
 
