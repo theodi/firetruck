@@ -13,6 +13,8 @@ $(function(){
     let video_country_id = "";
     let englishPlayed = false;
 
+    let $ytwrap = $('#ytwrap');
+
     let $home = $('#home_link')
     let $home_2 = $('#home_link_2');
 
@@ -70,8 +72,12 @@ $(function(){
 
     $bag_roll.on('mouseover', animateBaggageOver);
     $bag_roll.on('mouseout', animateBaggageOut);
-
+    $('.fifth_column').on('click', function() {
+        $ytwrap.hide();
+        $('#ytplayer').hide();
+    });
     $bag_roll.on('click', function() {
+        $ytwrap.show();
         video_country_id = this.id;
         englishPlayed = false;
         if (video_country_id.indexOf('-') !== -1){
