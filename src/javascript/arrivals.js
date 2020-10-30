@@ -9,6 +9,12 @@ const p5 = require('p5');
 
 
 $(function(){
+    let $continue = $('#click_continue');
+    $continue.on('click', function(){
+        $('#body').show();
+        $('#small').hide();
+    });
+
     let leftMouseButtonOnlyDown = false;
 
     function setLeftButtonState(e) {

@@ -6,6 +6,12 @@ import youtube_urls from "./data/youtube";
 import translations from './data/translations';
 
 $(function(){
+    let $continue = $('#click_continue');
+    $continue.on('click', function(){
+        $('#body').show();
+        $('#small').hide();
+    });
+
     // Replace the 'ytplayer' element with an <iframe> and
     // YouTube player after the API code downloads.
     let player;

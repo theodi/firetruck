@@ -7,6 +7,11 @@ const p5 = require('p5');
 
 $(function(){
     let $home = $('#home_link');
+    let $continue = $('#click_continue');
+    $continue.on('click', function(){
+       $('#body').show();
+       $('#small').hide();
+    });
 
     let animateHomeOver = function()      {
         $('#eu_flag').hide();

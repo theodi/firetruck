@@ -104,7 +104,7 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!\n * jQ
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function($) {$(function () {\n  $('.hamburger').on('click', function () {\n    $(this).toggleClass(\"change\");\n    var hamenu = $('#hamenu');\n\n    if (hamenu.is(\":visible\")) {\n      hamenu.fadeOut(150);\n    } else {\n      hamenu.fadeIn(150);\n    }\n  });\n  $('#theodi').on('click', function () {\n    var href = $('#theodi a').attr('href');\n    window.open(href);\n  });\n});\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\")))\n\n//# sourceURL=webpack:///./src/javascript/home.js?");
+eval("/* WEBPACK VAR INJECTION */(function($) {$(function () {\n  var $continue = $('#click_continue');\n  $continue.on('click', function () {\n    $('#body').show();\n    $('#small').hide();\n  });\n  $('.hamburger').on('click', function () {\n    $(this).toggleClass(\"change\");\n    var hamenu = $('#hamenu');\n\n    if (hamenu.is(\":visible\")) {\n      hamenu.fadeOut(150);\n    } else {\n      hamenu.fadeIn(150);\n    }\n  });\n  $('#theodi').on('click', function () {\n    var href = $('#theodi a').attr('href');\n    window.open(href);\n  });\n});\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ \"./node_modules/jquery/dist/jquery.js\")))\n\n//# sourceURL=webpack:///./src/javascript/home.js?");
 
 /***/ })
 
