@@ -157,3 +157,38 @@ tbody td.td_time {
 #home_span {
     height: 132px;
 }
+
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+@media (min-width: 1920px) {
+    div#small {
+        display:none
+    }
+    div#body {
+        display:block;
+    }
+}
+
+@media (max-width: 1919px) {
+    body {
+        background-image: none;
+        background-repeat: no-repeat;
+        background-size: 1920px 1080px;
+        background-color: #111111;
+    }
+    div#small {
+        display: block;
+        max-width: 500px;
+        padding: 20px;
+    }
+    div#body {
+        display:none;
+    }
+}

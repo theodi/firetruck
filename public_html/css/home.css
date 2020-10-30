@@ -1,22 +1,25 @@
-body {
-    background: url( "../img/home_bkgd.png");
+#body {
+    background-image: url( "../img/home_bkgd.png");
     background-repeat: no-repeat;
+    background-position: 0;
     background-size: 1920px 1080px;
     background-color: #111111;
+    width: 1928px;
+    height: 1088px;
+    border: #333333 4px solid;
+    margin: auto;
 }
 .fifth_column {
     width: 360px;
     height: 680px;
-    margin-top: 15px;
-    margin-right: 20px;
+    margin-top: 16px;
     margin-left: 20px;
-    margin-bottom: 17px;
 }
-#col_1 {  position: absolute; left:0; }
-#col_2 {  position: absolute; left:380px; }
-#col_3 {  position: absolute; left:760px; }
-#col_4 {  position: absolute; left:1140px; }
-#col_5 {  position: absolute; left:1520px; }
+#col_1 {  left:0; }
+#col_2 {  left:380px; }
+#col_3 {  left:760px; }
+#col_4 {  left:1140px; }
+#col_5 {  left:1520px; }
 
 h1, h2, h3 {
     font-family: 'PT Mono', monospace;
@@ -42,6 +45,7 @@ h3 {
     background-color: #333333;
     font-family: 'PT Mono', monospace;
     color: #F8E106;
+    float: left;
 }
 .clear_column {
     background-color: transparent;
@@ -108,12 +112,14 @@ h3 {
 }
 
 #arrivals {
-    position: absolute;
+    position: relative;
     top: 86px;
-    left: 1250px;
+    left: 110px;
     width: 564px;
+    height:324px;
     background: #262425;
     padding: 8px;
+    float: left;
 }
 #arrivals:hover {
     background: #FFFFFF;
@@ -132,3 +138,5 @@ h3 {
     width: 160px;
     height: 150px;
 }
+
+
