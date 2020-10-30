@@ -6,6 +6,13 @@ body{
     background-color: #111111;
     color:#fff;
 }
+#body {
+    background-color: #111111;
+    width: 1928px;
+    height: 1088px;
+    border: #333333 4px solid;
+    margin: auto;
+}
 p { font-family: 'Roboto', sans-serif; }
 table {
     margin:0;
