@@ -78,10 +78,31 @@ $(function(){
 
     $bag_roll.on('mouseover', animateBaggageOver);
     $bag_roll.on('mouseout', animateBaggageOut);
-    $('.fifth_column').on('click', function() {
-        $ytwrap.hide();
-        $('#ytplayer').hide();
+    $('body').click(function (event)
+    {
+        if(!$(event.target).closest('.bag_roll').length &&
+            !(
+                // $(event.target).is('#continue') ||
+                // $(event.target).is('#copy_that') ||
+                // $(event.target).is('#credits') ||
+                $(event.target).is('#continue')
+
+            ) //&&
+//            !($(event.target).is('a'))
+        )
+        {
+            $ytwrap.hide();
+            $('#ytplayer').hide();
+            $('#poem_details').hide();
+
+//            $('.modal').hide();
+        }
     });
+//    $('.fifth_column').on('click', function() {
+//         $ytwrap.hide();
+//         $('#ytplayer').hide();
+//         $('#poem_details').hide();
+//    });
     $bag_roll.on('click', function() {
         $ytwrap.show();
         video_country_id = this.id;
