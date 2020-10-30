@@ -89,7 +89,7 @@ h3 {
 }
 #hamenu {
     position: absolute;
-    top: 84px;
+    top: 100px;
     width: 200px;
     background-color: #F8E106;
     font-size: 18px;
@@ -138,11 +138,11 @@ h3 {
 .modal {
     position: absolute;
     z-index: 5;
-    display: block;
-    width: 780px;
+    display: none;
+    width: 900px;
     height: 710px;
-    top:86px;
-    left:86px;
+    top: 68px;
+    left:115px;
     border: 4px black solid;
     background-color: #333333;
     margin-top: 16px;
@@ -150,6 +150,6 @@ h3 {
 }
 
 .modal .fifth_column {
-
+    width: 400px;
     padding: 20px;
 }
