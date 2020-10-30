@@ -135,4 +135,21 @@ h3 {
     height: 150px;
 }
 
+.modal {
+    position: absolute;
+    z-index: 5;
+    display: block;
+    width: 780px;
+    height: 710px;
+    top:86px;
+    left:86px;
+    border: 4px black solid;
+    background-color: #333333;
+    margin-top: 16px;
+    margin-left: 20px;
+}
 
+.modal .fifth_column {
+
+    padding: 20px;
+}
