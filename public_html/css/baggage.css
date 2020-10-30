@@ -234,7 +234,9 @@ tbody tr:nth-child(even) {
     top: 10px;
     left: 10px;
     margin: auto;
-    background: #111111;
+    border: 4px black solid;
+    background-color: #333333;
+
 }
 #ytplayer span {
     position: absolute;
