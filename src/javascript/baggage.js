@@ -49,7 +49,7 @@ $(function(){
     function scroll() {
         $baggages.animate({
             right: $width
-        }, 280000, 'linear', function() {
+        }, 170000, 'linear', function() {
             $baggages.css({'right': -$scrollWidth + 'px'});
             scroll();
         });
