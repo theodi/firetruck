@@ -33,7 +33,9 @@ const THIRD_VERSE_END       = 32;
 const FOURTH_VERSE          = 40;
 const FOURTH_VERSE_READING  = 41;
 const FOURTH_VERSE_END      = 42;
-const ENDED                 = 50;
+const READY_FOR_RELOAD      = 43;
+const WAIT_SIXTY_SECONDS    = 44;
+const CHOSE_NEXT_FOUR       = 45;
 
 // constance
 const FIRST = 0;
@@ -59,6 +61,7 @@ class FlightPlan {
         this.versePlayers = [];
         this.soundsLoaded = 0;
         this.muted = false;
+        this.reloadTime = null;
     }
 
     getState() {
@@ -70,6 +73,7 @@ class FlightPlan {
     }
 
     setUpFlightPlan() {
+
 
         // get the names of the four countries
         let four_countries = selection(language_sequence, 4);
@@ -240,17 +244,34 @@ class FlightPlan {
                     break;
                 case FOURTH_VERSE_END:
                     // remove yellow head while we know
-                    this.setState(ENDED);
+                    this.setState(READY_FOR_RELOAD);
                     break;
 
-                case ENDED:
+                case READY_FOR_RELOAD:
+                    this.setHeads(-1);
                     this.displaysArea.updateCharacterSet(this.clickToAnotherMix);
-//                    clearInterval(this.interval);
-//                    this.interval = setInterval(
-//                        this.updateFlightPlan.bind(this),
-//                        500
-//                    );
+                    this.reloadTime = moment().add(60, 'seconds');
+                    this.setState(WAIT_SIXTY_SECONDS);
+                    clearInterval(this.interval);
+                    this.interval = setInterval(
+                        this.updateFlightPlan.bind(this),
+                        500
+                    );
 
+                    $('#displays').on('click', function() {
+                        Tone.start()
+                        _this.displaysArea.updateCharacterSet(_this.flight);
+                        _this.setState(FIRST_VERSE);
+                    });
+
+                    break;
+                case WAIT_SIXTY_SECONDS:
+                    if(moment() > this.reloadTime) {
+                        this.setState(CHOSE_NEXT_FOUR);
+                    }
+                    break;
+                case CHOSE_NEXT_FOUR:
+                    this.setState(PRE_VERSES);
                     break;
             }
             updating = false;
@@ -277,22 +298,24 @@ class FlightPlan {
     }
 
     setHeads(headNumber) {
-
-        let fourCountriesIndexes = this.flight?.getFourCountriesIndexes();
         $('.td_head img').removeClass('poem_head');
 
-        // set opacities
-        for(let i = 0; i < 26; i++) {
-            let headOnehundred = false;
-            for (let j = 0; j < 4; j++) {
-                if (fourCountriesIndexes[j] === i) {
-                    headOnehundred = true;
-                }
-            }
+        if (headNumber !== -1) {
+            let fourCountriesIndexes = this.flight?.getFourCountriesIndexes();
 
-            let $face = $('#td_head_' + (i + 1) + ' img');
-            if (headOnehundred === true) {
-                $face.addClass('poem_head');
+            // set opacities
+            for (let i = 1; i <= 26; i++) {
+                let headOnehundred = false;
+                for (let j = 0; j < 4; j++) {
+                    if (fourCountriesIndexes[j] === (i - 1)) {
+                        headOnehundred = true;
+                    }
+                }
+
+                let $face = $('#td_head_' + i + ' img');
+                if (headOnehundred === true) {
+                    $face.addClass('poem_head');
+                }
             }
         }
 
