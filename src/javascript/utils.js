@@ -12,14 +12,15 @@ function selection(choices, number) {
 
   while(chosen < number) {
     let select = sample(choices);
-    // console.log(select);
     let already_picked = false;
+
     for (let sel in selected) {
-      if (sel === select) {
+      let preSelected = selected[sel];
+      if (preSelected === select) {
         already_picked = true;
       }
     }
-    if (!already_picked) {
+    if (already_picked === false) {
       selected.push(select);
       chosen++;
     }
