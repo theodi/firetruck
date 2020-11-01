@@ -103,9 +103,10 @@ class FlightPlan {
         );
 
         poemLines = [
-            "",
-            " Loading......","",
-            "","","","","","","","","","","","",
+            "", " Loading......", "", "",
+            "", "", "", "",
+            "", "", "", "",
+            "", "", "", "",
         ];
         uniqueChars = this.getUniqueChars(poemLines);
         this.loadingFlight = new Flight(
@@ -113,15 +114,29 @@ class FlightPlan {
             uniqueChars
         );
         poemLines = [
-            "",
-            " Click or tap to start ...","",
-            "","","","","","","","","","","","",
+            "", " Click or tap to start ...", "", "",
+            "", "", "", "",
+            "", "", "", "",
+            "", "", "", "",
         ];
         uniqueChars = this.getUniqueChars(poemLines);
         this.clickToStartFlight = new Flight(
             poemLines,
             uniqueChars,
         );
+        poemLines = [
+            "", " Click or tap or hear another mix ...", "", "",
+            "", "", "", "",
+            "", "", "", "",
+            "", "", "", "",
+            "", "", "",
+        ];
+        uniqueChars = this.getUniqueChars(poemLines);
+        this.clickToAnotherMix = new Flight(
+            poemLines,
+            uniqueChars,
+        );
+
         if (this.interval) {
             clearInterval(this.interval);
         }
@@ -229,6 +244,13 @@ class FlightPlan {
                     break;
 
                 case ENDED:
+                    this.displaysArea.updateCharacterSet(this.clickToAnotherMix);
+//                    clearInterval(this.interval);
+//                    this.interval = setInterval(
+//                        this.updateFlightPlan.bind(this),
+//                        500
+//                    );
+
                     break;
             }
             updating = false;
@@ -255,6 +277,25 @@ class FlightPlan {
     }
 
     setHeads(headNumber) {
+
+        let fourCountriesIndexes = this.flight?.getFourCountriesIndexes();
+        $('.td_head img').removeClass('poem_head');
+
+        // set opacities
+        for(let i = 0; i < 26; i++) {
+            let headOnehundred = false;
+            for (let j = 0; j < 4; j++) {
+                if (fourCountriesIndexes[j] === i) {
+                    headOnehundred = true;
+                }
+            }
+
+            let $face = $('#td_head_' + (i + 1) + ' img');
+            if (headOnehundred === true) {
+                $face.addClass('poem_head');
+            }
+        }
+
         // yellow heads
         for(let i = 1; i <= 26; i++) {
             let $headimg = $('#td_head_' + i + ' img');

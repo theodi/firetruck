@@ -35,6 +35,7 @@
 
 .head {
     border:8px black solid;
+    opacity: 30%;
 }
 
 img.head_row_1 {
@@ -44,8 +45,12 @@ img.head_row_1 {
 /*img.head_row_2 {*/
 /*    margin-bottom: 16px;*/
 /*}*/
+.poem_head {
+    opacity: 100%;
+}
 
 .selected_head {
+    opacity: 100%;
     border:8px #F8E106 solid;
 }
 
