@@ -65,11 +65,7 @@ $(function(){
             if (!muted) {
                 anime({targets: '#audio_path_2', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
                 anime({targets: '#audio_path_3', fill: [currentFill, '#fff'], easing: 'easeInOutSine', duration: 250});
-            } else {
-                anime({ targets: '#audio_path_2', fill: [currentFill, '#000'], easing: 'easeInOutSine', duration: 250   });
-                anime({ targets: '#audio_path_3', fill: [currentFill, '#000'], easing: 'easeInOutSine', duration: 250   });
             }
-
         }
     }
     let animateAudioOut = function()      {
@@ -80,9 +76,6 @@ $(function(){
             if (!muted) {
                 anime({targets: '#audio_path_2', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
                 anime({targets: '#audio_path_3', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 250});
-            } else {
-                anime({ targets: '#audio_path_2', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
-                anime({ targets: '#audio_path_3', fill: ['#000', '#f8e106'], easing: 'easeInOutSine', duration: 250   });
             }
         }
     }
