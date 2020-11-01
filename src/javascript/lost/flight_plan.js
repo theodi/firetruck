@@ -158,6 +158,8 @@ class FlightPlan {
 
     updateFlightPlan() {
         let _this = this;
+        let $displays = $('#displays');
+
         // main loop
         if (updating === false) {
             updating = true;
@@ -181,7 +183,7 @@ class FlightPlan {
                         500
                     );
 
-                    $('#displays').on('click', function() {
+                    $displays.on('click', function() {
                         Tone.start()
                         _this.displaysArea.updateCharacterSet(_this.flight);
                         _this.setState(FIRST_VERSE);
@@ -258,10 +260,8 @@ class FlightPlan {
                         500
                     );
 
-                    $('#displays').on('click', function() {
-                        Tone.start()
-                        _this.displaysArea.updateCharacterSet(_this.flight);
-                        _this.setState(FIRST_VERSE);
+                    $displays.on('click', function() {
+                        _this.reload();
                     });
 
                     break;
@@ -271,7 +271,7 @@ class FlightPlan {
                     }
                     break;
                 case CHOSE_NEXT_FOUR:
-                    this.setState(PRE_VERSES);
+                    this.reload();
                     break;
             }
             updating = false;
@@ -282,10 +282,9 @@ class FlightPlan {
         let country_indexes = this.flight?.getFourCountriesIndexes();
         let fourCountries = this.flight?.getFourCountries();
         let $face = $('#td_head_' + (country_indexes[verse] + 1) + ' img');
-        $('.td_head img').removeClass('selected_head');
-        $face.addClass('selected_head');
 
         this.setHeads((country_indexes[verse] + 1));
+        $face.addClass('selected_head');
 
         $('.flag_svg').hide();
         let $flagSVG = $('#flag_svg_' + (country_indexes[verse] + 1));
@@ -298,7 +297,9 @@ class FlightPlan {
     }
 
     setHeads(headNumber) {
-        $('.td_head img').removeClass('poem_head');
+        let $all_heads = $('.td_head img');
+        $all_heads.removeClass('poem_head');
+        $all_heads.removeClass('selected_head');
 
         if (headNumber !== -1) {
             let fourCountriesIndexes = this.flight?.getFourCountriesIndexes();
@@ -369,6 +370,11 @@ class FlightPlan {
         this.versePlayers[1].stop();
         this.versePlayers[2].stop();
         this.versePlayers[3].stop();
+    }
+
+    reload() {
+        this.stopAudio();
+        this.setUpFlightPlan();
     }
 
     getUniqueCharsArray(lineOfChars) {

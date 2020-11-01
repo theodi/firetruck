@@ -90,8 +90,7 @@ $(function(){
     flightPlan.setUpFlightPlan();
 
     $reload.on('click', function()          {
-        flightPlan.stopAudio();
-        flightPlan.setUpFlightPlan();
+        flightPlan.reload();
     });
     $audio_switch.on('click', function() {
         flightPlan.toggleAudioMute();
