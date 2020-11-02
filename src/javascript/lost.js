@@ -114,7 +114,6 @@ $(function(){
 
     // set the time and flight plan
     updateClock();
-    flightPlan.updateFlightPlan();
 
     // update clock, once every half second
     setInterval(updateClock, 500);

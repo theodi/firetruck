@@ -151,8 +151,11 @@ class FlightPlan {
         this.displaysArea.setHighlightedVerse(0);
         this.soundsLoaded = 0;
         this.setHeads(-1);
+        $('.flag_svg').hide();
+        $('#country_name').text("");
         this.loadAudio();
         this.setState(PRE_VERSES);
+        this.updateFlightPlan();
     }
 
 
@@ -254,11 +257,6 @@ class FlightPlan {
                     this.displaysArea.updateCharacterSet(this.clickToAnotherMix);
                     this.reloadTime = moment().add(60, 'seconds');
                     this.setState(WAIT_SIXTY_SECONDS);
-                    clearInterval(this.interval);
-                    this.interval = setInterval(
-                        this.updateFlightPlan.bind(this),
-                        500
-                    );
 
                     $displays.on('click', function() {
                         _this.reload();
