@@ -190,7 +190,6 @@ $(function(){
             for(let i = 1; i < translations.length; i++) {
                 poem_text += translations[i][translation_index] + "<br>";
             }
-
             $('#poem_content').html(poem_text);
             $('#poem_text').show();
             $('#poem_country').text(translation_country).show();
@@ -208,6 +207,7 @@ $(function(){
             let $flagSVG = $('#flag_svg_' + flagIndex);
             $flagSVG.show();
 
+            $('#poem_details').show();
         }
     });
 
