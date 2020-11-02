@@ -25,18 +25,27 @@ $(function(){
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
 
-    let $arrivals_link = $('#arrivals_link');
+    let $arrivals_link = $('#arrivals_btn');
 
     let animateArrivalsOver = function()      {
-        anime({ targets: '#arrivals_arrow_path', fill: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
-        anime({ targets: '#arrivals_text', color: ['#f8e106', '#fff'], easing: 'easeInOutSine', duration: 250  });
+        this.src = this.src.replace("_btn", "_rollover");
     };
     let animateArrivalsOut = function()      {
-        anime({ targets: '#arrivals_arrow_path', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
-        anime({ targets: '#arrivals_text', color: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
+        this.src = this.src.replace("_rollover", "_btn");
     };
     $arrivals_link.on('mouseover', animateArrivalsOver);
     $arrivals_link.on('mouseout', animateArrivalsOut);
+
+    let $baggage_link = $('#baggage_reclaim_btn');
+
+    let animateBaggageOver = function()      {
+        this.src = this.src.replace("_btn", "_rollover");
+    };
+    let animateBaggageOut = function()      {
+        this.src = this.src.replace("_rollover", "_btn");
+    };
+    $baggage_link.on('mouseover', animateBaggageOver);
+    $baggage_link.on('mouseout', animateBaggageOut);
 
     let $reload = $('#reload');
     let $audio_switch = $('#audio_switch');
