@@ -107,7 +107,7 @@ class FlightPlan {
         );
 
         poemLines = [
-            "", " Loading......", "", "",
+            "", " Loading ...", "", "",
             "", "", "", "",
             "", "", "", "",
             "", "", "", "",
@@ -129,7 +129,7 @@ class FlightPlan {
             uniqueChars,
         );
         poemLines = [
-            "", " Click or tap or hear another mix ...", "", "",
+            "", " Click or tap to hear another mix ...", "", "",
             "", "", "", "",
             "", "", "", "",
             "", "", "", "",
