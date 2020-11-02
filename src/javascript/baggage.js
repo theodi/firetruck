@@ -106,6 +106,7 @@ $(function(){
         if(!$(event.target).closest('.bag_roll').length && !($(event.target).is('#continue')))
         {
             $ytwrap.hide();
+            player.pauseVideo();
             $('#ytplayer').hide();
             $('#poem_details').hide();
         }
