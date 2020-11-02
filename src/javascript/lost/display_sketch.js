@@ -31,6 +31,7 @@ let displays_sketch = function (p) {
         threshold = 100;
     let currentFlight = null;
     let highlightedVerse = 0; // -1 means no highlighted verse
+    let pauseUpdate = false;
 
     p.preload = function() {
         // Ensure the .ttf or .otf font stored in the assets directory
@@ -94,129 +95,144 @@ let displays_sketch = function (p) {
             updateOffscreenBuffer = false;
         }
 
-        /**
-         * draw current state of the letters to the screen
-         * if split-flap in operation, each cell of grid will have a current and target character
-         */
-        for (let i = 0; i <= numRows; i++) {
-            let lineTranslations = [];
-            if (fireTruckCharacters[i] === undefined) {
-                fireTruckCharacters[i] = [];
-            }
-
-            let rowNumber = i;
-
-            // blank row?
-            if (i === 4 || i === 9 || i === 14) {
-                // i = i - 1;
-            } else {
-                if (i > 4 && i < 9) {
-                    rowNumber = rowNumber - 1;
+        if (!pauseUpdate) {
+            /**
+             * draw current state of the letters to the screen
+             * if split-flap in operation, each cell of grid will have a current and target character
+             */
+            for (let i = 0; i <= numRows; i++) {
+                let lineTranslations = [];
+                if (fireTruckCharacters[i] === undefined) {
+                    fireTruckCharacters[i] = [];
                 }
-                if (i > 9 && i < 14) {
-                    rowNumber = rowNumber - 2;
-                }
-                if (i > 14 && i < numRows) {
-                    rowNumber = rowNumber - 3;
-                }
-                lineTranslations = currentFlight.poemLines[rowNumber];
-            }
 
-            let offscreenCanvas = offscreenCanvasWhite;
+                let rowNumber = i;
 
-            if (highlightedVerse !== -1) {
-
-                // do we know row?
-                let minRow = highlightedVerse * 4;
-                let maxRow = minRow + 3;
-
-                if (rowNumber >= minRow && rowNumber <= maxRow) {
-                    offscreenCanvas = offscreenCanvasYellow;
+                // blank row?
+                if (i === 4 || i === 9 || i === 14) {
+                    // i = i - 1;
                 } else {
-                    offscreenCanvas = offscreenCanvasWhite;
+                    if (i > 4 && i < 9) {
+                        rowNumber = rowNumber - 1;
+                    }
+                    if (i > 9 && i < 14) {
+                        rowNumber = rowNumber - 2;
+                    }
+                    if (i > 14 && i < numRows) {
+                        rowNumber = rowNumber - 3;
+                    }
+                    lineTranslations = currentFlight.poemLines[rowNumber];
                 }
-            }
 
+                let offscreenCanvas = offscreenCanvasWhite;
 
-            for (let j = 0; j < numCols; j++) {
-                if (fireTruckCharacters[i][j] === undefined) {
-                    fireTruckCharacters[i][j] = new FireTruckChar(" ", " ", timing, min_timing, max_timing, threshold, i + 1);
-                }
+                if (highlightedVerse !== -1) {
 
-                if (lineTranslations !== undefined) {
-                    let testinginging = " ";
+                    // do we know row?
+                    let minRow = highlightedVerse * 4;
+                    let maxRow = minRow + 3;
 
-                    if (j < lineTranslations.length) {
-                        testinginging = lineTranslations[j];
-                    }
-                    if (testinginging !== 'ß') {
-                        testinginging = testinginging.toUpperCase();
-                    }
-                    fireTruckCharacters[i][j].setTargetCharacter(testinginging);
-                    if (fireTruckCharacters[i][j].getCurrentCharacter() === undefined) {
-                        fireTruckCharacters[i][j].setCurrentCharacter(" ");
-                    }
-
-                    let col = j + 1;
-                    let row = i;
-                    let onscreenX = getScreenX(col);
-                    let onscreenY = getScreenY(row);
-
-                    // need to update the cell?
-                    if (fireTruckCharacters[i][j].getCurrentCharacter() !== testinginging ) {
-                        if(!fireTruckCharacters[i][j].getAnimating()) {
-                            fireTruckCharacters[i][j].setCharacterArray(characterArrayYellow);
-                            fireTruckCharacters[i][j].setAnimating(true);
-                        }
-                        // get cell character top and bottom
-                        // if top != bottom then update both separately
-                        // else update both together
-                        // increment cell (cell handles timing)
-                        fireTruckCharacters[i][j].updateTimings();
-                        let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
-
-
-                        let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
-                        let currentOffscreenX = currentCharToDrawInfo.x;
-                        let currentOffscreenY = currentCharToDrawInfo.y;
-
-                        let frontTopVisible = fireTruckCharacters[i][j].getFrontTopVisible();
-                        let frontBottomVisible = fireTruckCharacters[i][j].getFrontBottomVisible();
-                        let backTopVisible = fireTruckCharacters[i][j].getBackTopVisible();
-                        let backBottomVisible = fireTruckCharacters[i][j].getBackBottomVisible();
-                        let nextCharacter = fireTruckCharacters[i][j].getNextCharacter();
-
-                        let nextCharToDrawInfo = charPositionsYellow.get(nextCharacter);
-                        let nextOffscreenX = nextCharToDrawInfo.x;
-                        let nextOffscreenY = nextCharToDrawInfo.y;
-
-
-                        if (frontTopVisible && frontBottomVisible) {
-                            // show current on top
-                            p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY/2, currentOffscreenX + 2, currentOffscreenY, gapX, gapY/2);
-                            // show next on bottom
-                            p.image(offscreenCanvas, onscreenX, onscreenY+gapY/2, gapX, gapY/2, nextOffscreenX + 2, nextOffscreenY+gapY/2, gapX, gapY/2);
-                        } else if (frontTopVisible && backBottomVisible) {
-                            // show current
-                            p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, currentOffscreenX + 2, currentOffscreenY, gapX, gapY);
-                        } else if (backTopVisible && backBottomVisible) {
-                            // show next on top
-                            p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY/2, nextOffscreenX + 2, nextOffscreenY, gapX, gapY/2);
-                            // show current on bottom
-                            p.image(offscreenCanvas, onscreenX, onscreenY+gapY/2, gapX, gapY/2, currentOffscreenX + 2, currentOffscreenY+gapY/2, gapX, gapY/2);
-                        } else if (backTopVisible && frontBottomVisible) {
-                            // show next
-                            p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, nextOffscreenX + 2, nextOffscreenY, gapX, gapY);
-                        }
-
+                    if (rowNumber >= minRow && rowNumber <= maxRow) {
+                        offscreenCanvas = offscreenCanvasYellow;
                     } else {
-                        let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
-                        let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
-                        let currentOffscreenX = currentCharToDrawInfo.x;
-                        let currentOffscreenY = currentCharToDrawInfo.y;
+                        offscreenCanvas = offscreenCanvasWhite;
+                    }
+                }
 
-                        p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, currentOffscreenX + 2, currentOffscreenY, gapX, gapY);
-                        fireTruckCharacters[i][j].setAnimating(false);
+
+                for (let j = 0; j < numCols; j++) {
+                    if (fireTruckCharacters[i][j] === undefined) {
+                        fireTruckCharacters[i][j] = new FireTruckChar(" ", " ", timing, min_timing, max_timing, threshold, i + 1);
+                    }
+
+                    if (lineTranslations !== undefined) {
+                        let testinginging = " ";
+
+                        if (j < lineTranslations.length) {
+                            testinginging = lineTranslations[j];
+                        }
+                        if (testinginging !== 'ß') {
+                            testinginging = testinginging.toUpperCase();
+                        }
+                        fireTruckCharacters[i][j].setTargetCharacter(testinginging);
+                        if (fireTruckCharacters[i][j].getCurrentCharacter() === undefined) {
+                            fireTruckCharacters[i][j].setCurrentCharacter(" ");
+                        }
+                        if (fireTruckCharacters[i][j].getPreviousCharacter() === undefined) {
+                            fireTruckCharacters[i][j].setPreviousCharacter(" ");
+                        }
+                        if (fireTruckCharacters[i][j].getNextCharacter() === undefined) {
+                            fireTruckCharacters[i][j].setNextCharacter(" ");
+                        }
+
+                        let col = j + 1;
+                        let row = i;
+                        let onscreenX = getScreenX(col);
+                        let onscreenY = getScreenY(row);
+
+                        // need to update the cell?
+                        if (fireTruckCharacters[i][j].getCurrentCharacter() !== testinginging ) {
+                            if(!fireTruckCharacters[i][j].getAnimating()) {
+                                fireTruckCharacters[i][j].setCharacterArray(characterArrayYellow);
+                                fireTruckCharacters[i][j].setAnimating(true);
+                            }
+                            // get cell character top and bottom
+                            // if top != bottom then update both separately
+                            // else update both together
+                            // increment cell (cell handles timing)
+                            fireTruckCharacters[i][j].updateTimings();
+                            let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
+                            // if (currentCharacter === undefined) {
+                            //     currentCharacter = " ";
+                            // }
+    //                        console.log('i = ' + i + ', j = ' + j + ', currentCharacter = ' + currentCharacter);
+
+                            let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
+                            if (currentCharToDrawInfo === undefined) {
+//                                 console.log ('currentCharToDrawInfo (charPositionsYellow) is undefined');
+                            } else {
+
+                                let currentOffscreenX = currentCharToDrawInfo.x;
+                                let currentOffscreenY = currentCharToDrawInfo.y;
+
+                                let frontTopVisible = fireTruckCharacters[i][j].getFrontTopVisible();
+                                let frontBottomVisible = fireTruckCharacters[i][j].getFrontBottomVisible();
+                                let backTopVisible = fireTruckCharacters[i][j].getBackTopVisible();
+                                let backBottomVisible = fireTruckCharacters[i][j].getBackBottomVisible();
+                                let nextCharacter = fireTruckCharacters[i][j].getNextCharacter();
+
+                                let nextCharToDrawInfo = charPositionsYellow.get(nextCharacter);
+                                let nextOffscreenX = nextCharToDrawInfo.x;
+                                let nextOffscreenY = nextCharToDrawInfo.y;
+
+
+                                if (frontTopVisible && frontBottomVisible) {
+                                    // show current on top
+                                    p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY / 2, currentOffscreenX + 2, currentOffscreenY, gapX, gapY / 2);
+                                    // show next on bottom
+                                    p.image(offscreenCanvas, onscreenX, onscreenY + gapY / 2, gapX, gapY / 2, nextOffscreenX + 2, nextOffscreenY + gapY / 2, gapX, gapY / 2);
+                                } else if (frontTopVisible && backBottomVisible) {
+                                    // show current
+                                    p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, currentOffscreenX + 2, currentOffscreenY, gapX, gapY);
+                                } else if (backTopVisible && backBottomVisible) {
+                                    // show next on top
+                                    p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY / 2, nextOffscreenX + 2, nextOffscreenY, gapX, gapY / 2);
+                                    // show current on bottom
+                                    p.image(offscreenCanvas, onscreenX, onscreenY + gapY / 2, gapX, gapY / 2, currentOffscreenX + 2, currentOffscreenY + gapY / 2, gapX, gapY / 2);
+                                } else if (backTopVisible && frontBottomVisible) {
+                                    // show next
+                                    p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, nextOffscreenX + 2, nextOffscreenY, gapX, gapY);
+                                }
+                            }
+                        } else {
+                            let currentCharacter = fireTruckCharacters[i][j].getPreviousCharacter();
+                            let currentCharToDrawInfo = charPositionsYellow.get(currentCharacter);
+                            let currentOffscreenX = currentCharToDrawInfo.x;
+                            let currentOffscreenY = currentCharToDrawInfo.y;
+
+                            p.image(offscreenCanvas, onscreenX, onscreenY, gapX, gapY, currentOffscreenX + 2, currentOffscreenY, gapX, gapY);
+                            fireTruckCharacters[i][j].setAnimating(false);
+                        }
                     }
                 }
             }
@@ -227,13 +243,17 @@ let displays_sketch = function (p) {
         // flight has four_countries
         let existingCharString = previousCharString;
         previousCharString = uf.getUniqueCharacters();
+        currentFlight = uf;
         uniqueCharString = existingCharString + previousCharString;
         updateOffscreenBuffer = true;
-        currentFlight = uf;
     };
 
     p.setHighlightedVerse = function(v) {
         highlightedVerse = v;
+    }
+
+    p.setPauseUpdate = function(p) {
+        pauseUpdate = p;
     }
 
     function getScreenY (row) {

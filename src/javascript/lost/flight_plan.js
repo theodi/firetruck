@@ -99,6 +99,7 @@ class FlightPlan {
         }
 
         let uniqueChars = this.getUniqueChars(poemLines);
+        this.displaysArea.setPauseUpdate(true);
         this.flight = new Flight(
             poemLines,
             uniqueChars,
@@ -117,6 +118,8 @@ class FlightPlan {
             poemLines,
             uniqueChars
         );
+        this.setState(PRE_VERSES);
+
         poemLines = [
             "", " Click or tap to start ...", "", "",
             "", "", "", "",
@@ -133,7 +136,6 @@ class FlightPlan {
             "", "", "", "",
             "", "", "", "",
             "", "", "", "",
-            "", "", "",
         ];
         uniqueChars = this.getUniqueChars(poemLines);
         this.clickToAnotherMix = new Flight(
@@ -143,10 +145,11 @@ class FlightPlan {
 
         if (this.interval) {
             clearInterval(this.interval);
+            delete this.interval;
         }
         this.interval = setInterval(
             this.updateFlightPlan.bind(this),
-            5000
+            500
         );
         this.displaysArea.setHighlightedVerse(0);
         this.soundsLoaded = 0;
@@ -154,8 +157,9 @@ class FlightPlan {
         $('.flag_svg').hide();
         $('#country_name').text("");
         this.loadAudio();
-        this.setState(PRE_VERSES);
         this.updateFlightPlan();
+        this.displaysArea.setPauseUpdate(false);
+
     }
 
 
@@ -180,12 +184,6 @@ class FlightPlan {
                     break;
                 case AUDIO_READY:
                     this.displaysArea.updateCharacterSet(this.clickToStartFlight);
-                    clearInterval(this.interval);
-                    this.interval = setInterval(
-                        this.updateFlightPlan.bind(this),
-                        500
-                    );
-
                     $displays.on('click', function() {
                         Tone.start()
                         _this.displaysArea.updateCharacterSet(_this.flight);
@@ -256,6 +254,10 @@ class FlightPlan {
                     this.setHeads(-1);
                     this.displaysArea.updateCharacterSet(this.clickToAnotherMix);
                     this.reloadTime = moment().add(60, 'seconds');
+                    this.displaysArea.setHighlightedVerse(0);
+                    this.soundsLoaded = 0;
+                    this.setHeads(-1);
+
                     this.setState(WAIT_SIXTY_SECONDS);
 
                     $displays.on('click', function() {
@@ -335,7 +337,13 @@ class FlightPlan {
     }
 
     loadAudio() {
-
+        if(this.backgroundPlayer !== undefined) {
+            delete this.backgroundPlayer;
+            delete this.versePlayers[0];
+            delete this.versePlayers[1];
+            delete this.versePlayers[2];
+            delete this.versePlayers[3];
+        }
         let fourCountries = this.flight?.getFourCountries();
         this.backgroundPlayer = new Tone.Player({url:"/mp3/BMMFT_AUDIO_AirportAtmos.mp3", onload: () => this.soundsLoaded++ }).toDestination();
         this.backgroundPlayer.loop = true;
@@ -372,6 +380,7 @@ class FlightPlan {
 
     reload() {
         this.stopAudio();
+        this.displaysArea.updateCharacterSet(this.loadingFlight);
         this.setUpFlightPlan();
     }
 
