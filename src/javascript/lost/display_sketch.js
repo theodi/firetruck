@@ -202,9 +202,13 @@ let displays_sketch = function (p) {
                                 let nextCharacter = fireTruckCharacters[i][j].getNextCharacter();
 
                                 let nextCharToDrawInfo = charPositionsYellow.get(nextCharacter);
-                                let nextOffscreenX = nextCharToDrawInfo.x;
-                                let nextOffscreenY = nextCharToDrawInfo.y;
 
+                                let nextOffscreenX = 0;
+                                let nextOffscreenY = 0;
+                                if (nextCharToDrawInfo !== undefined) {
+                                    nextOffscreenX = nextCharToDrawInfo.x;
+                                    nextOffscreenY = nextCharToDrawInfo.y;
+                                }
 
                                 if (frontTopVisible && frontBottomVisible) {
                                     // show current on top

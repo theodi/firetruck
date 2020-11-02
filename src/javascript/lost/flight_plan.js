@@ -149,7 +149,7 @@ class FlightPlan {
         }
         this.interval = setInterval(
             this.updateFlightPlan.bind(this),
-            500
+            1000
         );
         this.displaysArea.setHighlightedVerse(0);
         this.soundsLoaded = 0;
@@ -186,6 +186,7 @@ class FlightPlan {
                     this.displaysArea.updateCharacterSet(this.clickToStartFlight);
                     $displays.on('click', function() {
                         Tone.start()
+                        _this.setAudioMute();
                         _this.displaysArea.updateCharacterSet(_this.flight);
                         _this.setState(FIRST_VERSE);
                     });
@@ -356,18 +357,19 @@ class FlightPlan {
     toggleAudioMute() {
         this.muted = !this.muted;
         console.log("muted = " + this.muted);
-        // if (this.muted) {
-        // .fadeOut();//
-        // }
+        this.setAudioMute();
+    }
+
+    getMuted() {
+        return this.muted;
+    }
+
+    setAudioMute() {
         this.backgroundPlayer.mute = this.muted;
         this.versePlayers[0].mute = this.muted;
         this.versePlayers[1].mute = this.muted;
         this.versePlayers[2].mute = this.muted;
         this.versePlayers[3].mute = this.muted;
-    }
-
-    getMuted() {
-        return this.muted;
     }
 
     stopAudio(){
@@ -378,10 +380,11 @@ class FlightPlan {
         this.versePlayers[3].stop();
     }
 
-    reload() {
+    reload(m) {
         this.stopAudio();
         this.displaysArea.updateCharacterSet(this.loadingFlight);
         this.setUpFlightPlan();
+        this.muted = m;
     }
 
     getUniqueCharsArray(lineOfChars) {
