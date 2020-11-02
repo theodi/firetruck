@@ -34,6 +34,29 @@ $(function(){
     $home_2.on('mouseover', animateHomeOver_2);
     $home_2.on('mouseout', animateHomeOut_2);
 
+    let $arrivals_link = $('#arrivals_btn');
+
+    let animateArrivalsOver = function()      {
+        this.src = this.src.replace("_btn", "_rollover");
+    };
+    let animateArrivalsOut = function()      {
+        this.src = this.src.replace("_rollover", "_btn");
+    };
+    $arrivals_link.on('mouseover', animateArrivalsOver);
+    $arrivals_link.on('mouseout', animateArrivalsOut);
+
+    let $lost_luggage_link = $('#lost_luggage_btn');
+
+    let animateLostLuggageOver = function()      {
+        this.src = this.src.replace("_btn", "_rollover");
+    };
+    let animateLostLuggageOut = function()      {
+        this.src = this.src.replace("_rollover", "_btn");
+    };
+    $lost_luggage_link.on('mouseover', animateLostLuggageOver);
+    $lost_luggage_link.on('mouseout', animateLostLuggageOut);
+
+
     let flightPlan = new FlightPlan();
 
     flightPlan.setUpFlightPlan();

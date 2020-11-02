@@ -6,7 +6,11 @@ html, body {
     background-repeat: no-repeat;
     background-size: 1920px 1080px;
     background-color: #111111;
+
+    min-height: 100%;
+    margin-bottom: -76px;
 }
+
 .fifth_column {
     width: 360px;
     height: 680px;
@@ -127,7 +131,7 @@ tbody tr:nth-child(even) {
 
 
 #arrivals {
-    height: 88px;
+    height: 76px;
     background: #F8E106;
     color: #0a0a0a;
     width: 1920px;
@@ -136,7 +140,7 @@ tbody tr:nth-child(even) {
     width: 1920px;
 }
 #arrivals tr {
-    height: 88px;
+    height: 76px;
 }
 #arrivals thead, #arrivals thead th {
     padding-top: 0;
@@ -150,7 +154,7 @@ tbody tr:nth-child(even) {
     padding-right: 0;
 }
 #arrivals #home_span_2 {
-    height: 80px;
+    height: 76px;
 }
 
 #arrivals #eu_flag_2, #arrivals #home_link_rollover_2 {
@@ -159,8 +163,8 @@ tbody tr:nth-child(even) {
     margin-left: 18px;
     margin-bottom:3px;
     margin-right: 18px;
-    width: 94px;
-    height: 65px;
+    width: 75px;
+    height: 52px;
 }
 
 #arrivals #home_link_rollover_2 {
@@ -170,7 +174,7 @@ tbody tr:nth-child(even) {
 #arrivals_title {
     font-family: 'robotobold', sans-serif;
     float:left;
-    font-size: 54px;
+    font-size: 50px;
     font-weight: bolder;
     color: #111111;
     letter-spacing:0.08em;
@@ -179,21 +183,16 @@ tbody tr:nth-child(even) {
     color: #111111;
 }
 
-#lost_luggage {
+#departure {
     position: absolute;
-    top: 66px;
+    top: 55px;
     left: 1616px;
     width: 208px;
-    background: #F8E106;
-    padding: 0;
+    /*background: #F8E106;*/
+    /*padding: 0;*/
 }
-#lost_luggage:hover {
-    background: #FFFFFF;
-}
-
-#wrapper {
-    min-height: 100%;
-    margin-bottom: -88px;
+#departure a img {
+    margin-bottom: 22px;
 }
 
 
@@ -218,19 +217,19 @@ tbody tr:nth-child(even) {
 
 #ytwrap {
     position:absolute;
-    top: 10px;
-    left: 310px;
+    top: 16px;
+    left: 410px;
     margin: auto;
-    width: 1300px;
-    height: 740px;
+    width: 1105px;
+    height: 670px;
     z-index: 100;
     background: #333333;
     display: none;
 }
 #ytplayer {
     position: absolute;
-    width: 1280px;
-    height: 720px;
+    width: 1085px;
+    height: 655px;
     top: 10px;
     left: 10px;
     margin: auto;
@@ -362,7 +361,7 @@ tbody tr:nth-child(even) {
     white-space: nowrap;
     font-family: 'PT Mono', monospace;
     padding: 10px;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bolder;
     color: #111111;
     letter-spacing:0.08em;
