@@ -1,4 +1,4 @@
-# Bring Me My Fire Truck (the New Jerusalam?) 2019 - 2020
+# Bring Me My Fire Truck (the New Jerusalem?) 2019 - 2020
 
 [BMMFT](http://culture.theodi.org/firetruck/) is an artwork by Mr Gee. It is one of a series of commissioned works from the ODI's latest curatorial theme: [Copy That? Surplus Data in an Age of Repetitive Duplication](http://culture.theodi.org/category/exhibition/copythat/).
 
