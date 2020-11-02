@@ -217,11 +217,11 @@ tbody tr:nth-child(even) {
 
 #ytwrap {
     position:absolute;
-    top: 16px;
+    top: 72px;
     left: 410px;
     margin: auto;
     width: 1105px;
-    height: 670px;
+    height: 630px;
     z-index: 100;
     background: #333333;
     display: none;
@@ -229,7 +229,7 @@ tbody tr:nth-child(even) {
 #ytplayer {
     position: absolute;
     width: 1085px;
-    height: 655px;
+    height: 605px;
     top: 10px;
     left: 10px;
     margin: auto;
