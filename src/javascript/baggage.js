@@ -171,6 +171,8 @@ $(function(){
             } else {
                 let $ytplayer = $('#ytplayer');
                 $ytplayer.hide();
+                let $ytwrap = $('#ytwrap');
+                $ytwrap.hide();
                 $('#poem_text').hide();
                 $('#poem_country').hide();
                 $('.flag_svg').hide();
