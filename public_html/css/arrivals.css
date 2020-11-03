@@ -21,9 +21,12 @@ tbody tr:nth-child(even) {
     padding-left: 20px;
 }
 
-#transfer_svg {
-    width: 120px;
+.transfer_svg {
+    width: 140px;
     float:left;
+}
+#globe_svg_rollover_div {
+    display: none;
 }
 #point_left_div, #point_right_div {
     width: 40px;
@@ -55,4 +58,23 @@ tbody tr:nth-child(even) {
 }
 #baggage_reclaim:hover, #lost_luggage:hover {
     background: #FFFFFF;
+}
+
+#globe_flags {
+    display: none;
+}
+
+#globe_flags table {
+    width: 800px;
+    padding: 10px;
+    border: #3b3b3b solid 10px;
+}
+#globe_flags td {
+    font-size: 0.9em;
+    padding: 5px;
+    color: #F8E106;
+}
+#globe_flags td span.flag-icon {
+    margin-left: 35px;
+    margin-right: 15px;
 }

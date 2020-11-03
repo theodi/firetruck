@@ -15,25 +15,12 @@ $(function(){
         $('#small').hide();
     });
 
-    let leftMouseButtonOnlyDown = false;
-
-    function setLeftButtonState(e) {
-        leftMouseButtonOnlyDown = e.buttons === undefined
-            ? e.which === 1
-            : e.buttons === 1;
-    }
-
-    document.body.onmousedown = setLeftButtonState;
-    document.body.onmousemove = setLeftButtonState;
-    document.body.onmouseup = setLeftButtonState;
-
     let $home = $('#home_link');
     let $baggage_reclaim_svg = $('#baggage_reclaim_svg');
     let $lost_luggage_svg = $('#lost_luggage_svg');
     let displaysArea = new p5(displays_sketch, 'displays');
     let flightPlan = new FlightPlan(displaysArea);
-    let $pointLeft = $('#point_left_div');
-    let $pointRight = $('#point_right_div');
+    let $globe_td = $('#td_transfer');
 
     let animateHomeOver = function()      {
         $('#eu_flag').hide();       $('#home_link_rollover').show();
@@ -53,39 +40,25 @@ $(function(){
     let animateLuggageOut = function()      {
         anime({ targets: '#lost_luggage_bg', fill: ['#fff', '#f8e106'], easing: 'easeInOutSine', duration: 250  });
     };
-    let animatePointLeftOver = function()       {
-        let currentFill = $('#point_left_path').attr('fill');
-        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
-            anime({ targets: '#point_left_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 50  });
-        }
+    let animateGlobeOver = function() {
+        $('#globe_svg_div').hide();             $('#globe_svg_rollover_div').show();
     }
-    let animatePointLeftOut = function()       {
-        let currentFill = $('#point_left_path').attr('fill');
-        if (currentFill !== "rgba(248,225,6,1)") {
-            anime({ targets: '#point_left_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50  });
-        }
+    let animateGlobeOut = function() {
+        $('#globe_svg_rollover_div').hide();    $('#globe_svg_div').show();
     }
-    let animatePointRightOver = function()       {
-        let currentFill = $('#point_right_path').attr('fill');
-        if (currentFill !== '#ffffff' && currentFill !== "rgba(255,255,255,1)") {
-            anime({ targets: '#point_right_path', fill: [currentFill, '#ffffff'], easing: 'easeInOutSine', duration: 50  });
+    let showFlags = function() {
+        $('#globe_flags').show();
+    };
+    $globe_td.on('mouseover', animateGlobeOver);
+    $globe_td.on('mouseout', animateGlobeOut);
+    $globe_td.on('click', showFlags);
+    $('body').click(function (event)
+    {
+        if(!$(event.target).closest('#td_transfer').length) // && !($(event.target).is('#continue')))
+        {
+            $('#globe_flags').hide();
         }
-    }
-    let animatePointRightOut = function()       {
-        let currentFill = $('#point_right_path').attr('fill');
-        if (currentFill !== "rgba(248,225,6,1)") {
-            anime({ targets: '#point_right_path', fill: [currentFill, '#f8e106'], easing: 'easeInOutSine', duration: 50  });
-        }
-    }
-    // let increaseTime = function() {
-    //     clockAdjustmentSeconds += 60;
-    //     console.log("up:   clockAdjustmentSeconds = " + clockAdjustmentSeconds);
-    // };
-    // let decreaseTime = function () {
-    //     clockAdjustmentSeconds -= 60;
-    //     console.log("down: clockAdjustmentSeconds = " + clockAdjustmentSeconds);
-    // }
-
+    });
     $home.on('mouseover', animateHomeOver);
     $home.on('mouseout', animateHomeOut);
     $baggage_reclaim_svg.on('mouseover', animateBaggageOver);
@@ -93,15 +66,21 @@ $(function(){
     $lost_luggage_svg.on('mouseover', animateLuggageOver);
     $lost_luggage_svg.on('mouseout', animateLuggageOut);
 
-    $pointLeft.on('mouseover', animatePointLeftOver);
-    $pointLeft.on('mouseout', animatePointLeftOut);
-    $pointLeft.on('mouseleave', animatePointLeftOut);
-    // $pointLeft.on('click', decreaseTime);
+    let $flag_countries = $('#globe_flags .flight_headers span');
+    let selectStartCountry = function() {
+        let $thisParent = $(this).parent();
+        let $theseSpans = $thisParent.find('span');
+        let flagSpan = $theseSpans[0];
+        let flagCountry = flagSpan.className.split(" ")[1];
 
-    $pointRight.on('mouseover', animatePointRightOver);
-    $pointRight.on('mouseout', animatePointRightOut);
-    $pointRight.on('mouseleave', animatePointRightOut);
-    // $pointRight.on('click', increaseTime);
+//        alert (flagCountry.substring(10));
+    };
+    let setYellowText = function() {    $(this).css('color', '#F8E106');    }
+    let setWhiteText = function() {    $(this).css('color', '#FFFFFF');    }
+    $flag_countries.on('click', selectStartCountry);
+    $flag_countries.on('mouseover', setWhiteText);
+    $flag_countries.on('mousedown', setWhiteText);
+    $flag_countries.on('mouseout', setYellowText);
 
     flightPlan.setUpFlightPlan();
 
