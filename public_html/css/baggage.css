@@ -252,6 +252,7 @@ tbody tr:nth-child(even) {
     width: 1108px;
     left: 410px;
     height: 30px;
+    display: none;
 }
 
 #poem_details {
@@ -318,7 +319,7 @@ tbody tr:nth-child(even) {
     line-height: 190px;
     text-align: right;
     bottom: 10px;
-    width: 235px;
+    width: 255px;
     color: #f1f1f1;
     height: 120px;
 

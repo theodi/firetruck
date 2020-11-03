@@ -106,8 +106,11 @@ $(function(){
         if(!$(event.target).closest('.bag_roll').length && !($(event.target).is('#continue')))
         {
             $ytwrap.hide();
-            player.pauseVideo();
+            if (player !== undefined) {
+                player.pauseVideo();
+            }
             $('#ytplayer').hide();
+            $('#poem_details_join').hide();
             $('#poem_details').hide();
         }
     });
@@ -173,6 +176,9 @@ $(function(){
                 $ytplayer.hide();
                 let $ytwrap = $('#ytwrap');
                 $ytwrap.hide();
+                $('#poem_details_join').hide();
+                $('#poem_details').hide();
+
                 $('#poem_text').hide();
                 $('#poem_country').hide();
                 $('.flag_svg').hide();
@@ -209,6 +215,7 @@ $(function(){
             let $flagSVG = $('#flag_svg_' + flagIndex);
             $flagSVG.show();
 
+            $('#poem_details_join').show();
             $('#poem_details').show();
         }
     });
