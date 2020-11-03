@@ -272,7 +272,7 @@ tbody tr:nth-child(even) {
     color: #F8E106;
     background-color: #262425;
     font-family: 'PT Mono', monospace;
-
+    font-size: 1.2em;
     /*overflow: scroll;*/
     overflow: auto;
     margin: 0 10px;
