@@ -223,7 +223,7 @@ tbody tr:nth-child(even) {
     width: 1105px;
     height: 630px;
     z-index: 100;
-    background: #333333;
+    background: #262425;
     display: none;
 }
 #ytplayer {
@@ -245,24 +245,31 @@ tbody tr:nth-child(even) {
     color: #F8E106;
 }
 
+#poem_details_join {
+    position: absolute;
+    background-image: url("../img/poem_details_join.png");
+    top: 744px;
+    width: 1108px;
+    left: 410px;
+    height: 30px;
+}
 
 #poem_details {
     position: absolute;
     top: 740px;
-    left: 320px;
+    left: 400px;
     width: 1280px;
     height: 150px;
 
 }
 
-
 #poem_text {
     position: absolute;
     top: 30px;
-    width: 772px;
+    width: 805px;
     height: 150px;
     color: #F8E106;
-    background-color: #333333;
+    background-color: #262425;
     font-family: 'PT Mono', monospace;
 
     /*overflow: scroll;*/
@@ -273,20 +280,17 @@ tbody tr:nth-child(even) {
 }
 
 #poem_content {
-    width: 752px;
+    width: 770px;
     height: 500px;
-    background-color: #333333;
+    background-color: #262425;
 
     font-family: 'PT Mono', monospace;
     padding: 10px 20px;
 }
 
-#poem_country {
-    display: none;
-}
 
 .scroll4::-webkit-scrollbar {
-    width: 30px;
+    width: 25px;
 }
 
 .scroll4::-webkit-scrollbar-thumb {
@@ -300,25 +304,34 @@ tbody tr:nth-child(even) {
 }
 
 
-#poem_country {
+
+#poem_nation {
     position: absolute;
-    line-height: 270px;
+    background-color: #262425;
+    top: 30px;
+    left: 840px;
+    width: 275px;
+}
+
+
+#poem_country {
+    line-height: 190px;
     text-align: right;
-    bottom: 0;
-    left: 830px;
+    bottom: 10px;
     width: 235px;
     color: #f1f1f1;
-    height: 150px;
+    height: 120px;
 
     font-family: 'robotobold', sans-serif;
     font-size: 1.5em;
     font-weight: bolder;
     letter-spacing:0.08em;
+    display: none;
 }
 #poem_flag {
     position: absolute;
     top: 15px;
-    left: 890px;
+    right: 25px;
     width: 75px;
     height: 55px;
     text-align: center;
