@@ -314,9 +314,9 @@ tbody tr:nth-child(even) {
 #poem_flag {
     position: absolute;
     top: 15px;
-    left: 1090px;
-    width: 180px;
-    height: 135px;
+    left: 890px;
+    width: 75px;
+    height: 55px;
     text-align: center;
     /*background-color: #d7ecfa;*/
 }
