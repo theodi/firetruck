@@ -269,6 +269,7 @@ tbody tr:nth-child(even) {
     overflow: auto;
     margin: 0 10px;
     border-radius: 2px;
+    display: none;
 }
 
 #poem_content {
@@ -280,6 +281,9 @@ tbody tr:nth-child(even) {
     padding: 10px 20px;
 }
 
+#poem_country {
+    display: none;
+}
 
 .scroll4::-webkit-scrollbar {
     width: 30px;
