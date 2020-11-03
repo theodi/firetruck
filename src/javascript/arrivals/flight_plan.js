@@ -55,7 +55,7 @@ class FlightPlan {
         }
         if (this.firstCountry === "") {
             this.firstCountry = flight.country;
-            console.log("firstCountry: " + this.firstCountry);
+            // console.log("firstCountry: " + this.firstCountry);
         }
         if (this.lastIndex < index) {
             this.lastIndex = index;
@@ -192,18 +192,18 @@ class FlightPlan {
                 }
                 translationIndex += 2;
             }
-            console.log("first_country = " + first_country);
+            // console.log("first_country = " + first_country);
 
             // reset flight times so that first country is coming up and
             // lastCountryIndex is top row (country before in the index)
 
-            for (let i = firstCountryIndex; i < firstCountryIndex + 26; i++) {
+            for (let i = firstCountryIndex; i < firstCountryIndex + 25; i++) {
                 let flightIndex = i % this.flightsByIndex.length;
                 let nextDate = moment(next);            // 12:02:00
                 let transferDate = moment(transfer);    // 12:03:00
 
                 // only use already landed for top row (last country in index)
-                if (i === lastCountryIndex) {
+                if (flightIndex === lastCountryIndex) {
                     nextDate = moment(alreadyLanded);               // 12:00:00
                     transferDate = moment(alreadyLandedTransfer);   // 12:01:00
                 }
