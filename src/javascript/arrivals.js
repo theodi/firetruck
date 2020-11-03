@@ -54,7 +54,7 @@ $(function(){
     $globe_td.on('click', showFlags);
     $('body').click(function (event)
     {
-        if(!$(event.target).closest('#td_transfer').length) // && !($(event.target).is('#continue')))
+        if(!$(event.target).closest('#td_transfer').length)
         {
             $('#globe_flags').hide();
         }
@@ -71,9 +71,8 @@ $(function(){
         let $thisParent = $(this).parent();
         let $theseSpans = $thisParent.find('span');
         let flagSpan = $theseSpans[0];
-        let flagCountry = flagSpan.className.split(" ")[1];
-
-//        alert (flagCountry.substring(10));
+        let flagCountry = flagSpan.className.split(" ")[1].substring(10);
+        flightPlan.setUpFlightPlan(flagCountry);
     };
     let setYellowText = function() {    $(this).css('color', '#F8E106');    }
     let setWhiteText = function() {    $(this).css('color', '#FFFFFF');    }
@@ -82,7 +81,7 @@ $(function(){
     $flag_countries.on('mousedown', setWhiteText);
     $flag_countries.on('mouseout', setYellowText);
 
-    flightPlan.setUpFlightPlan();
+    flightPlan.setUpFlightPlan("");
 
     // display initial flight plan
     flightPlan.displayFlightPlan();
@@ -101,13 +100,12 @@ $(function(){
     });
 
     // set the time and flight plan
-    updateClock() ;//clockAdjustmentSeconds);
+    updateClock();
     flightPlan.updateFlightPlan();
 
     // update clock, once every half second
     setInterval(function() {
-        updateClock();//clockAdjustmentSeconds)
-        // flightPlan.setAdjustmentSeconds(clockAdjustmentSeconds);
+        updateClock();
     }, 500);
 
 });

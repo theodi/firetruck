@@ -35,6 +35,7 @@ class FlightPlan {
     constructor(p5DisplaysArea) {
         this.flightsByIndex = [];
         this.flightsByCountryIndex = [];
+        this.countryIndexes = [];
         this.firstCountry = "";
         this.lastTransferDate = new Date();
         this.state = PRE_START;
@@ -100,16 +101,7 @@ class FlightPlan {
         }
     }
 
-    // setAdjustmentSeconds(clockAdjustmentSeconds) {
-    //     if (this.adjustmentSeconds !== clockAdjustmentSeconds) {
-    //         this.adjustmentSeconds = clockAdjustmentSeconds;
-    //         this.updateFlightPlanTimes();//setState(TIME_UPDATE);
-    //     }
-    //
-    //     this.previousAdjustmentSeconds = this.adjustmentSeconds;
-    // }
-
-    setUpFlightPlan() {
+    setUpFlightPlan(first_country_code) {
         let now = moment();                 // 12:01:23
         let seconds = now.seconds();        // 23
         now.add(1, 'm');        // 12:02:23
@@ -131,59 +123,103 @@ class FlightPlan {
         alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
 
         // create new 'transfer' object
-        let transfer = moment(now);//.add(this.adjustmentSeconds, 'seconds');                                 // 12:03:00
+        let transfer = moment(now);                                 // 12:03:00
 
-        // we ignore zero translation - the original
+        // we ignore zero translation - the original English
         let translationIndex = 1;
         let lastCountryIndex = 49;
 
-        // set up times in initial flight plan
-        for (let country in country_codes) {
-            let poemLines = [];
-            let poemLinesTranslated = [];
-            let randomThreeDigitNumber = Math.floor(Math.random() * (999 - 100 + 1) + 100);
-            for (let i = 0; i < translations.length; i++) {
-                poemLines.push(translations[i][translationIndex]);
-                poemLinesTranslated.push(translations[i][translationIndex + 1]);
+        if (first_country_code === "") {
+
+            // set up times in initial flight plan
+            for (let country in country_codes) {
+                let poemLines = [];
+                let poemLinesTranslated = [];
+                let randomThreeDigitNumber = Math.floor(Math.random() * (999 - 100 + 1) + 100);
+                for (let i = 0; i < translations.length; i++) {
+                    poemLines.push(translations[i][translationIndex]);
+                    poemLinesTranslated.push(translations[i][translationIndex + 1]);
+                }
+
+                let uniqueChars = this.getUniqueChars(poemLines);
+                let uniqueCharsEnglish = this.getUniqueChars(poemLinesTranslated);
+
+                let nextDate = moment(next);            // 12:02:00
+                let transferDate = moment(transfer);    // 12:03:00
+
+                // only use already landed for top row (last country in index)
+                if (translationIndex === lastCountryIndex) {
+                    nextDate = moment(alreadyLanded);               // 12:00:00
+                    transferDate = moment(alreadyLandedTransfer);   // 12:01:00
+                }
+
+                let flightIndex = (translationIndex - 1) / 2;
+                this.addFlight(new Flight(
+                    country,
+                    country_codes[country]["code"],
+                    randomThreeDigitNumber,
+                    country_codes[country]["capital"],
+                    nextDate,
+                    transferDate,
+                    poemLines,
+                    poemLinesTranslated,
+                    flightIndex,
+                    uniqueChars,
+                    uniqueCharsEnglish
+                ), flightIndex);
+
+                next.add((minutesPerLanguage * 2), 'm');          // 12:04:00
+                transfer.add((minutesPerLanguage * 2), 'm');      // 12:05:00
+                this.countryIndexes = translationIndex;
+                translationIndex += 2;
             }
 
-            let uniqueChars = this.getUniqueChars(poemLines);
-            let uniqueCharsEnglish = this.getUniqueChars(poemLinesTranslated);
+            setInterval(
+                this.updateFlightPlan.bind(this),
+                1000
+            );
+        } else {
+            let first_country = "";
+            let translationIndex = 1;
+            let firstCountryIndex = 1;
 
-            let nextDate = moment(next);            // 12:02:00
-            let transferDate = moment(transfer);    // 12:03:00
+            for (let country in country_codes) {
+                let this_code = country_codes[country]["code"].toLowerCase();
+                if (this_code === first_country_code) {
+                    first_country = country;
+                    firstCountryIndex = (translationIndex - 1) / 2;
+                    lastCountryIndex = (firstCountryIndex - 1) % this.flightsByIndex.length;
+                }
+                translationIndex += 2;
+            }
+            console.log("first_country = " + first_country);
 
-            // only use already landed for top row (last country in index)
-            if (translationIndex === lastCountryIndex) {
-                nextDate = moment(alreadyLanded);               // 12:00:00
-                transferDate = moment(alreadyLandedTransfer);   // 12:01:00
+            // reset flight times so that first country is coming up and
+            // lastCountryIndex is top row (country before in the index)
+
+            for (let i = firstCountryIndex; i < firstCountryIndex + 26; i++) {
+                let flightIndex = i % this.flightsByIndex.length;
+                let nextDate = moment(next);            // 12:02:00
+                let transferDate = moment(transfer);    // 12:03:00
+
+                // only use already landed for top row (last country in index)
+                if (i === lastCountryIndex) {
+                    nextDate = moment(alreadyLanded);               // 12:00:00
+                    transferDate = moment(alreadyLandedTransfer);   // 12:01:00
+                }
+
+                this.flightsByIndex[flightIndex].setNextDate(nextDate);
+                this.flightsByIndex[flightIndex].setTransferDate(transferDate);
+                next.add((minutesPerLanguage * 2), 'm');          // 12:04:00
+                transfer.add((minutesPerLanguage * 2), 'm');      // 12:05:00
+                translationIndex += 2;
             }
 
-            let flightIndex = (translationIndex - 1) / 2;
-            this.addFlight(new Flight(
-                country,
-                country_codes[country]["code"],
-                randomThreeDigitNumber,
-                country_codes[country]["capital"],
-                nextDate,
-                transferDate,
-                poemLines,
-                poemLinesTranslated,
-                flightIndex,
-                uniqueChars,
-                uniqueCharsEnglish
-            ), flightIndex);
+            this.setFirstCountry(first_country);
+            this.setState(PRE_START);
+            this.displayFlightPlan();
 
-            next.add((minutesPerLanguage * 2), 'm');          // 12:04:00
-            transfer.add((minutesPerLanguage * 2), 'm');      // 12:05:00
-            translationIndex += 2;
         }
-
-        setInterval(
-            this.updateFlightPlan.bind(this),
-            1000
-        );
-
     }
 
     getNextThreeArrivals() {
@@ -212,7 +248,7 @@ class FlightPlan {
             updating = true;
             let arrivals = this.getNextThreeArrivals();
             let now = new Date();
-            let momentNow = moment(now);//.add(this.adjustmentSeconds, 'seconds');
+            let momentNow = moment(now);
             let transferTime = arrivals[0].getTransferDate();
             let nextDateTime = arrivals[1].getNextDate();
 
@@ -275,86 +311,10 @@ class FlightPlan {
                         this.displayFlightPlan();
                     }
                     break;
-                // case TIME_UPDATE:
-                //     this.updateFlightPlanTimes();
-                //     break;
             }
             updating = false;
         }
     }
-//
-//     updateFlightPlanTimes() {
-//
-//         let now = moment().add(this.adjustmentSeconds, 'seconds');                 // 12:01:23
-//         let seconds = now.seconds();        // 23
-//         now.add(1, 'm');        // 12:02:23
-//
-//         // zero seconds
-//         now.subtract(seconds, 's');     // 12:02:00
-//
-//         // top row - already landed, and transfer (in progress)
-//         let alreadyLanded = moment(now);    // 12:02:00
-//         let alreadyLandedTransfer = moment(now);    // 12:02:00
-//
-//         // get initial transfer time
-//         now.add(minutesPerLanguage, 'm');                           // 12:03:00
-//         alreadyLandedTransfer.subtract(minutesPerLanguage, 'm');    // 12:01:00
-//         alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:01:00
-//         alreadyLanded.subtract(minutesPerLanguage, 'm');            // 12:00:00
-//
-//         let previousFirstCountry = this.firstCountry;
-//         let countryFound = false;
-//         let translating = false;
-//
-//         // search for 'firstCountry' now time has changed
-//         // NB if not found = need to work backwards from index - 1, and set datetimes
-//         for (let country in country_codes) {
-//
-//             let flightIndex = this.flightsByCountryIndex[country];
-//             let flightNextDate = this.flightsByIndex[flightIndex].getNextDate();
-//             let flightTransferDate = this.flightsByIndex[flightIndex].getTransferDate();
-//
-//             if (alreadyLanded.isSame(flightNextDate, 'hour') && alreadyLanded.isSame(flightNextDate, 'minute')) {
-//                 // firstCountry?
-//                 this.firstCountry = country;
-//                 console.log("firstCountry now: " + this.firstCountry);
-//
-//                 countryFound = true;
-//             }
-//             if (alreadyLanded.isSame(flightTransferDate, 'hour') && alreadyLanded.isSame(flightTransferDate, 'minute')) {
-//                 // firstCountry?
-//                 this.firstCountry = country;
-//                 countryFound = true;
-//                 translating = true;
-//                 console.log("firstCountry now: " + this.firstCountry + ", translating");
-//
-//             }
-//         }
-//
-//         if (!countryFound) {
-//
-// //            gone back in time?
-//             console.log('gone back in time?')
-//         }
-//
-//         // adjust flightCodeIndex
-//
-//
-//
-//         if (this.firstCountry !== previousFirstCountry) {
-//             // now what?
-//             this.setState(START);
-//         } else {
-//             if (translating && (this.getState() !== TRANSFER && this.getState() !== TRANSFER_SHOWING)) {
-//                 this.setState(TRANSFER);
-//             }
-//         }
-//
-//         //}//else {
-//             // work out next state and set
-//         //    this.setState(PRE_START);
-//         //}
-//     }
 
     updateCharacterSet(characterSet, translation, language) {
         let arrivalIndex = this.getFirstArrivalIndex();
