@@ -152,11 +152,9 @@ class FlightPlan {
             1000
         );
         this.displaysArea.setHighlightedVerse(0);
-        this.soundsLoaded = 0;
         this.setHeads(-1);
         $('.flag_svg').hide();
         $('#country_name').text("");
-        this.loadAudio();
         this.updateFlightPlan();
         this.displaysArea.setPauseUpdate(false);
 
@@ -175,6 +173,8 @@ class FlightPlan {
                 case PRE_VERSES:
                     // set up initial character set to be used for first language
                     this.displaysArea.updateCharacterSet(this.loadingFlight);
+                    this.soundsLoaded = 0;
+                    this.loadAudio();
                     this.setState(LOADING_AUDIO);
                     break;
                 case LOADING_AUDIO:
@@ -256,7 +256,6 @@ class FlightPlan {
                     this.displaysArea.updateCharacterSet(this.clickToAnotherMix);
                     this.reloadTime = moment().add(60, 'seconds');
                     this.displaysArea.setHighlightedVerse(0);
-                    this.soundsLoaded = 0;
                     this.setHeads(-1);
 
                     this.setState(WAIT_SIXTY_SECONDS);
