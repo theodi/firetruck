@@ -41,7 +41,6 @@ class FlightPlan {
         this.state = PRE_START;
         this.lastIndex = 0;
         this.displaysArea = p5DisplaysArea;
-//        this.adjustmentSeconds = 0;
         this.previousAdjustmentSeconds = 0;
     }
 
@@ -256,6 +255,7 @@ class FlightPlan {
             switch (this.getState()) {
                 case PRE_START:
                     // console.log("PRE_START");
+                    $('#landing').html('Obtaining information');
 
                     // set up initial character set to be used for first language
                     this.updateCharacterSet(arrivals[0].getUniqueCharacters(), false, arrivals[0].country);
