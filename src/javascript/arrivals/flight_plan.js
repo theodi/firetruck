@@ -215,6 +215,7 @@ class FlightPlan {
                 translationIndex += 2;
             }
 
+            landing_updated = false;
             this.setFirstCountry(first_country);
             this.setState(PRE_START);
             this.displayFlightPlan();
