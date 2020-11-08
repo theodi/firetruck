@@ -189,6 +189,8 @@ tbody td.td_time {
         background-repeat: no-repeat;
         background-size: 1920px 1080px;
         background-color: #111111;
+        /*transform: scale(0.9);*/
+        zoom: 0.9;
     }
     div#small {
         display: block;
@@ -201,5 +203,42 @@ tbody td.td_time {
     }
     div#body {
         display:none;
+    }
+}
+
+@media (max-width: 1799px) {
+    body {
+        zoom: 0.8;
+    }
+
+    div#small {
+        zoom: 1.0;
+    }
+}
+
+@media (max-width: 1599px) {
+    body {
+        zoom: 0.7;
+    }
+    div#small {
+        zoom: 1.0;
+    }
+}
+
+@media (max-width: 1359px) {
+    body {
+        zoom: 0.6;
+    }
+    div#small {
+        zoom: 1.0;
+    }
+}
+
+@media (max-width: 1199px) {
+    body {
+        zoom: 0.5;
+    }
+    div#small {
+        zoom: 1.0;
     }
 }
