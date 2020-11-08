@@ -37,8 +37,7 @@ let displays_sketch = function (p) {
         // Ensure the .ttf or .otf font stored in the assets directory
         // is loaded before setup() and draw() are called
         font = p.loadFont('fonts/pt-mono/PTM55FT.ttf');
-        arial_font = p.loadFont('https://fire-truck.maxgatedigital.com/fonts/arial/ArialUnicode.ttf')
-        //fonts/arial/ArialUnicode.ttf')
+        arial_font = p.loadFont('fonts/arial/ArialUnicode.ttf')
     };
 
     p.setup = function(){
