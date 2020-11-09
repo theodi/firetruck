@@ -329,16 +329,25 @@ class FlightPlan {
 
         // yellow heads
         for(let i = 1; i <= 26; i++) {
-            let $headimg = $('#td_head_' + i + ' img');
-            let headsrc = $headimg.attr('src')
-            let yelindex = headsrc.lastIndexOf('_yel');
-            if (yelindex !== -1) {
-                $headimg.attr('src', headsrc.substring(0, yelindex) + headsrc.substring(yelindex+4));
-            } else {
-                if (i === headNumber) {
-                    let dotindex = headsrc.lastIndexOf('.');
-                    $headimg.attr('src', headsrc.substring(0, dotindex) + '_yel' + headsrc.substring(dotindex));
-                }
+            let $headimgs = $('#td_head_' + i + ' img');
+            for (let j = 0; j < 2; j++) {
+                let headimg = $headimgs[j];
+                let $headimg = $(headimg);
+                let headsrc = $headimg.attr('src')
+                let yelindex = headsrc.lastIndexOf('_yel');
+                                if (yelindex !== -1) {
+                                    if (i === headNumber) {
+                                        $headimg.show();
+                                    } else {
+                                        $headimg.hide();
+                                    }
+                                } else {
+                                    if (i === headNumber) {
+                                        $headimg.hide();
+                                    } else {
+                                        $headimg.show();
+                                    }
+                                }
             }
         }
     }

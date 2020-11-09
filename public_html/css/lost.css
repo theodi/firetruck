@@ -42,6 +42,10 @@ img.head_row_1 {
     margin-top: 16px;
 }
 
+img.head_row_1.hidden_yellow_head {
+    display: none;
+}
+
 .poem_head {
     opacity: 100%;
 }
@@ -51,7 +55,7 @@ img.head_row_1 {
     border:8px #F8E106 solid;
 }
 
-#hidden_yellow_heads {
+.hidden_yellow_head {
     display: none;
 }
 
