@@ -46,6 +46,7 @@ const FOURTH = 3;
 
 let updating = false;
 let loading_audio = false;
+let muted = false;
 
 class FlightPlan {
     constructor(p5DisplaysArea) {
@@ -62,7 +63,7 @@ class FlightPlan {
         this.versePlayers = [];
         this.soundsLoaded = 0;
         loading_audio = false;
-        this.muted = false;
+        muted = false;
         this.reloadTime = null;
     }
 
@@ -300,6 +301,7 @@ class FlightPlan {
         $('#country_name').text(fourCountries[verse]).show();
 
         this.versePlayers[verse].start();
+        this.setAudioMute()
         this.displaysArea.setHighlightedVerse(verse);
     }
 
@@ -335,19 +337,19 @@ class FlightPlan {
                 let $headimg = $(headimg);
                 let headsrc = $headimg.attr('src')
                 let yelindex = headsrc.lastIndexOf('_yel');
-                                if (yelindex !== -1) {
-                                    if (i === headNumber) {
-                                        $headimg.show();
-                                    } else {
-                                        $headimg.hide();
-                                    }
-                                } else {
-                                    if (i === headNumber) {
-                                        $headimg.hide();
-                                    } else {
-                                        $headimg.show();
-                                    }
-                                }
+                if (yelindex !== -1) {
+                    if (i === headNumber) {
+                        $headimg.show();
+                    } else {
+                        $headimg.hide();
+                    }
+                } else {
+                    if (i === headNumber) {
+                        $headimg.hide();
+                    } else {
+                        $headimg.show();
+                    }
+                }
             }
         }
     }
@@ -374,21 +376,22 @@ class FlightPlan {
     }
 
     toggleAudioMute() {
-        this.muted = !this.muted;
-        console.log("muted = " + this.muted);
+        muted = !muted;
+        console.log("muted = " + muted);
         this.setAudioMute();
     }
 
     getMuted() {
-        return this.muted;
+        return muted;
     }
 
     setAudioMute() {
-        this.backgroundPlayer.mute = this.muted;
-        this.versePlayers[0].mute = this.muted;
-        this.versePlayers[1].mute = this.muted;
-        this.versePlayers[2].mute = this.muted;
-        this.versePlayers[3].mute = this.muted;
+        console.log("setAudioMute " + muted);
+        this.backgroundPlayer.mute = muted;
+        this.versePlayers[0].mute = muted;
+        this.versePlayers[1].mute = muted;
+        this.versePlayers[2].mute = muted;
+        this.versePlayers[3].mute = muted;
     }
 
     stopAudio(){
@@ -399,11 +402,10 @@ class FlightPlan {
         this.versePlayers[3].stop();
     }
 
-    reload(m) {
+    reload() {
         this.stopAudio();
         this.displaysArea.updateCharacterSet(this.loadingFlight);
         this.setUpFlightPlan();
-        this.muted = m;
     }
 
     getUniqueCharsArray(lineOfChars) {
