@@ -29,7 +29,7 @@ const country_codes = {
   },
   "Slovene": {
     "code": "SI",
-    "capital": "Ljublijana"
+    "capital": "Ljubljana"
   },
   "Spanish (Castilian)": {
     "code": "ES",
